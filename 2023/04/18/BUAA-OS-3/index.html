@@ -1,0 +1,827 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>BUAA-OS-lab3 | YannaのBlog</title><meta name="author" content="YannaZhang 张杨"><meta name="copyright" content="YannaZhang 张杨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lab3实验报告 思考题 Thinking 3.1  请结合 MOS 中的页目录自映射应用解释代码中 e-&gt;env_pgdir[PDX(UVPT)] &#x3D; PADDR(e-&gt;env_pgdir) | PTE_V 的含义。    解：   左边： UVPT：用户页表的起始处的内核虚拟地址 PDX(UVPT)：UVPT所处的页目录号（即 UVPT 处于第 PDX(UVPT) 个页目录项所映射">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUAA-OS-lab3">
+<meta property="og:url" content="http://example.com/2023/04/18/BUAA-OS-3/index.html">
+<meta property="og:site_name" content="YannaのBlog">
+<meta property="og:description" content="Lab3实验报告 思考题 Thinking 3.1  请结合 MOS 中的页目录自映射应用解释代码中 e-&gt;env_pgdir[PDX(UVPT)] &#x3D; PADDR(e-&gt;env_pgdir) | PTE_V 的含义。    解：   左边： UVPT：用户页表的起始处的内核虚拟地址 PDX(UVPT)：UVPT所处的页目录号（即 UVPT 处于第 PDX(UVPT) 个页目录项所映射">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/series1/6.png">
+<meta property="article:published_time" content="2023-04-17T16:24:30.000Z">
+<meta property="article:modified_time" content="2023-06-19T08:54:27.107Z">
+<meta property="article:author" content="YannaZhang 张杨">
+<meta property="article:tag" content="BUAA-OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/series1/6.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/04/18/BUAA-OS-3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":null},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":30,"languages":{"author":"作者: YannaZhang 张杨","link":"链接: ","source":"来源: YannaのBlog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'BUAA-OS-lab3',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-06-19 16:54:27'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/mouse.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/archive_img.png'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 扉页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴簿</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 签轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 编类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 曲籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-commenting"></i><span> 留音笺</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 卿</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 予</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post_img.png')"><nav id="nav"><span id="blog-info"><a href="/" title="YannaのBlog"><span class="site-name">YannaのBlog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 扉页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴簿</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 签轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 编类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 曲籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-commenting"></i><span> 留音笺</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 卿</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 予</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">BUAA-OS-lab3</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-17T16:24:30.000Z" title="发表于 2023-04-18 00:24:30">2023-04-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-19T08:54:27.107Z" title="更新于 2023-06-19 16:54:27">2023-06-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%BB%E5%BE%B7%EF%BC%88%E5%AD%A6%E4%B9%A0%EF%BC%89/">养德（学习）</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="BUAA-OS-lab3"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="lab3实验报告">Lab3实验报告</h1>
+<h2 id="思考题">思考题</h2>
+<h3 id="thinking-3-1">Thinking 3.1</h3>
+<blockquote>
+<p>请结合 MOS 中的页目录自映射应用解释代码中 <code>e-&gt;env_pgdir[PDX(UVPT)] = PADDR(e-&gt;env_pgdir) | PTE_V</code> 的含义。</p>
+</blockquote>
+<ul>
+<li>
+<p>解：</p>
+<ul>
+<li>
+<p>左边：</p>
+<p><code>UVPT</code>：<strong>用户页表的起始处</strong>的<strong>内核虚拟地址</strong></p>
+<p><code>PDX(UVPT)</code>：<em>UVPT</em>所处的<strong>页目录号</strong>（即 <em>UVPT</em> 处于第 <em>PDX(UVPT)</em> 个页目录项所映射的4MB空间；联系 <em>UVPT</em> 的含义，因此<strong>页目录</strong>也被第PDX(UVPT)映射）</p>
+</li>
+<li>
+<p>右边：</p>
+<p><code>e-&gt;env_pgdir</code>：进程 e 的<strong>页目录</strong>的<strong>内核虚拟地址</strong></p>
+<p><code>PADDR(e-&gt;env_pgdir)</code>：进程 e 的<strong>页目录</strong>的<strong>物理地址</strong></p>
+<p><code>PADDR(e-&gt;env_pgdir) | PTE_V</code>：页目录的物理基地址，加上权限位</p>
+</li>
+<li>
+<p>页表基地址：<em>UVPT</em></p>
+<p>页目录基地址：<em>UVPT+UVPT&gt;&gt;10</em></p>
+<p>映射到页目录的页目录项的基地址：<em>UVPT+UVPT&gt;&gt;10+UVPT&gt;&gt;20</em></p>
+<p>该页表项处于第几个页目录项：<em>(UVPT&gt;&gt;20) &gt;&gt; 2 = UVPT&gt;&gt;22 = PDX(UVPT)</em></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="thinking-3-2">Thinking 3.2</h3>
+<blockquote>
+<p><code>elf_load_seg</code> 以函数指针的形式，接受外部自定义的回调函数 <code>map_page</code>。 请你找到与之相关的 <code>data</code> 这一参数在此处的来源，并思考它的作用。没有这个参数可不可以？为什么？</p>
+</blockquote>
+<ul>
+<li>
+<p>解：</p>
+<ul>
+<li>
+<p><em>data</em> 是传入的进程控制块指针，在 <code>load_icode_mapper</code> 和 <code>load_icode</code> 函数中被调用，在 <code>load_icode</code> 函数中 <em>data</em> 被赋予进程控制块的指针 <em>e</em>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">load_icode_mapper</span><span class="params">(<span class="type">void</span> *data, u_long va, <span class="type">size_t</span> offset, u_int perm,<span class="type">const</span> <span class="type">void</span> *src, <span class="type">size_t</span> len)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">load_icode</span><span class="params">(<span class="keyword">struct</span> Env *e, <span class="type">const</span> <span class="type">void</span> *binary, <span class="type">size_t</span> size)</span> &#123;</span><br><span class="line"> 	<span class="comment">//...</span></span><br><span class="line">    panic_on(elf_load_seg(ph, binary + ph-&gt;p_offset, load_icode_mapper, e));</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>作用：在增加虚拟地址到物理地址映射的时候提供env_pgdir和env_asid；</p>
+<p>如果没有data，<code>load_icode_mapper</code>就不能知道当前进程空间的<strong>页目录基地址</strong>和<strong>asid</strong>，所以必须要有这个参数。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="thinking-3-3">Thinking 3.3</h3>
+<blockquote>
+<p>结合 <code>elf_load_seg</code> 的参数和实现，考虑该函数需要处理哪些页面加载的情况。</p>
+</blockquote>
+<ul>
+<li>
+<p>解：</p>
+<p><img src="https://yanna-zy.gitee.io/2023/04/18/BUAA-OS-3/elf_load_seg.png" alt="elf_load_seg"></p>
+<ul>
+<li>首先，函数判断va是否页对齐，如果不对齐，需要将多余的地址记为offset，并且<strong>offset所在的剩下的BY2PG</strong>的binary数据写入对应页的对应地址；（第一个 <code>map_page</code>）</li>
+<li>然后，依次将段内的页映射到物理空间；（第二个 <code>map_page</code>）</li>
+<li>最后，若发现其在内存的大小大于在文件中的大小，则需要把多余的空间用0填充满。（第三个 <code>map_page</code>）</li>
+</ul>
+</li>
+</ul>
+<h3 id="thinking-3-4">Thinking 3.4</h3>
+<blockquote>
+<p>思考上面这一段话，并根据自己在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>a</mi><mi>b</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">Lab2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">L</span><span class="mord mathdefault">a</span><span class="mord mathdefault">b</span><span class="mord">2</span></span></span></span> 中的理解，回答：</p>
+<ul>
+<li>你认为这里的 <code>env_tf.cp0_epc</code> 存储的是物理地址还是虚拟地址?</li>
+</ul>
+</blockquote>
+<ul>
+<li>解：
+<ul>
+<li>存储的是虚拟地址；</li>
+<li>因为epc存储的是发生错误时CPU所处的指令地址，那么对于CPU来说，所见的都是虚拟地址（在程序中引用访存的都应该是虚拟地址），因此env_tf.cp0_epc存储的是虚拟地址。</li>
+</ul>
+</li>
+</ul>
+<h3 id="thinking-3-5">Thinking 3.5</h3>
+<blockquote>
+<p>试找出上述 5 个异常处理函数的具体实现位置。</p>
+</blockquote>
+<ul>
+<li>
+<p>解：</p>
+<ul>
+<li>
+<p><strong>handle_int</strong>在<strong>genex.S</strong>文件中</p>
+<p><strong>handle_mod</strong>和<strong>handle_tlb</strong>，<strong>handle_sys</strong>藏得比较深，三者都是通过<strong>genex.S</strong>文件中的宏函数<strong>BUILD_HANDLER</strong>实现的</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="thinking-3-6">Thinking 3.6</h3>
+<blockquote>
+<p>阅读 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>n</mi><mi>i</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>c</mi></mrow><annotation encoding="application/x-tex">init.c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord">.</span><span class="mord mathdefault">c</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>c</mi><mi>l</mi><mi>o</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">kclock.S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>n</mi><msub><mi>v</mi><mi>a</mi></msub><mi>s</mi><mi>m</mi><mi mathvariant="normal">.</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">env_asm.S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">s</span><span class="mord mathdefault">m</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mi>e</mi><mi>n</mi><mi>e</mi><mi>x</mi><mi mathvariant="normal">.</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">genex.S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 这几个文件，并尝试说出 <code>enable_irq</code> 和 <code>timer_irq</code> 中每行汇编代码的作用。</p>
+</blockquote>
+<ul>
+<li>
+<p>解：</p>
+<ul>
+<li>
+<p><code>enable_irq</code> 函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LEAF(enable_irq)</span><br><span class="line">	li      t0, (STATUS_CU0 | STATUS_IM4 | STATUS_IEc)</span><br><span class="line">	//将t0赋为打开时钟中断的值：IM4（即时钟中断）  IEc（即开启中断）</span><br><span class="line">	mtc0    t0, CP0_STATUS</span><br><span class="line">	//将t0的值赋给SR寄存器，使之可以相应时钟中断</span><br><span class="line">	jr      ra</span><br><span class="line">	//返回</span><br><span class="line">END(enable_irq)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>timer_irq</code>函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">timer_irq:</span><br><span class="line">	sw      zero, (KSEG1 | DEV_RTC_ADDRESS | DEV_RTC_INTERRUPT_ACK)</span><br><span class="line">	//写 KSEG1 | DEV_RTC_ADDRESS | DEV_RTC_INTERRUPT_ACK 地址响应时钟中断</span><br><span class="line">	//KSEG1 | DEV_RTC_ADDRESS 是模拟器（GXemul）映射实时钟的位置</span><br><span class="line">	//偏移量为 DEV_RTC_INTERRUPT_ACK 表示发生时钟中断</span><br><span class="line">	li      a0, 0</span><br><span class="line">	//传参 让 a0 为 0</span><br><span class="line">	j       schedule</span><br><span class="line">	//跳转到 schedule 调度函数，进行进程调度</span><br><span class="line">END(handle_int)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="thinking-3-7">Thinking 3.7</h3>
+<blockquote>
+<p>阅读相关代码，思考操作系统是怎么根据时钟中断切换进程的。</p>
+</blockquote>
+<ul>
+<li>
+<p>解：</p>
+<ul>
+<li>
+<p>首先，模拟器通过<code>kclock_init</code>函数完成时钟中断的初始化，设置了时钟中断发生的频率；</p>
+<p>然后，调用<code>enable_irq</code>函数开启中断；</p>
+</li>
+<li>
+<p>在进程运行过程中，若时钟中断产生，则会触发MIPS中断，系统将PC指向 <em>0x800000080</em>，即跳转到 <code>.text.exc_gen_entry</code>代码段，进行异常分发；</p>
+<p>由于是中断，判断为<em>0号异常</em>，则跳转到中断处理函数<code>handle_init</code>;</p>
+<p>进而判断属于中断中的 <em>IM4</em>(时钟中断)，进而跳转到 <code>timer_irq</code>函数处理；</p>
+<p><code>timer_irq</code>函数调用<code>schedule</code>函数开始进行进程调度；</p>
+</li>
+<li>
+<p>在<code>schedule</code>函数中，</p>
+<ol>
+<li>
+<p>将当前运行的进程控制块<code>curenv</code>取出来；</p>
+</li>
+<li>
+<p>对当前进程的可用时间片数量减一（即 <code>count--;</code>）;</p>
+</li>
+<li>
+<p>当满足以下四种条件之一：</p>
+<ul>
+<li>尚未调度过任何进程（<code>curenv == NULL</code>）</li>
+<li>当前进程已经用完了时间片（<code>count == 0</code>）</li>
+<li>当前进程不再就绪，如：被阻塞或退出（<code>e-&gt;env_status != ENV_RUNNABLE</code>）</li>
+<li>yield 参数指定必须发生切换（<code>yield != 0</code>）</li>
+</ul>
+<p>则进行进程切换：</p>
+<ol>
+<li>判断若<code>curven</code>的状态为<code>ENV_RUNNABLE</code>，则把 <code>curven</code>再次插入调度队列的尾部；</li>
+<li>从调度队列头取出一个进程；</li>
+<li>将剩余时间片数量设置为新进程的优先级；</li>
+</ol>
+</li>
+<li>
+<p><code>env_run</code>运行当前选中进程</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="实验体会">实验体会</h2>
+<h3 id="进程">进程</h3>
+<h4 id="进程控制块-pcb">进程控制块 PCB</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Env</span> &#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Trapframe</span> <span class="title">env_tf</span>;</span> <span class="comment">// 进程上下文（“进程调度”或“陷入内核”时存储上下文）</span></span><br><span class="line">	LIST_ENTRY(Env) env_link; <span class="comment">// 空闲队列env_free_list的连接</span></span><br><span class="line">    u_int env_id; <span class="comment">// 进程的唯一标识符</span></span><br><span class="line">	u_int env_parent_id; <span class="comment">// 父进程的唯一标识符</span></span><br><span class="line">	u_int env_status; <span class="comment">// PCB状态 或 进程状态</span></span><br><span class="line">	Pde *env_pgdir; <span class="comment">// 进程【页目录】的【内核】【虚拟地址】</span></span><br><span class="line">	TAILQ_ENTRY(Env) env_sched_link; <span class="comment">// 调度队列env_sched_list的连接</span></span><br><span class="line">	u_int env_pri; <span class="comment">// 进程优先级</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p><em>env_status</em>：</p>
+<ul>
+<li><em>ENV_FREE</em>：该<strong>PCB进程控制块</strong>没有被使用，处于<em>env_free_list</em> ；</li>
+<li><em>ENV_NOT_RUNNABLE</em>：进程处于<strong>阻塞状态</strong>；</li>
+<li><em>ENV_RUNNABLE</em>：进程处于<strong>执行状态</strong>或<strong>就绪状态</strong>。</li>
+</ul>
+</li>
+<li>
+<p><em>envs</em> 数组里面存了所有进程控制块，我们用 <em>env_free_list</em> 和 <em>env_sched_list</em> 来使用进程块们</p>
+<p><em>env_free_list</em> 用 <code>LIST_宏</code> 操作；<em>env_sched_list</em> 用 <code>TAILQ_宏</code> 操作。</p>
+</li>
+</ul>
+<h4 id="段地址映射">段地址映射</h4>
+<ul>
+<li>
+<p><em>base_pgdir</em> 是模板页表，<strong>全局</strong>变量，存有<strong>内核虚拟地址</strong>，由 <code>page_alloc</code> 函数申请而来，用 <code>map_segment</code> 函数，把内核中的 <strong><em>Page</em> 数据结构的物理地址</strong>映射到用户地址的 <strong><em>UPAGES</em> 的虚拟地址</strong> ，把内核中的 <strong><em>Env</em> 数据结构的物理地址</strong>映射到用户地址的 <strong><em>UENVS</em> 的虚拟地址</strong> 。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//env.c : void env_init(void)&#123;&#125;</span></span><br><span class="line">	<span class="comment">//......</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *<span class="title">p</span>;</span></span><br><span class="line">	panic_on(page_alloc(&amp;p));</span><br><span class="line">	p-&gt;pp_ref++;</span><br><span class="line"></span><br><span class="line">	base_pgdir = (Pde *)page2kva(p);</span><br><span class="line">	map_segment(base_pgdir, <span class="number">0</span>, PADDR(pages), UPAGES, ROUND(npage * <span class="keyword">sizeof</span>(<span class="keyword">struct</span> Page), BY2PG), PTE_G);</span><br><span class="line">	map_segment(base_pgdir, <span class="number">0</span>, PADDR(envs), UENVS, ROUND(NENV * <span class="keyword">sizeof</span>(<span class="keyword">struct</span> Env), BY2PG), PTE_G);</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>void map_segment(Pde *pgdir, u_long pa, u_long va, u_long size, u_int perm)</code></p>
+<ul>
+<li>
+<p>功能：在一级页表基地址 <em>pgdir</em> 对应的两级页表结构中做<strong>段地址映射</strong>，将虚拟地址段 <em>[va,va+size)</em> 映射到物理地址段 <em>[pa,pa+size)</em> ，并将相关页表项的权限为设置为 perm。（因为是按页映射，要求 <em>size</em> 必须是页面大小的整数倍）</p>
+</li>
+<li>
+<p>使用例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map_segment(base_pgdir, <span class="number">0</span>, PADDR(pages), UPAGES, ROUND(npage * <span class="keyword">sizeof</span>(<span class="keyword">struct</span> Page), BY2PG), PTE_G);  <span class="comment">//env.c : void env_init(void)&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>实现：在判断前提条件成立的条件下，遍历 <em>size</em> 每一页，用 <code>page_insert</code> 函数进行映射。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="进程的标识">进程的标识</h4>
+<ul>
+<li>
+<p><em>env_id</em> 不等于 <em>env_asid</em>，<em>env_id</em> 用 <code>mkenvid</code> 函数得到，<em>env_asid</em> 用 <code>asid_alloc</code> 函数得到。</p>
+</li>
+<li>
+<p><code>u_int mkenvid(struct Env *e)</code></p>
+<ul>
+<li>
+<p>功能：生成一个新的 <em>env_id</em></p>
+</li>
+<li>
+<p>使用例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e-&gt;env_id = mkenvid(e); <span class="comment">//env.c : int env_alloc(struct Env **new, u_int parent_id)&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>由 <em>TLB</em> 结构的 <em>Key Fields</em>（也就是 <em>EntryHi</em> 寄存器）得到 <em>ASID</em> 部分只占据了 <em>6-11</em> 共 6 个 bit，故 <em>ASID</em> 一共有 <em>NASID = 64</em> 个。实验采用了<strong>位图法</strong>管理 <em>ASID</em> 的 <em>asid_bitmap[ ]</em> 数组，当“<strong>进程被销毁</strong>”或 “<strong><em>TLB</em> 被清空</strong>”时，才可以把其 <em>ASID</em> 分配给其他进程。</p>
+</li>
+<li>
+<p><code>static int asid_alloc(u_int *asid)</code></p>
+<ul>
+<li>
+<p>功能：申请一个空闲的的 <em>asid</em></p>
+</li>
+<li>
+<p>使用例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (asid_alloc(&amp;(e-&gt;env_asid)) == -E_NO_FREE_ENV) &#123;</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">&#125; <span class="comment">//env.c : int env_alloc(struct Env **new, u_int parent_id)&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="设置pcb进程控制块">设置PCB进程控制块</h4>
+<ul>
+<li>
+<p><code>e-&gt;env_tf.cp0_status</code> = R3000 的 <em>SR</em> 寄存器</p>
+<ul>
+<li>
+<p>第12位的 <em>IM4</em> ： 4 号中断可以被响应</p>
+</li>
+<li>
+<p><em>SR</em> 寄存器的低六位是一个二重栈的结构：<em>KUo</em> + <em>IEo</em> ， <em>KUp</em> + <em>IEp</em> ，<em>KUc</em> + <em>IEc</em></p>
+<ul>
+<li>
+<p><em>KU</em> 位表示是否位于用户模式，<em>IE</em> 位表示中断是否开启</p>
+</li>
+<li>
+<p><em>KUc</em> 和 <em>IEc</em> 表示 CPU 当前实际的运行状态</p>
+</li>
+<li>
+<p>异常发生时：把 p 复制到 o，把 c 复制到 p，把 c 置位0</p>
+<p><code>rfe</code> 指令时：把 o 复制到 p，把 p 复制到 c  【<strong>每个进程</strong>在<strong>每一次被调度时</strong>都会执行<code>rfe</code> 指令】</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>e-&gt;env_tf.regs[29]</code> = 第 29 号寄存器 = <strong>用户栈</strong>寄存器（非内核栈）</p>
+</li>
+<li>
+<p><code>int env_alloc(struct Env **new, u_int parent_id)</code></p>
+<ul>
+<li>
+<p>功能：申请创建一个进程</p>
+</li>
+<li>
+<p>使用例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (env_alloc(&amp;e, <span class="number">0</span>) == -E_NO_FREE_ENV) &#123;</span><br><span class="line">		<span class="comment">//...</span></span><br><span class="line">&#125; <span class="comment">//env.c : struct Env *env_create(const void *binary, size_t size, int priority)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>实现：</p>
+<ol>
+<li>
+<p>从 <em>env_free_list</em> 中申请一个空闲的 PCB（当 <code>LIST_EMPTY</code> 不为空时，用 <code>LIST_FIRST</code> 得到）</p>
+</li>
+<li>
+<p>用 <code>env_setup_vm</code> 函数为进程初始化页目录，配置地址空间</p>
+</li>
+<li>
+<p>手动初始化 PCB：</p>
+<p><em>env_id</em>, <em>env_asid</em> , <em>env_parent_id</em>, <strong><em>env_tf.cp0_status</em> , <em>env_tf.regs[29]</em></strong> (lab3)</p>
+<p><em>env_user_tlb_mod_entry</em> (lab4)</p>
+<p><em>env_runs</em> (lab6)</p>
+</li>
+<li>
+<p>从 <em>env_free_list</em> 中摘出 PCB （使用宏<code>LIST_REMOVE</code>）</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>虚拟地址 <em>ULIM</em> 是 kseg0 与 kuseg 的分界线，是系统给<strong>用户进程</strong>分配的<strong>最高地址</strong>；</p>
+<p><em>ULIM</em> 以上的地方，kseg0 和 kseg1 两部分内存的访问不经过 TLB，这部分内存由内核管理、所有进程共享；</p>
+<p>在 MOS 操作系统特意将一些内核的数据<strong>暴露</strong>到用户空间，使得进程<strong>不需要切换到内核态就能访问</strong>，在 Lab4 和 Lab6 中将用到此机制。</p>
+<ul>
+<li>
+<p>暴露内容： <em>UTOP</em> 往上到 <em>UVPT</em> 之间<strong>所有进程共享</strong>的<strong>只读</strong>空间；</p>
+</li>
+<li>
+<p>暴露方法：</p>
+<p>把 <em>UTOP</em> ~ <em>UVPT</em> 的内存对应的<strong>内核页表 <em>base_pgdir</em> <strong>拷贝到进程页表中。（<em>UVPT</em> 往上到 <em>ULIM</em> 之间则是</strong>进程自己</strong>的页表）</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>static int env_setup_vm(struct Env *e)</code></p>
+<ul>
+<li>
+<p>功能：初始化新进程的地址空间（初始化页目录）</p>
+</li>
+<li>
+<p>使用例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ( env_setup_vm(e) == -E_NO_MEM) &#123;</span><br><span class="line">		<span class="comment">//...</span></span><br><span class="line">&#125; <span class="comment">//env.c : int env_alloc(struct Env **new, u_int parent_id)&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>实现：</p>
+<ol>
+<li>用 <code>page_alloc</code> 申请一个页表，把页表的**内核虚拟地址（强制转化为 (Pde*)类型)**存储到 <em>env_pgdir</em> ；</li>
+<li>用 <code>memcpy</code> 把 <em>UTOP</em> ~ <em>UVPT</em> 的内存对应的**内核页表 <em>base_pgdir</em> **拷贝到本进程页表中；</li>
+<li>实现自映射，具体见**Thinking 3.1 **。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="加载二进制镜像">加载二进制镜像</h4>
+<ul>
+<li>
+<p>加载一个 ELF 文件到内存  =  将 ELF 文件中<strong>所有需要加载的程序段（program segment）<strong>加载到对应的</strong>虚拟地址</strong>上</p>
+</li>
+<li>
+<p><code>const Elf32_Ehdr *elf_from(const void *binary, size_t size)</code></p>
+<ul>
+<li>
+<p>功能：解析 ELF 文件头的部分</p>
+</li>
+<li>
+<p>使用例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> Elf32_Ehdr *ehdr = elf_from(binary, size); <span class="comment">//env.c : static void load_icode(struct Env *e, const void *binary, size_t size)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><code>int elf_load_seg(Elf32_Phdr *ph, const void *bin, elf_mapper_t map_page, void *data)</code></p>
+<ul>
+<li>
+<p>功能：遍历将 ELF 文件的一个 segment 加载到内存（回调函数 <code>load_icode_mapper</code>）</p>
+</li>
+<li>
+<p>使用例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">panic_on(elf_load_seg(ph, binary + ph-&gt;p_offset, load_icode_mapper, e)); </span><br><span class="line"><span class="comment">//env.c : static void load_icode(struct Env *e, const void *binary, size_t size)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>实现：指导书<strong>P89</strong> + <strong>P90</strong>的segment加载地址布局</p>
+<ol>
+<li>加载该段的所有数据（bin）中的所有内容到内存（va）；</li>
+<li>如果该段在文件中的内容的大小达不到为填入这段内容新分配的页面大小，即分配 了新的页面但没能填满（如 .bss 区域），那么余下的部分用 0 来填充。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><code>static void load_icode(struct Env *e, const void *binary, size_t size)</code></p>
+<ul>
+<li>
+<p>功能：加载可执行文件 <em>binary</em> 到进程 e 的内存中</p>
+</li>
+<li>
+<p>使用例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load_icode(e, binary, size); <span class="comment">//env.c : struct Env *env_create(const void *binary, size_t size, int priority)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>实现：</p>
+<ol>
+<li>
+<p>用 <code>elf_from</code> 函数从 ELF 文件中解析文件头 ehdr；</p>
+</li>
+<li>
+<p>遍历每个 segment 的段头 ph，以及其数据在内存中的 起始位置 bin，用 <code>elf_load_seg</code> 函数将参数指定的程序段（program segment）加载到进程的地址空间中；</p>
+</li>
+<li>
+<p><code>env_tf.cp0_epc</code> 字段指示了进程恢复运行时 PC 应恢复到的位置。</p>
+<p>我们要运行的进程的代码段预先被载入到了内存中，且程序入口为 <code>e_entry</code>，当我们运行进程时，CPU 将自动 从 PC 所指的位置开始执行二进制码。</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><code>static int load_icode_mapper(void *data, u_long va, size_t offset, u_int perm, const void *src, size_t len);</code></p>
+<ul>
+<li>
+<p>功能：完成单个 segment 页面的加载过程</p>
+</li>
+<li>
+<p>使用例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ((r = map_page(data, va + i, <span class="number">0</span>, perm, bin + i, MIN(bin_size - i, BY2PG))) != <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> r;</span><br><span class="line">&#125; <span class="comment">//这里的map_page就是回调函数load_icode_mapper </span></span><br><span class="line"><span class="comment">//elfloader.c : int elf_load_seg(Elf32_Phdr *ph, const void *bin, elf_mapper_t map_page, void *data)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>实现：</p>
+<ol>
+<li>用 <code>page_alloc</code> 函数申请一个物理页面；</li>
+<li>若 <em>src</em> 非空，用 <code>memcpy</code> 函数将该处的 ELF 数据拷贝到物理页面中；</li>
+<li>用 <code>page_insert</code> 函数建立映射。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="创建进程">创建进程</h4>
+<ul>
+<li>
+<p><code>struct Env *env_create(const void *binary, size_t size, int priority)</code></p>
+<ul>
+<li>
+<p>功能：创建一个新进程</p>
+</li>
+<li>
+<p>使用例子：【没有好例子，下面这个不太好？】</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env_create(binary_#<span class="meta">#x##_start, (u_int)binary_##x##_size, 1); <span class="comment">//env.h : #define ENV_CREATE(x)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>实现：</p>
+<ol>
+<li>用 <code>env_alloc</code> 分配一个新的 Env 结构体;</li>
+<li>设置进程控制块（ <code>e-&gt;env.pri</code> 和 <code>e-&gt;env_status</code> ）;</li>
+<li>用 <code>load_icode</code> 将程序载入到该进程的地址空间;</li>
+<li>用<code>TAILQ_INSERT_HEAD</code> 将进程控制块加入到 <code>env_sched_list</code>调度队列。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="进程运行与切换">进程运行与切换</h4>
+<ul>
+<li>
+<p>进程上下文</p>
+<p><strong>进程上下文</strong>就是<strong>进程执行时所有寄存器的状态</strong>，具体来说就是代码中的 <strong>Trapframe</strong>，包括<em>通用寄存器、HI、 LO 和 CP0 中的 SR，EPC，Cause 和 BadVAddr 寄存器</em>。</p>
+<p>进程控制块除了 env_tf 其他的字段在 进程切换后还保留在原本的进程控制块中，并不会改变。</p>
+<p>lab3中，寄存器状态保存的地方是 <strong><em>KSTACKTOP</em> 以下的一个 <code>sizeof(TrapFrame)</code> 大小的区域</strong>中。</p>
+</li>
+<li>
+<p><code>void env_run(struct Env *e)</code></p>
+<ul>
+<li>
+<p>功能：运行一个新进程（<strong>往往意味着是进程切换，而不是单纯的进程运行</strong>）</p>
+</li>
+<li>
+<p>使用例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env_run(e); <span class="comment">//sched.c : void schedule(int yield)&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>实现：</p>
+<ol>
+<li>保存当前进程上下文 (如果当前没有运行的进程就跳过这一步)；</li>
+<li>切换 <em>curenv</em> 为即将运行的进程；</li>
+<li>设置<strong>全局变量</strong> <em>cur_pgdir</em> 为<strong>当前进程页目录地址</strong>（在 <strong>TLB 重填</strong>时将用到该全局变量）；</li>
+<li>. 用 <code>env_pop_tf</code> 函数，恢复现场、异常返回。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><code>extern void env_pop_tf(struct Trapframe *tf, u_int asid) __attribute__((noreturn))</code></p>
+<ul>
+<li>
+<p>功能：<code>env_pop_tf</code> 是定义在 <code>kern/env_asm.S</code> 中的一个<strong>汇编函数</strong>。该函数呼应 “进程每次被调度运行前一定会<strong>执行 <code>rfe</code>汇编指令</strong>”。</p>
+</li>
+<li>
+<p>使用例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">env_pop_tf</span><span class="params">(<span class="keyword">struct</span> Trapframe *tf, u_int asid)</span> __<span class="title function_">attribute__</span><span class="params">((<span class="keyword">noreturn</span>))</span>;</span><br><span class="line">env_pop_tf(&amp;(curenv-&gt;env_tf), curenv-&gt;env_asid); <span class="comment">//env.c : void env_run(struct Env *e)&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="中断与异常">中断与异常</h3>
+<ul>
+<li>
+<p>我们实验里认为中断是异常的一种，并且是仅有的一种<strong>异步异常</strong>。</p>
+<p>MIPS CPU 处理一个异常时大致要完成 <em>四项工作</em> ：</p>
+<ol>
+<li>设置 EPC 指向从异常返回的地址。</li>
+<li>设置 SR 位，强制 CPU 进入内核态（行使更高级的特权）并禁止中断。</li>
+<li>设置 Cause 寄存器，用于记录异常发生的原因。</li>
+<li>CPU 开始从异常入口位置取指，此后一切交给软件处理。</li>
+</ol>
+<p>【SR 寄存器 和 Cause 寄存器具体结构件指导书<strong>P94</strong>】</p>
+</li>
+</ul>
+<h4 id="异常的分发">异常的分发</h4>
+<ul>
+<li>
+<p>异常分发代码 <code>exc_gen_entry</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#entry.S</span><br><span class="line">.section .text.exc_gen_entry</span><br><span class="line">exc_gen_entry:</span><br><span class="line">	SAVE_ALL</span><br><span class="line">	#使用 SAVE_ALL 宏将当前上下文保存到内核的异常栈中</span><br><span class="line">	mfc0	t0, CP0_CAUSE</span><br><span class="line">	#将 Cause 寄存器的内容拷贝到 t0 寄存器中</span><br><span class="line">	andi	t0, 0x7c</span><br><span class="line">	#取得 Cause 寄存器中的 2~6 位，也就是对应的异常码，这是区别不同异常的重要标志</span><br><span class="line">	lw		t0, exception_handlers(t0)</span><br><span class="line">	#以得到的异常码作为索引在 exception_handlers 数组中找到对应的中断处理函数</span><br><span class="line">	jr		t0</span><br><span class="line">	#5. 跳转到对应的中断处理函数中，从而响应了异常，并将异常交给了对应的异常处理函数处理</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>宏 <code>SAVE_ALL</code></p>
+<ul>
+<li>功能：将当前的 CPU 现场（上下文）保存到内核的异常栈中</li>
+</ul>
+</li>
+</ul>
+<h4 id="异常向量组-exception-handlers">异常向量组 <code>exception_handlers</code></h4>
+<ul>
+<li>
+<p><strong>0 号异常</strong> 的处理函数为 <code>handle_int</code>：表示中断，由时钟中断、控制台中断等中断造成</p>
+<p><strong>1 号异常</strong> 的处理函数为 <code>handle_mod</code>：表示存储异常，进行存储操作时该页被标记为只读</p>
+<p><strong>2 号异常</strong> 的处理函数为 <code>handle_tlb</code>：表示 TLB load 异常</p>
+<p><strong>3 号异常</strong> 的处理函数为 <code>handle_tlb</code>：表示 TLB store 异常</p>
+<p><strong>8 号异常</strong> 的处理函数为 <code>handle_sys</code>：表示系统调用，用户进程通过执行 syscall 指令陷入内核</p>
+</li>
+</ul>
+<h4 id="时钟中断">时钟中断</h4>
+<ul>
+<li>
+<p>时间片轮调度</p>
+<p>时间片轮转调度是一种<strong>进程调度算法</strong>。每个进程被分配一个时间段，称作它的时间片，即该进程允许运行的时间。如果在时间片结束时进程还在运行，则该进程将挂起，切换到另一个进程运行。</p>
+</li>
+<li>
+<p><code>kclock_init</code></p>
+<ul>
+<li>
+<p>功能：完成时钟中断的初始化</p>
+</li>
+<li>
+<p>实现：向 <code>KSEG1 | DEV_RTC_ADDRESS | DEV_RTC_HZ</code> 位置写入 200</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">LEAF(kclock_init)</span><br><span class="line">	li      t0, 200 // the timer interrupt frequency in Hz</span><br><span class="line">	/* Exercise 3.11: Your code here. */</span><br><span class="line">	sw	t0, (KSEG1 | DEV_RTC_ADDRESS | DEV_RTC_HZ)   </span><br><span class="line">	jr      ra</span><br><span class="line">END(kclock_init)</span><br></pre></td></tr></table></figure>
+<p><code>KSEG1 | DEV_RTC_ADDRESS</code> 是模拟器（GXemul）映射实时钟的位置；偏移量为 <code>DEV_RTC_HZ</code> 表示设置实时钟中断的频率；</p>
+<p>200 表示 1 秒钟中断 200 次；如果写入 0，表示关闭时钟中断。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="进程调度">进程调度</h4>
+<ul>
+<li>
+<p><code>e-&gt;env_pri</code> ： 进程每次运行的时间片数量；</p>
+<p><code>curenv</code><strong>全局变量</strong>：当前正在运行的进程（在第一 个进程被调度前为 <em>NULL</em>）；</p>
+<p><code>count</code><strong>静态变量</strong>：当前正在运行进程的<strong>剩余时间片数量</strong> = 当前进程<strong>剩余的执行次数</strong>；</p>
+<p><code>env_sched_list</code>调度队列：<strong>存在且只存在</strong>所有就绪（状态为 ENV_RUNNABLE）的进程，其中也需要<strong>包括正在运行</strong>的进程；</p>
+</li>
+<li>
+<p>当满足下列条件中的<strong>任意一个</strong>时，需要<strong>进程切换</strong>：</p>
+<ul>
+<li>尚未调度过任何进程（<code>curenv == NULL</code>）</li>
+<li>当前进程已经用完了时间片（<code>count == 0</code>）</li>
+<li>当前进程不再就绪，如：被阻塞或退出（<code>e-&gt;env_status != ENV_RUNNABLE</code>）</li>
+<li>yield 参数指定必须发生切换（<code>yield != 0</code>）</li>
+</ul>
+</li>
+<li>
+<p>无需进程切换时，将剩余时间片数量 count 减去 1，然后调用 env_run 函数；</p>
+<p>需要进程切换时，判断当前进程是否仍然就绪，如果是则将其移动到调度链表的尾部。之后，我们选中调度链表首部的进程来调度运行，将剩余时间片数量设置为其优先级。</p>
+</li>
+<li>
+<p>调度函数 schedule 以及其中逐级调用的 env_run、env_pop_tf 和 ret_from_exception 函数都是<strong>不返回</strong>（no return）的函数，被调用后会从内核跳转到被调度进程的用户程序中执行。在 MIPS 中通常使用 <code>j</code> 指令而非 <code>jal</code> 调用不返回的函数，因为它们<strong>不</strong>会再返回到其调用者。</p>
+</li>
+</ul>
+<h3 id="lab3-在-mos-中的概况">Lab3 在 MOS 中的概况</h3>
+<p>！！指导书<strong>P100~103</strong>！！<em>下图引用段宇涵小姐姐的细心整理：</em></p>
+<p><img src="https://yanna-zy.gitee.io/2023/04/18/BUAA-OS-3/lab3.jpg" alt="lab3"></p>
+<h2 id="难点分析">难点分析</h2>
+<h4 id="进程创建">进程创建</h4>
+<ul>
+<li>
+<p>每个进程都是一个独立的主体，有着自己的地址空间，每一个进程都有一个进程控制块（PCB），系统利用它来控制和管理进程。在我们的实验中，我们用结构体<em>Env</em>来作为进程控制块。</p>
+</li>
+<li>
+<p>用和<em>Page</em>一样的方式构造链表<em>env_free_list</em>,同时再用<em>TAILQ</em>宏定义构造另一个调度链表<em>env_sched_list</em>。</p>
+</li>
+<li>
+<p><em>envs</em>数组是存放进程控制块的物理内存，在系统启动后就已经分配好。首先，通过<code>env_init</code>函数进行进程控制块系统的初始化，其中调用<code>page_alloc</code>函数为进程的页目录分配一个物理页框，调用<code>map_segment</code>函数将处于内核中的<em>pages</em>数组和<em>envs</em>数组映射到用户地址。以便用户之后访问。之后会调用<code>env_setup_vm</code>将用户空间的这部分模板页表复制到每一个进程空间的相应位置。</p>
+</li>
+<li>
+<p>接下来进行进程的创建(<code>env_create</code>函数)。首先利用<code>env_alloc</code>函数来初始化新进程的地址空间，再调用<code>load_icode</code>函数将可执行ELF文件加载到进程空间中。</p>
+</li>
+</ul>
+<h4 id="中断异常及进程的调度">中断异常及进程的调度</h4>
+<p>详见思考题<strong>Thinking 3.7</strong></p>
+<h3 id="课上测试">课上测试</h3>
+<h4 id="lab3-exam">lab3-exam</h4>
+<p>​    简单的调度方法编写 <em>kern/sched.c</em> ，但是我课下的时候有一个bug没有测出来，导致课上测试的时候耽误了很久：</p>
+<ul>
+<li>
+<p>错误之处：</p>
+<p>不是在 <code>if (e &amp;&amp; e-&gt;env_status == ENV_RUNNABLE)</code> 外面把调度队列队头元素删去，而应该是在 <code>if</code> 判断条件成立的前提下，才删去队头，移到队尾。</p>
+</li>
+<li>
+<p>正确代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//kern/sched.c</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">schedule</span><span class="params">(<span class="type">int</span> yield)</span> &#123;</span><br><span class="line">	<span class="type">static</span> <span class="type">int</span> count = <span class="number">0</span>; <span class="comment">// remaining time slices of current env</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Env</span> *<span class="title">e</span> =</span> curenv;</span><br><span class="line">	count--;</span><br><span class="line">	<span class="keyword">if</span> ((yield != <span class="number">0</span>) || (count == <span class="number">0</span>) || (e == <span class="literal">NULL</span>) || (e-&gt;env_status != ENV_RUNNABLE)) &#123;</span><br><span class="line">		<span class="keyword">if</span> (e &amp;&amp; e-&gt;env_status == ENV_RUNNABLE) &#123;</span><br><span class="line">			TAILQ_REMOVE(&amp;env_sched_list, e, env_sched_link); <span class="comment">//正确</span></span><br><span class="line">			TAILQ_INSERT_TAIL(&amp;env_sched_list, e, env_sched_link);</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="comment">//错误 TAILQ_REMOVE(&amp;env_sched_list, e, env_sched_link); </span></span><br><span class="line">		panic_on(TAILQ_EMPTY(&amp;env_sched_list));</span><br><span class="line">		e = TAILQ_FIRST(&amp;env_sched_list);</span><br><span class="line">		count = e-&gt;env_pri;</span><br><span class="line">		env_run(e);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		env_run(e);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="lab3-extra">lab3-extra</h4>
+<p>​    lab3-extra实现的12号 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>v</mi></mrow><annotation encoding="application/x-tex">Ov</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span> 异常，具体题目见文章<a target="_blank" rel="noopener" href="https://yanna-zy.gitee.io/file/2023-BUAA-OS-3-ExtraStem.pdf">Lab3-Extra-Ov题干</a>。</p>
+<p>​    重点在于理解如何由<code>tf-&gt;cp0_epc</code> 地址获得对应的异常指令内容。</p>
+<ul>
+<li>
+<p>王雨帆小姐姐的答案（稍微改动了一点）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">do_ov</span><span class="params">(<span class="keyword">struct</span> Trapframe *tf)</span> &#123;</span><br><span class="line">    curenv-&gt;env_ov_cnt++;</span><br><span class="line">    </span><br><span class="line">    u_long va = tf-&gt;cp0_epc; <span class="comment">//va是异常指令的虚拟地址（用户虚拟地址）</span></span><br><span class="line">    Pte *pte;</span><br><span class="line">    page_lookup(curenv-&gt;env_pgdir, va, &amp;pte);<span class="comment">//通过查询curenv页表，获得页表项</span></span><br><span class="line">    u_long pa = PTE_ADDR(*pte) | (va &amp; <span class="number">0xfff</span>);<span class="comment">//由页表项获得物理地址</span></span><br><span class="line">    u_long kva = KADDR(pa);</span><br><span class="line">    <span class="comment">//将物理地址转化至&quot;kseg0 区间中对应的虚拟地址&quot;（内核虚拟地址）</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> *instr = (<span class="type">int</span> *)kva;<span class="comment">//内核虚拟地址可以直接访存获得指令</span></span><br><span class="line">    <span class="type">int</span> code = (*instr)&gt;&gt;<span class="number">26</span>;</span><br><span class="line">    <span class="type">int</span> subcode = (*instr)&amp;(<span class="number">0xf</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (code == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (subcode == <span class="number">0</span>) &#123;</span><br><span class="line">            printk(<span class="string">&quot;add ov handled\n&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (subcode == <span class="number">2</span>) &#123;</span><br><span class="line">            printk(<span class="string">&quot;sub ov handled\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        (*instr) = (*instr)|(<span class="number">0x1</span>); <span class="comment">//把指令换成addu或subu</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        tf-&gt;cp0_epc += <span class="number">4</span>;</span><br><span class="line">        printk(<span class="string">&quot;addi ov handled\n&quot;</span>);</span><br><span class="line">        <span class="type">int</span> reg_s = ((*instr)&gt;&gt;<span class="number">21</span>) &amp; (<span class="number">0x1f</span>);</span><br><span class="line">        <span class="type">int</span> <span class="type">reg_t</span> = ((*instr)&gt;&gt;<span class="number">16</span>) &amp; (<span class="number">0x1f</span>);</span><br><span class="line">        u_int imm = (*instr) &amp; (<span class="number">0xffff</span>);</span><br><span class="line">        tf-&gt;regs[<span class="type">reg_t</span>] = tf-&gt;regs[reg_s]/(u_int)<span class="number">2</span> + imm/(u_int)<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="体会与感想">体会与感想</h2>
+<p>这部分的难点主要在调试，跳板机上多进程的调试让人很头大，也不知道什么时候会切换进程，所以debug是要虚空调试了【善用 <code>printk</code> 吧~】。</p>
+<p>这部分的Exercise中断异常的地方甚至只需要复制代码就行，难度不大。但是，在进程创建和调度两个地方，还是遇到了很多问题，对PCB的初始化设置究竟需要考虑到哪些参数是没有明说的，以及进程调度函数中的代码也需要大量的思考逻辑。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">YannaZhang 张杨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/04/18/BUAA-OS-3/">http://example.com/2023/04/18/BUAA-OS-3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">YannaのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/BUAA-OS/">BUAA-OS</a></div><div class="post_share"><div class="social-share" data-image="/img/series1/6.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/04/12/BUAA-OO-2/" title="BUAA-OO-第二单元：电梯调度"><img class="cover" src="/img/series1/5.png" onerror="onerror=null;src='/img/archive_img.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">BUAA-OO-第二单元：电梯调度</div></div></a></div><div class="next-post pull-right"><a href="/2023/05/15/BUAA-OS-4/" title="BUAA-OS-lab4"><img class="cover" src="/img/series1/7.png" onerror="onerror=null;src='/img/archive_img.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">BUAA-OS-lab4</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/03/19/BUAA-OS-0/" title="BUAA-OS-lab0"><img class="cover" src="/img/series1/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-19</div><div class="title">BUAA-OS-lab0</div></div></a></div><div><a href="/2023/03/19/BUAA-OS-1/" title="BUAA-OS-lab1"><img class="cover" src="/img/series1/2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-19</div><div class="title">BUAA-OS-lab1</div></div></a></div><div><a href="/2023/04/10/BUAA-OS-2/" title="BUAA-OS-lab2"><img class="cover" src="/img/series1/4.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-10</div><div class="title">BUAA-OS-lab2</div></div></a></div><div><a href="/2023/05/15/BUAA-OS-4/" title="BUAA-OS-lab4"><img class="cover" src="/img/series1/7.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-15</div><div class="title">BUAA-OS-lab4</div></div></a></div><div><a href="/2023/05/19/BUAA-OS-5/" title="BUAA-OS-lab5"><img class="cover" src="/img/series1/8.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-19</div><div class="title">BUAA-OS-lab5</div></div></a></div><div><a href="/2023/06/18/BUAA-OS-challenge/" title="BUAA-OS-lab4-challenge"><img class="cover" src="/img/series1/9.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-18</div><div class="title">BUAA-OS-lab4-challenge</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lab3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A"><span class="toc-number">1.</span> <span class="toc-text">Lab3实验报告</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-3-1"><span class="toc-number">1.1.1.</span> <span class="toc-text">Thinking 3.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-3-2"><span class="toc-number">1.1.2.</span> <span class="toc-text">Thinking 3.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-3-3"><span class="toc-number">1.1.3.</span> <span class="toc-text">Thinking 3.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-3-4"><span class="toc-number">1.1.4.</span> <span class="toc-text">Thinking 3.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-3-5"><span class="toc-number">1.1.5.</span> <span class="toc-text">Thinking 3.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-3-6"><span class="toc-number">1.1.6.</span> <span class="toc-text">Thinking 3.6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-3-7"><span class="toc-number">1.1.7.</span> <span class="toc-text">Thinking 3.7</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BD%93%E4%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">实验体会</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%9D%97-pcb"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">进程控制块 PCB</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AE%B5%E5%9C%B0%E5%9D%80%E6%98%A0%E5%B0%84"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">段地址映射</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A0%87%E8%AF%86"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">进程的标识</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEpcb%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%9D%97"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">设置PCB进程控制块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%95%9C%E5%83%8F"><span class="toc-number">1.2.1.5.</span> <span class="toc-text">加载二进制镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.2.1.6.</span> <span class="toc-text">创建进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E8%BF%90%E8%A1%8C%E4%B8%8E%E5%88%87%E6%8D%A2"><span class="toc-number">1.2.1.7.</span> <span class="toc-text">进程运行与切换</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E4%B8%8E%E5%BC%82%E5%B8%B8"><span class="toc-number">1.2.2.</span> <span class="toc-text">中断与异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E7%9A%84%E5%88%86%E5%8F%91"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">异常的分发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E5%90%91%E9%87%8F%E7%BB%84-exception-handlers"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">异常向量组 exception_handlers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E4%B8%AD%E6%96%AD"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">时钟中断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">进程调度</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lab3-%E5%9C%A8-mos-%E4%B8%AD%E7%9A%84%E6%A6%82%E5%86%B5"><span class="toc-number">1.2.3.</span> <span class="toc-text">Lab3 在 MOS 中的概况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%BE%E7%82%B9%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">难点分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">进程创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E5%8F%8A%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%B0%83%E5%BA%A6"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">中断异常及进程的调度</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BE%E4%B8%8A%E6%B5%8B%E8%AF%95"><span class="toc-number">1.3.1.</span> <span class="toc-text">课上测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#lab3-exam"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">lab3-exam</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lab3-extra"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">lab3-extra</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%93%E4%BC%9A%E4%B8%8E%E6%84%9F%E6%83%B3"><span class="toc-number">1.4.</span> <span class="toc-text">体会与感想</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post_img.png')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By YannaZhang 张杨</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'sVaqAurlJUIUiRSl4GxSzMoi-gzGzoHsz',
+      appKey: 'BCXg41m5wCxza144wQyhXZzv',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="/js/sakura.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>

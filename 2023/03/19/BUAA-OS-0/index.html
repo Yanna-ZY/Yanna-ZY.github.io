@@ -1,23 +1,23 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>BUAA-OS-lab0 | YannaのBlog</title><meta name="author" content="YannaZhang 张杨"><meta name="copyright" content="YannaZhang 张杨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lab0实验报告思考题Thinking 0.1 思考下列有关 Git 的问题：  • 在前述已初始化的 ~&#x2F;learnGit 目录下，创建一个名为 README.txt 的文件。 执行命令 git status &gt; Untracked.txt。  • 在 README.txt 文件中添加任意文件内容，然后使用 add 命令，再执行命令 git status &gt; Stage.t">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>BUAA-OS-lab0 | YannaのBlog</title><meta name="author" content="YannaZhang 张杨"><meta name="copyright" content="YannaZhang 张杨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lab0实验报告 思考题 Thinking 0.1  思考下列有关 Git 的问题： • 在前述已初始化的 ~&#x2F;learnGit 目录下，创建一个名为 README.txt 的文件。 执行命令 git status &gt; Untracked.txt。 • 在 README.txt 文件中添加任意文件内容，然后使用 add 命令，再执行命令 git status &gt; Stage.txt。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BUAA-OS-lab0">
 <meta property="og:url" content="http://example.com/2023/03/19/BUAA-OS-0/index.html">
 <meta property="og:site_name" content="YannaのBlog">
-<meta property="og:description" content="Lab0实验报告思考题Thinking 0.1 思考下列有关 Git 的问题：  • 在前述已初始化的 ~&#x2F;learnGit 目录下，创建一个名为 README.txt 的文件。 执行命令 git status &gt; Untracked.txt。  • 在 README.txt 文件中添加任意文件内容，然后使用 add 命令，再执行命令 git status &gt; Stage.t">
+<meta property="og:description" content="Lab0实验报告 思考题 Thinking 0.1  思考下列有关 Git 的问题： • 在前述已初始化的 ~&#x2F;learnGit 目录下，创建一个名为 README.txt 的文件。 执行命令 git status &gt; Untracked.txt。 • 在 README.txt 文件中添加任意文件内容，然后使用 add 命令，再执行命令 git status &gt; Stage.txt。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/default_cover1.png%20/img/default_cover2.png%20/img/default_cover3.png%20/img/default_cover4.png%20/img/default_cover5.png%20/img/default_cover6.png">
+<meta property="og:image" content="http://example.com/img/series1/1.png">
 <meta property="article:published_time" content="2023-03-18T16:07:52.000Z">
-<meta property="article:modified_time" content="2023-03-19T04:00:22.537Z">
+<meta property="article:modified_time" content="2023-04-17T16:16:56.777Z">
 <meta property="article:author" content="YannaZhang 张杨">
 <meta property="article:tag" content="BUAA-OS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/img/default_cover1.png%20/img/default_cover2.png%20/img/default_cover3.png%20/img/default_cover4.png%20/img/default_cover5.png%20/img/default_cover6.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/03/19/BUAA-OS-0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+<meta name="twitter:image" content="http://example.com/img/series1/1.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/03/19/BUAA-OS-0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
   localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
   translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
   noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":20},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":null},
   copy: {
     success: '复制成功',
     error: '复制错误',
@@ -57,7 +57,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-03-19 12:00:22'
+  postUpdate: '2023-04-18 00:16:56'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -165,7 +165,11 @@
       }
     }
     detectApple()
-    })(window)</script><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/mouse.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+    })(window)</script><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/mouse.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
   endLoading: () => {
     document.body.style.overflow = 'auto';
     document.getElementById('loading-box').classList.add("loaded")
@@ -181,17 +185,21 @@ window.addEventListener('load',()=> { preloader.endLoading() })
 if (false) {
   document.addEventListener('pjax:send', () => { preloader.initLoading() })
   document.addEventListener('pjax:complete', () => { preloader.endLoading() })
-}</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/archive_img.png'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 扉页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴簿</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 签轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 编类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 曲籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-commenting"></i><span> 留音笺</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 卿</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 予</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post_img.png')"><nav id="nav"><span id="blog-info"><a href="/" title="YannaのBlog"><span class="site-name">YannaのBlog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 扉页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴簿</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 签轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 编类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 曲籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-commenting"></i><span> 留音笺</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 卿</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 予</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">BUAA-OS-lab0</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-18T16:07:52.000Z" title="发表于 2023-03-19 00:07:52">2023-03-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-19T04:00:22.537Z" title="更新于 2023-03-19 12:00:22">2023-03-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%BB%E5%BE%B7%EF%BC%88%E5%AD%A6%E4%B9%A0%EF%BC%89/">养德（学习）</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2,691</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="BUAA-OS-lab0"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Lab0实验报告"><a href="#Lab0实验报告" class="headerlink" title="Lab0实验报告"></a>Lab0实验报告</h1><h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><h3 id="Thinking-0-1"><a href="#Thinking-0-1" class="headerlink" title="Thinking 0.1"></a>Thinking 0.1</h3><blockquote>
-<p>思考下列有关 Git 的问题： </p>
-<p>• 在前述已初始化的 ~&#x2F;learnGit 目录下，创建一个名为 README.txt 的文件。 执行命令 git status &gt; Untracked.txt。 </p>
+}</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/archive_img.png'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 扉页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴簿</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 签轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 编类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 曲籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-commenting"></i><span> 留音笺</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 卿</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 予</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post_img.png')"><nav id="nav"><span id="blog-info"><a href="/" title="YannaのBlog"><span class="site-name">YannaのBlog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 扉页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴簿</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 签轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 编类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 曲籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-commenting"></i><span> 留音笺</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 卿</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 予</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">BUAA-OS-lab0</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-18T16:07:52.000Z" title="发表于 2023-03-19 00:07:52">2023-03-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-17T16:16:56.777Z" title="更新于 2023-04-18 00:16:56">2023-04-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%BB%E5%BE%B7%EF%BC%88%E5%AD%A6%E4%B9%A0%EF%BC%89/">养德（学习）</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="BUAA-OS-lab0"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="lab0实验报告">Lab0实验报告</h1>
+<h2 id="思考题">思考题</h2>
+<h3 id="thinking-0-1">Thinking 0.1</h3>
+<blockquote>
+<p>思考下列有关 Git 的问题：</p>
+<p>• 在前述已初始化的 ~/learnGit 目录下，创建一个名为 README.txt 的文件。 执行命令 git status &gt; Untracked.txt。</p>
 <p>• 在 README.txt 文件中添加任意文件内容，然后使用 add 命令，再执行命令 git status &gt; Stage.txt。</p>
 <p>• 提交 README.txt，并在提交说明里写入自己的学号。</p>
-<p>• 执行命令 cat Untracked.txt 和 cat Stage.txt，对比两次运行的结果，体 会 README.txt 两次所处位置的不同。 </p>
+<p>• 执行命令 cat Untracked.txt 和 cat Stage.txt，对比两次运行的结果，体 会 README.txt 两次所处位置的不同。</p>
 <p>• 修改 README.txt 文件，再执行命令 git status &gt; Modified.txt。</p>
 <p>• 执行命令 cat Modified.txt，观察其结果和第一次执行 add 命令之前的 status 是否一样，并思考原因。</p>
 </blockquote>
 <ul>
-<li>解：<ul>
+<li>解：
+<ul>
 <li>执行<code>git status &gt; Untracked.txt</code> ，表示查询当前<code>README.txt</code>文件状态，并将其记录在<code>Untracked.txt</code>文件中；<code>git status &gt; Stage.txt</code>和<code>git status &gt; Modified.txt</code> 同理。</li>
 <li><code>cat Untracked.txt</code>后，第二行显示<code>Untracked files:</code>，说明：在 <code>README.txt</code> 新建的时候，其处于为未跟踪状态 （untracked）；</li>
 <li><code>cat Stage.txt</code>后，第二行显示<code> Changes to be committed:</code>，说明：在 <code>README.txt</code> 中任意添加内容，接着用 add 命令之后，文件处于暂存状 态（staged）；</li>
@@ -199,98 +207,126 @@ if (false) {
 </ul>
 </li>
 </ul>
-<h3 id="Thinking-0-2"><a href="#Thinking-0-2" class="headerlink" title="Thinking 0.2"></a>Thinking 0.2</h3><blockquote>
-<p>仔细看看0.10，思考一下箭头中的 add the file 、stage the file 和 commit 分别对应的是 Git 里的哪些命令呢？ </p>
+<h3 id="thinking-0-2">Thinking 0.2</h3>
+<blockquote>
+<p>仔细看看0.10，思考一下箭头中的 add the file 、stage the file 和 commit 分别对应的是 Git 里的哪些命令呢？</p>
 </blockquote>
-<img src="https://pic.imgdb.cn/item/6415e371a682492fcc343468.png" alt="image-20230306110135570" style="zoom: 67%;" />
-
+<img src="/2023/03/19/BUAA-OS-0/gitThinking0.2.jpg" alt="gitThinking0.2" style="zoom:67%;">
 <ul>
-<li>解：<ul>
+<li>解：
+<ul>
 <li>add the file ： <code>git add</code></li>
 <li>stage the file：<code>git add</code></li>
-<li>commit：&#96;git commit</li>
+<li>commit：`git commit</li>
 </ul>
 </li>
 </ul>
-<h3 id="Thinking-0-3"><a href="#Thinking-0-3" class="headerlink" title="Thinking 0.3"></a>Thinking 0.3</h3><blockquote>
-<p>思考下列问题： </p>
+<h3 id="thinking-0-3">Thinking 0.3</h3>
+<blockquote>
+<p>思考下列问题：</p>
 <ol>
-<li>代码文件 print.c 被错误删除时，应当使用什么命令将其恢复？ </li>
-<li>代码文件 print.c 被错误删除后，执行了 git rm print.c 命令，此时应当 使用什么命令将其恢复？ </li>
+<li>代码文件 print.c 被错误删除时，应当使用什么命令将其恢复？</li>
+<li>代码文件 print.c 被错误删除后，执行了 git rm print.c 命令，此时应当 使用什么命令将其恢复？</li>
 <li>无关文件 hello.txt 已经被添加到暂存区时，如何在不删除此文件的前提下 将其移出暂存区？</li>
 </ol>
 </blockquote>
 <ul>
-<li>解：<ol>
+<li>解：
+<ol>
 <li><code>git checkout --print.c</code></li>
 <li><code>git reset HEAD print.c &amp;&amp; git checkout --print.c</code></li>
 <li><code>git rm --cached print.c</code></li>
 </ol>
 </li>
 </ul>
-<h3 id="Thinking-0-4"><a href="#Thinking-0-4" class="headerlink" title="Thinking 0.4"></a>Thinking 0.4</h3><blockquote>
-<p>思考下列有关 Git 的问题： </p>
-<p>• 找到在&#x2F;home&#x2F;21xxxxxx&#x2F;learnGit 下刚刚创建的 README.txt 文件，若不存 在则新建该文件。 </p>
-<p>• 在文件里加入 Testing 1，git add，git commit，提交说明记为 1。 </p>
-<p>• 模仿上述做法，把 1 分别改为 2 和 3，再提交两次。 </p>
-<p>• 使用 git log 命令查看提交日志，看是否已经有三次提交，记下提交说明为 3 的哈希值a。 </p>
-<p>• 进行版本回退。执行命令 git reset –hard HEAD^后，再执行 git log，观 察其变化。 </p>
-<p>• 找到提交说明为 1 的哈希值，执行命令 git reset –hard  后，再执 行 git log，观察其变化。 </p>
-<p>• 现在已经回到了旧版本，为了再次回到新版本，执行 git reset –hard  ，再执行 git log，观察其变化。</p>
+<h3 id="thinking-0-4">Thinking 0.4</h3>
+<blockquote>
+<p>思考下列有关 Git 的问题：</p>
+<p>• 找到在/home/21xxxxxx/learnGit 下刚刚创建的 README.txt 文件，若不存 在则新建该文件。</p>
+<p>• 在文件里加入 Testing 1，git add，git commit，提交说明记为 1。</p>
+<p>• 模仿上述做法，把 1 分别改为 2 和 3，再提交两次。</p>
+<p>• 使用 git log 命令查看提交日志，看是否已经有三次提交，记下提交说明为 3 的哈希值a。</p>
+<p>• 进行版本回退。执行命令 git reset --hard HEAD^后，再执行 git log，观 察其变化。</p>
+<p>• 找到提交说明为 1 的哈希值，执行命令 git reset --hard  后，再执 行 git log，观察其变化。</p>
+<p>• 现在已经回到了旧版本，为了再次回到新版本，执行 git reset --hard  ，再执行 git log，观察其变化。</p>
 </blockquote>
 <ul>
-<li>解：<ul>
-<li>第一次<code>git log</code><img src="https://pic.imgdb.cn/item/6415e38fa682492fcc346eba.png" alt="image-20230306112449617" style="zoom:67%;" /></li>
-<li>第二次<code>git log</code><img src="https://pic.imgdb.cn/item/6415e3a6a682492fcc349dfa.png" alt="image-20230306112721493" style="zoom:67%;" /></li>
-<li>第三次<code>git log</code> <img src="https://pic.imgdb.cn/item/6415e3baa682492fcc34c486.png" alt="image-20230306113023778" style="zoom:67%;" /></li>
-<li>第四次<code>git log</code><img src="https://pic.imgdb.cn/item/6415e3d1a682492fcc34efa4.png" alt="image-20230306113216618" style="zoom:67%;" /></li>
+<li>解：
+<ul>
+<li>第一次<code>git log</code><img src="/2023/03/19/BUAA-OS-0/0.4.1.jpg" alt="0.4.1" style="zoom:67%;"></li>
+<li>第二次<code>git log</code><img src="/2023/03/19/BUAA-OS-0/0.4.2.jpg" alt="0.4.2" style="zoom:67%;"></li>
+<li>第三次<code>git log</code> <img src="/2023/03/19/BUAA-OS-0/0.4.3.jpg" alt="0.4.3" style="zoom:67%;"></li>
+<li>第四次<code>git log</code><img src="/2023/03/19/BUAA-OS-0/0.4.4.jpg" alt="0.4.4" style="zoom:67%;"></li>
 </ul>
 </li>
 </ul>
-<h3 id="Thinking-0-5"><a href="#Thinking-0-5" class="headerlink" title="Thinking 0.5"></a>Thinking 0.5</h3><blockquote>
-<p>执行如下命令, 并查看结果 </p>
-<p>• echo first </p>
-<p>• echo second &gt; output.txt </p>
-<p>• echo third &gt; output.txt </p>
+<h3 id="thinking-0-5">Thinking 0.5</h3>
+<blockquote>
+<p>执行如下命令, 并查看结果</p>
+<p>• echo first</p>
+<p>• echo second &gt; output.txt</p>
+<p>• echo third &gt; output.txt</p>
 <p>• echo forth &gt;&gt; output.txt</p>
 </blockquote>
 <ul>
-<li>解：<ul>
-<li><img src="https://pic.imgdb.cn/item/6415e3eca682492fcc352290.png" alt="image-20230306120619660" style="zoom: 67%;" /></li>
-<li><img src="https://pic.imgdb.cn/item/6415e3fca682492fcc354142.png" alt="image-20230306120729380" style="zoom:67%;" /></li>
-<li><img src="https://pic.imgdb.cn/item/6415e418a682492fcc357a01.png" alt="image-20230306120809430" style="zoom:67%;" /></li>
-<li><img src="https://pic.imgdb.cn/item/6415e42aa682492fcc359c34.png" alt="image-20230306120841658" style="zoom:67%;" /></li>
+<li>解：
+<ul>
+<li>
+<img src="/2023/03/19/BUAA-OS-0/051.jpg" alt="051" style="zoom:67%;">
+</li>
+<li>
+<img src="/2023/03/19/BUAA-OS-0/052.jpg" alt="052" style="zoom:67%;">
+</li>
+<li>
+<img src="/2023/03/19/BUAA-OS-0/053.jpg" alt="053" style="zoom:67%;">
+</li>
+<li>
+<img src="/2023/03/19/BUAA-OS-0/054.jpg" alt="054" style="zoom:67%;">
+</li>
 </ul>
 </li>
 </ul>
-<h3 id="Thinking-0-6"><a href="#Thinking-0-6" class="headerlink" title="Thinking 0.6"></a>Thinking 0.6</h3><blockquote>
-<p>使用你知道的方法（包括重定向）创建下图内容的文件（文件命名为 test）， 将创建该文件的命令序列保存在 command 文件中，并将 test 文件作为批处理文件运行， 将运行结果输出至 result 文件中。给出 command 文件和 result 文件的内容，并对最 后的结果进行解释说明（可以从 test 文件的内容入手）. 具体实现的过程中思考下列问 题: echo echo Shell Start 与 echo <code>echo Shell Start</code>效果是否有区别; echo echo $c&gt;file1 与 echo <code>echo $c&gt;file1</code>效果是否有区别. </p>
+<h3 id="thinking-0-6">Thinking 0.6</h3>
+<blockquote>
+<p>使用你知道的方法（包括重定向）创建下图内容的文件（文件命名为 test）， 将创建该文件的命令序列保存在 command 文件中，并将 test 文件作为批处理文件运行， 将运行结果输出至 result 文件中。给出 command 文件和 result 文件的内容，并对最 后的结果进行解释说明（可以从 test 文件的内容入手）. 具体实现的过程中思考下列问 题: echo echo Shell Start 与 echo <code>echo Shell Start</code>效果是否有区别; echo echo $c&gt;file1 与 echo <code>echo $c&gt;file1</code>效果是否有区别.</p>
 </blockquote>
 <ul>
-<li><p>解：</p>
+<li>
+<p>解：</p>
 <ul>
-<li><p>command:</p>
+<li>
+<p>command:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash                                                              <span class="built_in">touch</span> <span class="built_in">test</span></span></span><br><span class="line">echo &#x27;echo Shell Start...&#x27; &gt; test</span><br><span class="line">echo &#x27;echo set a = 1&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;a=1&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;echo set b = 2&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;b=2&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;echo set c = a+b&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;c=$[$a+$b]&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;echo c = $c&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;echo save c to ./file1&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;echo $c&gt;file1&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;echo save b to ./file2&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;echo $b&gt;file2&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;echo save a to ./file3&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;echo $a&gt;file3&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;echo save file1 file2 file3 to file4&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;cat file1&gt;file4&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;cat file2&gt;&gt;file4&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;cat file3&gt;&gt;file4&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;echo save file4 to ./result&#x27; &gt;&gt; test</span><br><span class="line">echo &#x27;cat file4&gt;&gt;result&#x27; &gt;&gt; test</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>result:</p>
+<li>
+<p>result:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
 </li>
-<li><ol>
-<li><ul>
-<li><p><code>echo echo Shell Start</code> 直接把“<code>echo Shell Start</code>” 作为字符串输出；</p>
+<li>
+<ol>
+<li>
+<ul>
+<li>
+<p><code>echo echo Shell Start</code> 直接把“<code>echo Shell Start</code>” 作为字符串输出；</p>
 </li>
-<li><p><code>echo (反顿号)echo Shell Start(反顿号)</code>是将 “<code>echo Shell Start</code>” 的<strong>输出</strong>作为 外层echo 的输入，故会输出 <code>Shell Start</code>；</p>
+<li>
+<p><code>echo (反顿号)echo Shell Start(反顿号)</code>是将 “<code>echo Shell Start</code>” 的<strong>输出</strong>作为 外层echo 的输入，故会输出 <code>Shell Start</code>；</p>
 </li>
-<li><p><code>echo (单引号)echo Shell Start(单引号)</code>直接把“<code>echo Shell Start</code>” 作为字符串输出。</p>
+<li>
+<p><code>echo (单引号)echo Shell Start(单引号)</code>直接把“<code>echo Shell Start</code>” 作为字符串输出。</p>
 </li>
 </ul>
 </li>
-<li><ul>
-<li><p><code>echo echo $c&gt;file1</code> 直接把“<code>echo $c&gt;file1</code>” 作为字符串输出；</p>
+<li>
+<ul>
+<li>
+<p><code>echo echo $c&gt;file1</code> 直接把“<code>echo $c&gt;file1</code>” 作为字符串输出；</p>
 </li>
-<li><p><code>echo (反顿号)echo $c&gt;file1(反顿号)</code>是将 “<code>echo $c&gt;file1</code>” 的<strong>输出</strong>作为 外层echo 的输入，故会输出 <code>$c&gt;file1</code>；</p>
+<li>
+<p><code>echo (反顿号)echo $c&gt;file1(反顿号)</code>是将 “<code>echo $c&gt;file1</code>” 的<strong>输出</strong>作为 外层echo 的输入，故会输出 <code>$c&gt;file1</code>；</p>
 </li>
-<li><p><code>echo (单引号)echo $c&gt;file1(单引号)</code>直接把“<code>$c&gt;file1</code>” 作为字符串输出。</p>
+<li>
+<p><code>echo (单引号)echo $c&gt;file1(单引号)</code>直接把“<code>$c&gt;file1</code>” 作为字符串输出。</p>
 </li>
 </ul>
 </li>
@@ -299,87 +335,156 @@ if (false) {
 </ul>
 </li>
 </ul>
-<h2 id="难点分析"><a href="#难点分析" class="headerlink" title="难点分析"></a><a id="难点分析">难点分析</a></h2><p>对于实验中的难点，可用示意图、流程图或思维导图的方式来表述清楚。</p>
-<h3 id="Exercise-0-1"><a href="#Exercise-0-1" class="headerlink" title="Exercise 0.1"></a>Exercise 0.1</h3><ol start="2">
+<h2 id="a-id-难点分析-难点分析-a"><a id="难点分析">难点分析</a></h2>
+<p>对于实验中的难点，可用示意图、流程图或思维导图的方式来表述清楚。</p>
+<h3 id="exercise-0-1">Exercise 0.1</h3>
+<blockquote>
+<p>Lab0 第一道练习题包括以下四题，如果你四道题全部完成且正确，即可获得 50 分。</p>
+<p>1、在 Lab0 工作区的 src 目录中，存在一个名为 palindrome.c 的文件，使用刚刚学 过的工具打开 palindrome.c，使用 c 语言实现判断输入整数 n(1 ≤ n ≤ 10000) 是否为回 文数的程序 (输入输出部分已经完成)。通过 stdin 每次只输入一个整数 n，若这个数字为 回文数则输出 Y，否则输出 N。[注意：正读倒读相同的整数叫回文数]</p>
+<p>2、在 src 目录下，存在一个未补全的 Makefile 文件，借助刚刚掌握的 Makefile 知 识，将其补全，以实现通过 make 命令触发 src 目录下的 palindrome.c 文件的编译链接 的功能，生成的可执行文件命名为 palindrome。</p>
+<p>3、在 src/sh_test 目录下，有一个 file 文件和 hello_os.sh 文件。hello_os.sh 是一个未完成的脚本文档，请同学们借助 shell 编程的知识，将其补完，以实现通过命令 bash hello_os.sh AAA BBB，在 hello_os.sh 所处的目录新建一个名为 BBB 的文件，其 内容为 AAA 文件的第 8、32、128、512、1024 行的内容提取 (AAA 文件行数一定超过 1024 行)。[注意：对于命令 bash hello_os.sh AAA BBB，AAA 及 BBB 可为任何合法文件的名 称，例如 bash hello_os.sh file hello_os.c，若已有 hello_os.c 文件，则将其原有 内容覆盖]</p>
+<p>4、补全后的 palindrome.c、Makefile、hello_os.sh 依次复制到路径 dst/palindrome.c, dst/Makefile, dst/sh_test/hello_os.sh [注意：文件名和路径必须与题目要求相同]</p>
+</blockquote>
+<ol start="2">
 <li>由<code>.c</code>文件得到可执行文件：<code>gcc -o palindrome palindrome.c</code></li>
-<li>提取<code>AAA</code>文件的第8行到<code>BBB</code>文件中：<code>sed -n &#39;8p&#39; AAA &gt; BBB</code> (安静模式，且仅输出不编辑)</li>
+<li>提取<code>AAA</code>文件的第8行到<code>BBB</code>文件中：<code>sed -n '8p' AAA &gt; BBB</code> (安静模式，且仅输出不编辑)</li>
 </ol>
-<h3 id="Exercise-0-2"><a href="#Exercise-0-2" class="headerlink" title="Exercise 0.2"></a>Exercise 0.2</h3><p>   用shell删除叫做<code>file70</code>~&#96;file100<code>的子目录：</code>rm -r .&#x2F;“file$a”&#96;($a是shell中的变量)</p>
+<h3 id="exercise-0-2">Exercise 0.2</h3>
+<blockquote>
+<p>Lab0 第二道练习题包括以下一题，如果你完成且正确，即可获得 12 分。</p>
+<p>在 Lab0 工作区 ray/sh_test1 目录中，含有 100 个子目录 file1~file100，还存 在一个名为 <a target="_blank" rel="noopener" href="http://changefile.sh">changefile.sh</a> 的文件，将其补完，以实现通过命令 bash <a target="_blank" rel="noopener" href="http://changefile.sh">changefile.sh</a>， 可以删除该目录内 file71~file100 共计 30 个子目录，将 file41~file70 共计 30 个子 目录重命名为 newfile41~newfile70。[注意：评测时仅检测 <a target="_blank" rel="noopener" href="http://changefile.sh">changefile.sh</a> 的正确性]</p>
+</blockquote>
+<p>用shell删除叫做<code>file70</code>~<code>file100</code>的子目录：<code>rm -r ./&quot;file$a&quot;</code>($a是shell中的变量)</p>
 <p>重命名<code>filexx</code>为<code>newfilexx</code>：<code>mv ./&quot;file$a&quot; ./&quot;newfile$a&quot;</code></p>
 <p>让变量<code>$a</code>递增：<code>let a=a+1</code></p>
-<h3 id="Exercise-0-3"><a href="#Exercise-0-3" class="headerlink" title="Exercise 0.3"></a>Exercise 0.3</h3><p>   输出文件<code>file</code>中所有含有<code>sign </code>字符串的行号到文件<code>answer</code>中：</p>
+<h3 id="exercise-0-3">Exercise 0.3</h3>
+<blockquote>
+<p>Lab0 第三道练习题包括以下一题，如果你完成且正确，即可获得 12 分。</p>
+<p>在 Lab0 工作区的 ray/sh_test2 目录下，存在一个未补全的 <a target="_blank" rel="noopener" href="http://search.sh">search.sh</a> 文件， 将其补完，以实现通过命令 bash <a target="_blank" rel="noopener" href="http://search.sh">search.sh</a> file int result，可以在当前目录下生成 result 文件，内容为 file 文件含有 int 字符串所在的行数，即若有多行含有 int 字符 串需要全部输出。[注意：对于命令 bash <a target="_blank" rel="noopener" href="http://search.sh">search.sh</a> file int result，file 及 result 可为任何合法文件名称，int 可为任何合法字符串，若已有 result 文件，则将其原有内容 覆盖，匹配时大小写不忽略]</p>
+</blockquote>
+<p>输出文件<code>file</code>中所有含有<code>sign </code>字符串的行号到文件<code>answer</code>中：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">touch helpfile #another file help me to finsh</span><br><span class="line">grep -n sign file &gt; helpfile </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="built_in">print</span> the number of line with <span class="string">&quot;sign&quot;</span> and its content to helpfile</span></span><br><span class="line">awk -F: &#x27;&#123;print $1&#125;&#x27; helpfile &gt; answer</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> 输出以<span class="string">&quot;:&quot;</span>为分隔符的第一个字符串</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Exercise-0-4"><a href="#Exercise-0-4" class="headerlink" title="Exercise 0.4"></a>Exercise 0.4</h3><ol>
-<li><p>把<code>file</code>文件中的所有<code>wrong</code>字符串全部替换成<code>correct</code>字符串：</p>
+<h3 id="exercise-0-4">Exercise 0.4</h3>
+<blockquote>
+<p>Lab0 第四道练习题包括以下两题，如果你均完成且正确，即可获得 26 分。</p>
+<p>1、在 Lab0 工作区的 csc/code 目录下，存在 fibo.c、main.c，其中 fibo.c 有点小 问题，还有一个未补全的 <a target="_blank" rel="noopener" href="http://modify.sh">modify.sh</a> 文件，将其补完，以实现通过命令 bash <a target="_blank" rel="noopener" href="http://modify.sh">modify.sh</a> fibo.c char int，可以将 fibo.c 中所有的 char 字符串更改为 int 字符串。[注意：对 于命令 bash <a target="_blank" rel="noopener" href="http://modify.sh">modify.sh</a> fibo.c char int，fibo.c 可为任何合法文件名，char 及 int 可以是任何字符串，评测时评测 <a target="_blank" rel="noopener" href="http://modify.sh">modify.sh</a> 的正确性，而不是检查修改后 fibo.c 的正确 性]</p>
+<p>2、Lab0 工作区的 csc/code/fibo.c 成功更换字段后 (bash <a target="_blank" rel="noopener" href="http://modify.sh">modify.sh</a> fibo.c char int)，现已有 csc/Makefile 和 csc/code/Makefile，补全两个 Makefile 文件，要求在 csc 目录下通过命令 make 可在 csc/code 目录中生成 fibo.o、main.o，在 csc 目录中 生成可执行文件 fibo，再输入命令 make clean 后只删除两个.o 文件。[注意：不能修改 fibo.h 和 main.c 文件中的内容，提交的文件中 fibo.c 必须是修改后正确的 fibo.c， 可执行文件 fibo 作用是输入一个整数 n(从 stdin 输入 n)，可以输出斐波那契数列前 n 项，每一项之间用空格分开。比如 n=5，输出 1 1 2 3 5]</p>
+<p>要求成功使用脚本文件 <a target="_blank" rel="noopener" href="http://modify.sh">modify.sh</a> 修改 fibo.c，实现使用 make 命令可以生成.o 文 件和可执行文件，再使用命令 make clean 可以将.o 文件删除，但保留 fibo 和.c 文件。</p>
+</blockquote>
+<ol>
+<li>
+<p>把<code>file</code>文件中的所有<code>wrong</code>字符串全部替换成<code>correct</code>字符串：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i &quot;s/wrong/correct/g&quot; file </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">-i只编辑不输出  /g把每一个都这样替换，而不是仅仅每行第一个</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><ul>
-<li><p><code>main.c</code>会调用<code>fibo.c</code>文件，预处理、编译、汇编、链接步骤如下：</p>
+<li>
+<ul>
+<li>
+<p><code>main.c</code>会调用<code>fibo.c</code>文件，预处理、编译、汇编、链接步骤如下：</p>
 <ol>
-<li><p>预处理、编译、汇编</p>
+<li>
+<p>预处理、编译、汇编</p>
 <p><code>fibo.c</code>的头文件放在<code>../include</code>目录里面，则生成<code>fibo.o</code>和<code>main.o</code>的<code>Makefile</code>如下：</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第一种写法：</span></span><br><span class="line"><span class="section">all: fibo main</span></span><br><span class="line"></span><br><span class="line"><span class="section">fibo: fibo.c</span></span><br><span class="line">	gcc -E fibo.c -o fibo.i</span><br><span class="line">	gcc -S fibo.i -o fibo.s</span><br><span class="line">	gcc -c fibo.s -o fibo.o</span><br><span class="line">	rm fibo.i</span><br><span class="line">	rm fibo.s</span><br><span class="line"></span><br><span class="line"><span class="section">main: main.c fibo.o</span></span><br><span class="line">	gcc -E main.c -o main.i -I ../<span class="keyword">include</span>  <span class="comment">#Attention！</span></span><br><span class="line">	gcc -S main.i -o main.s</span><br><span class="line">	gcc -c main.s -o main.o</span><br><span class="line">	rm main.i</span><br><span class="line">	rm main.s</span><br><span class="line">	</span><br><span class="line"><span class="comment">#第二种写法（精简）：</span></span><br><span class="line"><span class="section">all: fibo main</span></span><br><span class="line"></span><br><span class="line"><span class="section">fibo: fibo.c</span></span><br><span class="line">	gcc -c fibo.c</span><br><span class="line"></span><br><span class="line"><span class="section">main: main.c fibo.o</span></span><br><span class="line">	gcc -c main.c -I ../<span class="keyword">include</span>  <span class="comment">#Attention！</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>链接</p>
+<li>
+<p>链接</p>
 <p>生成可执行文件<code>Main</code>如下：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc fibo.o main.o -o Main</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc fibo.o main.o -o Main</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 </li>
-<li><p>在 <code>csc</code> 目录下通过命令 <code>make</code> 可在 <code>csc/code</code> 目录中利用<code>csc/code/Makefile</code>生成 <code>fibo.o</code>、<code>main.o</code>，在 <code>csc</code> 目录中 生成可执行文件 <code>fibo</code>，再输入命令 <code>make clean</code> 后只删除两个<code>.o</code> 文件:</p>
+<li>
+<p>在 <code>csc</code> 目录下通过命令 <code>make</code> 可在 <code>csc/code</code> 目录中利用<code>csc/code/Makefile</code>生成 <code>fibo.o</code>、<code>main.o</code>，在 <code>csc</code> 目录中 生成可执行文件 <code>fibo</code>，再输入命令 <code>make clean</code> 后只删除两个<code>.o</code> 文件:</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">all: fibo</span></span><br><span class="line"></span><br><span class="line"><span class="section">fibo: </span></span><br><span class="line">	cd code &amp;&amp; make <span class="comment">#一定先cd，再make</span></span><br><span class="line">	gcc ./code/fibo.o ./code/main.o -o fibo</span><br><span class="line"></span><br><span class="line"><span class="section">clean: </span></span><br><span class="line">	rm ./code/fibo.o</span><br><span class="line">	rm ./code/main.o</span><br></pre></td></tr></table></figure>
-
-<p><em><strong>【Attention：在 Makefile 中 cd 到其他目录，这个 cd 只能有效于当前一行，故而必须使用 “&amp;&amp;” 连接要在 cd 目录下的指令，写在同一行，同时不需要  cd ..&#x2F; 回来】</strong></em></p>
+<p><em><strong>【Attention：在 Makefile 中 cd 到其他目录，这个 cd 只能有效于当前一行，故而必须使用 “&amp;&amp;” 连接要在 cd 目录下的指令，写在同一行，同时不需要  cd …/ 回来】</strong></em></p>
 </li>
 </ul>
 </li>
 </ol>
-<h2 id="实验分析"><a href="#实验分析" class="headerlink" title="实验分析"></a>实验分析</h2><p>写下实验过程中的体会。</p>
+<h2 id="实验分析">实验分析</h2>
+<p>写下实验过程中的体会。</p>
 <p>​        本次实验我参考了一些学长学姐的<em>blog</em>，协助理解几种不同工具的使用，在这里引用<em><strong>Hyggge</strong></em>学长的一幅图，也是我认为几点对我来说有难度或者不熟悉的知识点：</p>
-<p><img src="https://pic.imgdb.cn/item/6415e43da682492fcc35c0fb.png" alt="image-20230306133316915"></p>
+<p><img src="/2023/03/19/BUAA-OS-0/difficulty.jpg" alt="difficulty"></p>
 <p>​       虽然Lab0课下实验的难度不大，但是仍然有许多小细节，具体我写在<a href="#%E9%9A%BE%E7%82%B9%E5%88%86%E6%9E%90">难点分析</a>中了，课下实验总共花费了15个小时左右，中途也查询了许多资料，并且向同学大牛们请教颇多。</p>
 <p>​       lab0-extra  我最后一个有关diff的操作错误了，正确代码应该是：</p>
-<img src="https://pic.imgdb.cn/item/6416881fa682492fcc34b404.png" alt="image-20230306215954391" style="zoom:67%;" />
-
+<img src="/2023/03/19/BUAA-OS-0/diff.jpg" alt="diff" style="zoom:67%;">
 <p>​      我错在写的<code>if [ $?  -eq  0 ]</code> <em><strong>Shell 中，对空格非常敏感，一定要在规定的不同符号间加空格，同时，在Shell中 0 表示真 ， 1 表示假！！与正常的编程语言相反！</strong></em></p>
 <p>​       OS的实验课仍然是道阻且长。</p>
-<h2 id="课上测试"><a href="#课上测试" class="headerlink" title="课上测试"></a>课上测试</h2><p>​        本次课上测试，我的<code>lab0-extra</code>只得了75分，反思确实是自己的相关知识点掌握不到位，因此我觉得是毫无怨言的。</p>
+<h2 id="课上测试">课上测试</h2>
+<p>​        本次课上测试，我的<code>lab0-extra</code>只得了75分，反思确实是自己的相关知识点掌握不到位，因此我觉得是毫无怨言的。</p>
 <p>​        但是稍微有些可惜的是，我和100分失之交臂的点：按照我原本的性格习惯，对于<code>$?</code>的返回值条件为<code>1或0</code>（后面会具体讲解），无论怎样我都会尝试一下两种情况的两种结果，但是，在考场上的时候，由于紧张和着急，我没有选择符合之前习惯的做法，其实只要我尝试一下，就是可以满分的，对此感到些许可惜，故而反思到——考场上的心态和冷静依旧是我要培养的点。</p>
 <p>​        通过课后老师的讲解，和与其他同学的交流【主要是笨蛋的我向大牛们请教哇~】，可以发现<code>lab0</code>的课上测试，在<code>exam</code>和<code>extra</code>里面各有一个点卡着大家，这两点甚至老师也要思索一二才能想通，一下具体阐述：</p>
-<h3 id="lab0-exam"><a href="#lab0-exam" class="headerlink" title="lab0-exam"></a>lab0-exam</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n=10</span><br><span class="line"><span class="keyword">while</span> [  <span class="variable">$n</span> -gt 0  ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$n</span></span><br><span class="line">    <span class="built_in">let</span> n=n-1</span><br><span class="line"><span class="keyword">done</span>    </span><br></pre></td></tr></table></figure>
-
+<h3 id="lab0-exam">lab0-exam</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n=10</span><br><span class="line"><span class="keyword">while</span> [  <span class="variable">$n</span> -gt 0  ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$n</span></span><br><span class="line">    <span class="built_in">let</span> n=n-1</span><br><span class="line"><span class="keyword">done</span>    </span><br></pre></td></tr></table></figure>
 <p>​        上面这段程序在本地运行的时候是完全正确的，但是一旦提交到评测机上就会<strong>报错</strong>，原因是：</p>
 <ul>
-<li><p>​        1. 在<code>let</code>语句中，如果<code>=</code>右边的结果变成<strong>小于或等于0</strong>的数，那么该<code>let</code>语句的返回值<code>$?</code>的值就会变成1；</p>
-<p>​        2. 而在<code>bash</code>中，整个程序的返回值<code>$?</code>&#x3D;最后一条语句的返回值<code>$?</code>；</p>
+<li>
+<p>​        1. 在<code>let</code>语句中，如果<code>=</code>右边的结果变成<strong>小于或等于0</strong>的数，那么该<code>let</code>语句的返回值<code>$?</code>的值就会变成1；</p>
+<p>​        2. 而在<code>bash</code>中，整个程序的返回值<code>$?</code>=最后一条语句的返回值<code>$?</code>；</p>
 <p>​        3. 且在评测机中一旦程序的返回值<code>$?</code>为1，它就认为这个程序报错了；</p>
 <p>​        故而，上述程序最后的返回值<code>$?</code>就是1，则报错。</p>
 </li>
-<li><p>可能的修改方式：</p>
+<li>
+<p>可能的修改方式：</p>
 <ul>
-<li><p>第一种方式：</p>
+<li>
+<p>第一种方式：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">n=10</span><br><span class="line">i=1</span><br><span class="line"><span class="keyword">while</span> [  <span class="variable">$i</span> -le <span class="variable">$n</span>  ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line">    <span class="built_in">let</span> i=i+1</span><br><span class="line"><span class="keyword">done</span>   </span><br></pre></td></tr></table></figure>
 </li>
-<li><p>第二种方式：</p>
+<li>
+<p>第二种方式：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n=10</span><br><span class="line"><span class="keyword">while</span> [  <span class="variable">$n</span> -gt 0  ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$n</span></span><br><span class="line">    n=$((n-<span class="number">1</span>))</span><br><span class="line"><span class="keyword">done</span>   </span><br></pre></td></tr></table></figure>
 </li>
-<li><p>第三种方式：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">n=10</span><br><span class="line"><span class="keyword">while</span> [  <span class="variable">$n</span> -gt 0  ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$n</span></span><br><span class="line">    <span class="built_in">let</span> n=n-1</span><br><span class="line"><span class="keyword">done</span>    </span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure></li>
+<li>
+<p>第三种方式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">n=10</span><br><span class="line"><span class="keyword">while</span> [  <span class="variable">$n</span> -gt 0  ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$n</span></span><br><span class="line">    <span class="built_in">let</span> n=n-1</span><br><span class="line"><span class="keyword">done</span>    </span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 </ul>
-<h3 id="lab0-extra"><a href="#lab0-extra" class="headerlink" title="lab0-extra"></a>lab0-extra</h3><h4 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h4><ul>
-<li><p>当<code>diff A B</code>发现A和B有不同，那么该语句的返回值<code>$? -eq 1 </code>，并且会输出一定的文字；当A和B完全一样的时候，那么该语句的返回值<code>$? -eq 0 </code>，且不会有任何输出。</p>
+<h3 id="lab0-extra">lab0-extra</h3>
+<h4 id="diff">diff</h4>
+<ul>
+<li>
+<p>当<code>diff A B</code>发现A和B有不同，那么该语句的返回值<code>$? -eq 1 </code>，并且会输出一定的文字；当A和B完全一样的时候，那么该语句的返回值<code>$? -eq 0 </code>，且不会有任何输出。</p>
 </li>
-<li><p>题目代码为：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">diff <span class="variable">$1</span> <span class="variable">$3</span> &gt; /dev/null</span><br><span class="line"><span class="keyword">if</span> [  $? -eq 1  ] </span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">     <span class="built_in">echo</span> different</span><br><span class="line"><span class="keyword">else</span>     </span><br><span class="line">     <span class="built_in">echo</span> same</span><br><span class="line"><span class="keyword">fi</span>     </span><br></pre></td></tr></table></figure></li>
+<li>
+<p>题目代码为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">diff <span class="variable">$1</span> <span class="variable">$3</span> &gt; /dev/null</span><br><span class="line"><span class="keyword">if</span> [  $? -eq 1  ] </span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">     <span class="built_in">echo</span> different</span><br><span class="line"><span class="keyword">else</span>     </span><br><span class="line">     <span class="built_in">echo</span> same</span><br><span class="line"><span class="keyword">fi</span>     </span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h4 id=""><a href="#" class="headerlink" title="$?  $#"></a><code>$?</code>  <code>$#</code></h4><ul>
+<h4 id="none"><code>$?</code>  <code>$#</code></h4>
+<ul>
 <li><code>$?</code>表示上一条语句的返回值</li>
 <li><code>$#</code>表示传参个数</li>
 </ul>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">YannaZhang 张杨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/03/19/BUAA-OS-0/">http://example.com/2023/03/19/BUAA-OS-0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">YannaのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/BUAA-OS/">BUAA-OS</a></div><div class="post_share"><div class="social-share" data-image="/img/default_cover1.png%20/img/default_cover2.png%20/img/default_cover3.png%20/img/default_cover4.png%20/img/default_cover5.png%20/img/default_cover6.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2023/03/18/BUAA-OO-1/" title="BUAA-OO-第一单元：表达式展开"><img class="cover" src="/img/default_cover1.png%20/img/default_cover2.png%20/img/default_cover3.png%20/img/default_cover4.png%20/img/default_cover5.png%20/img/default_cover6.png" onerror="onerror=null;src='/img/archive_img.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">BUAA-OO-第一单元：表达式展开</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lab0%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A"><span class="toc-number">1.</span> <span class="toc-text">Lab0实验报告</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-0-1"><span class="toc-number">1.1.1.</span> <span class="toc-text">Thinking 0.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-0-2"><span class="toc-number">1.1.2.</span> <span class="toc-text">Thinking 0.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-0-3"><span class="toc-number">1.1.3.</span> <span class="toc-text">Thinking 0.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-0-4"><span class="toc-number">1.1.4.</span> <span class="toc-text">Thinking 0.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-0-5"><span class="toc-number">1.1.5.</span> <span class="toc-text">Thinking 0.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-0-6"><span class="toc-number">1.1.6.</span> <span class="toc-text">Thinking 0.6</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%BE%E7%82%B9%E5%88%86%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">难点分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Exercise-0-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">Exercise 0.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exercise-0-2"><span class="toc-number">1.2.2.</span> <span class="toc-text">Exercise 0.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exercise-0-3"><span class="toc-number">1.2.3.</span> <span class="toc-text">Exercise 0.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exercise-0-4"><span class="toc-number">1.2.4.</span> <span class="toc-text">Exercise 0.4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">实验分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BE%E4%B8%8A%E6%B5%8B%E8%AF%95"><span class="toc-number">1.4.</span> <span class="toc-text">课上测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lab0-exam"><span class="toc-number">1.4.1.</span> <span class="toc-text">lab0-exam</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lab0-extra"><span class="toc-number">1.4.2.</span> <span class="toc-text">lab0-extra</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#diff"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">diff</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">$?  $#</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post_img.png')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By YannaZhang 张杨</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script src="/js/sakura.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">YannaZhang 张杨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/03/19/BUAA-OS-0/">http://example.com/2023/03/19/BUAA-OS-0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">YannaのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/BUAA-OS/">BUAA-OS</a></div><div class="post_share"><div class="social-share" data-image="/img/series1/1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/03/18/BUAA-OO-1/" title="BUAA-OO-第一单元：表达式展开"><img class="cover" src="/img/series1/3.png" onerror="onerror=null;src='/img/archive_img.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">BUAA-OO-第一单元：表达式展开</div></div></a></div><div class="next-post pull-right"><a href="/2023/03/19/BUAA-OS-1/" title="BUAA-OS-lab1"><img class="cover" src="/img/series1/2.png" onerror="onerror=null;src='/img/archive_img.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">BUAA-OS-lab1</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/03/19/BUAA-OS-1/" title="BUAA-OS-lab1"><img class="cover" src="/img/series1/2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-19</div><div class="title">BUAA-OS-lab1</div></div></a></div><div><a href="/2023/04/10/BUAA-OS-2/" title="BUAA-OS-lab2"><img class="cover" src="/img/series1/4.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-10</div><div class="title">BUAA-OS-lab2</div></div></a></div><div><a href="/2023/04/18/BUAA-OS-3/" title="BUAA-OS-lab3"><img class="cover" src="/img/series1/6.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-18</div><div class="title">BUAA-OS-lab3</div></div></a></div><div><a href="/2023/05/15/BUAA-OS-4/" title="BUAA-OS-lab4"><img class="cover" src="/img/series1/7.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-15</div><div class="title">BUAA-OS-lab4</div></div></a></div><div><a href="/2023/05/19/BUAA-OS-5/" title="BUAA-OS-lab5"><img class="cover" src="/img/series1/8.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-19</div><div class="title">BUAA-OS-lab5</div></div></a></div><div><a href="/2023/06/18/BUAA-OS-challenge/" title="BUAA-OS-lab4-challenge"><img class="cover" src="/img/series1/9.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-18</div><div class="title">BUAA-OS-lab4-challenge</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lab0%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A"><span class="toc-number">1.</span> <span class="toc-text">Lab0实验报告</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-0-1"><span class="toc-number">1.1.1.</span> <span class="toc-text">Thinking 0.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-0-2"><span class="toc-number">1.1.2.</span> <span class="toc-text">Thinking 0.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-0-3"><span class="toc-number">1.1.3.</span> <span class="toc-text">Thinking 0.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-0-4"><span class="toc-number">1.1.4.</span> <span class="toc-text">Thinking 0.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-0-5"><span class="toc-number">1.1.5.</span> <span class="toc-text">Thinking 0.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-0-6"><span class="toc-number">1.1.6.</span> <span class="toc-text">Thinking 0.6</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#a-id-%E9%9A%BE%E7%82%B9%E5%88%86%E6%9E%90-%E9%9A%BE%E7%82%B9%E5%88%86%E6%9E%90-a"><span class="toc-number">1.2.</span> <span class="toc-text">难点分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-0-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">Exercise 0.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-0-2"><span class="toc-number">1.2.2.</span> <span class="toc-text">Exercise 0.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-0-3"><span class="toc-number">1.2.3.</span> <span class="toc-text">Exercise 0.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-0-4"><span class="toc-number">1.2.4.</span> <span class="toc-text">Exercise 0.4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">实验分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BE%E4%B8%8A%E6%B5%8B%E8%AF%95"><span class="toc-number">1.4.</span> <span class="toc-text">课上测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lab0-exam"><span class="toc-number">1.4.1.</span> <span class="toc-text">lab0-exam</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lab0-extra"><span class="toc-number">1.4.2.</span> <span class="toc-text">lab0-extra</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#diff"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">diff</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#none"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">$?  $#</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post_img.png')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By YannaZhang 张杨</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'sVaqAurlJUIUiRSl4GxSzMoi-gzGzoHsz',
+      appKey: 'BCXg41m5wCxza144wQyhXZzv',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="/js/sakura.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
 POWERMODE.shake = false;
 POWERMODE.mobile = false;
 document.body.addEventListener('input', POWERMODE);
-</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>

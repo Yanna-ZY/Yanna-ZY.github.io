@@ -1,0 +1,592 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>BUAA-OS-lab2 | YannaのBlog</title><meta name="author" content="YannaZhang 张杨"><meta name="copyright" content="YannaZhang 张杨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lab2实验报告 思考题 Thinking 2.1  请根据上述说明，回答问题：在编写的 C 程序中，指针变量中存储的地址 是虚拟地址，还是物理地址？MIPS 汇编程序中 lw 和 sw 使用的是虚拟地址，还是物理地址？   解：   在编写的 C 程序中，指针变量中存储的地址是虚拟地址；   MIPS 汇编程序中 lw 和 sw 使用的是虚拟地址。     Thinking 2.2  请思考下述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUAA-OS-lab2">
+<meta property="og:url" content="http://example.com/2023/04/10/BUAA-OS-2/index.html">
+<meta property="og:site_name" content="YannaのBlog">
+<meta property="og:description" content="Lab2实验报告 思考题 Thinking 2.1  请根据上述说明，回答问题：在编写的 C 程序中，指针变量中存储的地址 是虚拟地址，还是物理地址？MIPS 汇编程序中 lw 和 sw 使用的是虚拟地址，还是物理地址？   解：   在编写的 C 程序中，指针变量中存储的地址是虚拟地址；   MIPS 汇编程序中 lw 和 sw 使用的是虚拟地址。     Thinking 2.2  请思考下述">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/series1/4.png">
+<meta property="article:published_time" content="2023-04-10T06:25:10.000Z">
+<meta property="article:modified_time" content="2023-06-19T08:53:41.257Z">
+<meta property="article:author" content="YannaZhang 张杨">
+<meta property="article:tag" content="BUAA-OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/series1/4.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/04/10/BUAA-OS-2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":null},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":30,"languages":{"author":"作者: YannaZhang 张杨","link":"链接: ","source":"来源: YannaのBlog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'BUAA-OS-lab2',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-06-19 16:53:41'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/mouse.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/archive_img.png'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 扉页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴簿</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 签轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 编类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 曲籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-commenting"></i><span> 留音笺</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 卿</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 予</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post_img.png')"><nav id="nav"><span id="blog-info"><a href="/" title="YannaのBlog"><span class="site-name">YannaのBlog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 扉页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴簿</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 签轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 编类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 曲籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-commenting"></i><span> 留音笺</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 卿</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 予</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">BUAA-OS-lab2</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-10T06:25:10.000Z" title="发表于 2023-04-10 14:25:10">2023-04-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-19T08:53:41.257Z" title="更新于 2023-06-19 16:53:41">2023-06-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%BB%E5%BE%B7%EF%BC%88%E5%AD%A6%E4%B9%A0%EF%BC%89/">养德（学习）</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">7.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>27分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="BUAA-OS-lab2"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="lab2实验报告">Lab2实验报告</h1>
+<h2 id="思考题">思考题</h2>
+<h3 id="thinking-2-1">Thinking 2.1</h3>
+<blockquote>
+<p>请根据上述说明，回答问题：在编写的 C 程序中，指针变量中存储的地址 是虚拟地址，还是物理地址？MIPS 汇编程序中 lw 和 sw 使用的是虚拟地址，还是物理地址？</p>
+</blockquote>
+<ul>
+<li>解：
+<ul>
+<li>
+<p>在编写的 C 程序中，指针变量中存储的地址是<strong>虚拟地址</strong>；</p>
+</li>
+<li>
+<p>MIPS 汇编程序中 lw 和 sw 使用的是<strong>虚拟地址</strong>。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="thinking-2-2">Thinking 2.2</h3>
+<blockquote>
+<p>请思考下述两个问题：</p>
+<p>• 从可重用性的角度，阐述用宏来实现链表的好处。</p>
+<p>• 查看实验环境中的 /usr/include/sys/queue.h，了解其中单向链表与循环链表的实现，比较它们与本实验中使用的双向链表，分析三者在插入与删除操作上的性能差异。</p>
+</blockquote>
+<ul>
+<li>
+<p>解：</p>
+<ul>
+<li>
+<ol>
+<li>各类结构体都可以使用 <code>queue.h</code> 的宏简化代码量：
+<ul>
+<li>一开始写<strong>Exercise2.2</strong>的时候没有明白 <code>field</code> 字段设置的意义，觉得传入了 <code>elm</code> 参数以后， <code>field</code> 应该是作为 <code>elm</code> 的成员变量名，不应该作为可变参数传入，显得有点多此一举，忘记了宏定义除了可以替换成实参，还可以做字符串字面量的替换。</li>
+<li>写到<strong>Exercise2.3</strong>才意识到 <code>field</code> 不是变量参数，而是 <code>pp_link</code> 这个字符串。</li>
+<li>后来思考之所以在 <code>queue.h</code> 的宏里面这样定义，应该是因为这里的宏并不止服务于 <code>Page</code>，所以从工程角度来看，<code>field</code> 仍然属于一种变量，<code>field</code> 的设置提高了宏的可重用性，因为可以兼顾所有结构体的所有成员变量名。</li>
+</ul>
+</li>
+<li>复杂宏(如 <code>LIST_INSERT_TAIL</code>、<code>LIST_INSERT_BEFORE</code>)大量使用简单宏(如<code>LIST_FIRST</code>、<code>LIST_NEXT</code>)，可重用性强</li>
+<li>可读性强，简化代码量，易于维护</li>
+</ol>
+</li>
+<li>
+<ul>
+<li>
+<p>单向链表</p>
+<p>对于单纯的插入和删除操作只有<strong>O(1)<strong>的时间复杂度，但是对于任意第 <code>i</code> 个元素的插入和删除操作来说，则需要从头遍历一遍故而时间复杂度会上升到</strong>O(n)</strong>;</p>
+</li>
+<li>
+<p>双向链表</p>
+<p>对于任意第 <code>i</code> 个元素的插入和删除操作时间复杂度都只有<strong>O(1)</strong>；</p>
+</li>
+<li>
+<p>循环链表</p>
+<ul>
+<li>
+<p>单向循环链表</p>
+<p>和单向链表一样，对于任意第 <code>i</code> 个元素的插入和删除操作来说，时间复杂度会为<strong>O(n)</strong>;</p>
+</li>
+<li>
+<p>双向循环链表</p>
+<p>和双向链表一样，对于任意第 <code>i</code> 个元素的插入和删除操作来说，时间复杂度会为<strong>O(1)</strong>。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="thinking-2-3">Thinking 2.3</h3>
+<blockquote>
+<p>请阅读 include/queue.h 以及 include/pmap.h, 将 Page_list 的结构梳 理清楚，选择正确的展开结构。</p>
+</blockquote>
+<ul>
+<li>
+<p>解：</p>
+<ul>
+<li>
+<p>正确展开应该是 <code>C</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Page_list</span>&#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">		<span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">			<span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *<span class="title">le_next</span>;</span></span><br><span class="line">			<span class="class"><span class="keyword">struct</span> <span class="title">Page</span> **<span class="title">le_prev</span>;</span></span><br><span class="line">		&#125; pp_link;</span><br><span class="line">		u_short pp_ref;</span><br><span class="line">	&#125;* lh_first;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="thinking-2-4">Thinking 2.4</h3>
+<blockquote>
+<p>请思考下面两个问题：</p>
+<p>• 请阅读上面有关 R3000-TLB 的描述，从虚拟内存的实现角度，阐述 ASID 的必要性。</p>
+<p>• 请阅读《IDT R30xx Family Software Reference Manual》的 Chapter 6，结合 ASID 段的位数，说明 R3000 中可容纳不同的地址空间的最大数量。</p>
+</blockquote>
+<ul>
+<li>
+<p>解：</p>
+<ul>
+<li>
+<p>​        由于在多线程系统中，对于不同进程，相同的虚拟地址各自占用不同的物理地址空间，所以同一虚拟地址通常映射到不同的物理地址。因此TLB中装着不同进程的页表项，ASID用于区别不同进程的页表项。</p>
+<p>​        没有ASID机制的情况下每次进程切换需要地址空间切换的时候都需要清空TLB。</p>
+</li>
+<li>
+<p>​         ASID6位，容纳64个不同进程。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="thinking-2-5">Thinking 2.5</h3>
+<ul>
+<li>答案见<strong>Exercise 2.8</strong></li>
+</ul>
+<h3 id="thinking-2-6">Thinking 2.6</h3>
+<blockquote>
+<p>任选下述二者之一回答：</p>
+<p>• 简单了解并叙述 X86 体系结构中的内存管理机制，比较 X86 和 MIPS 在内存管理上 的区别。</p>
+<p>• 简单了解并叙述 RISC-V 中的内存管理机制，比较 RISC-V 与 MIPS 在内存管理上 的区别。</p>
+</blockquote>
+<ul>
+<li>解：
+<ul>
+<li>X86 体系结构中的内存管理机制
+<ul>
+<li>通过<strong>分段</strong>将<strong>逻辑地址</strong>转换为<strong>线性地址</strong>，通过<strong>分页</strong>将<strong>线性地址</strong>转换为<strong>物理地址</strong>。</li>
+<li>逻辑地址由两部分构成，一部分是<strong>段选择器</strong>，一部分是<strong>偏移</strong>。</li>
+<li><strong>段选择符</strong>存放在段寄存器中，如CS（存放代码段选择符）、SS（存放堆栈段选择符）、DS（存放数据段选择符）和ES、FS、GS（一般也用来存放数据段选择符）等；</li>
+<li>偏移与对应段描述符中的基地址相加就是<strong>线性地址</strong>。</li>
+<li>操作系统创建全局描述符表和提供逻辑地址，之后的分段操作x86的CPU会自动完成，并找到对应的线性地址。</li>
+<li><strong>从线性地址到物理地址的转换是CPU自动完成</strong>的，转化时使用的Page Directory和Page Table等需要操作系统提供。</li>
+</ul>
+</li>
+<li>X86 和 MIPS 在内存管理上的区别
+<ul>
+<li>TLB不命中：
+<ul>
+<li>MIPS触发TLB缺失和充填，然后CPU重新访问TLB</li>
+<li>x86硬件MMU索引获得页框号，直接输出物理地址，MMU充填TLB加快下次访问速度</li>
+</ul>
+</li>
+<li>分页方式不同：
+<ul>
+<li>一种MIPS系统内部只有一种分页方式</li>
+<li>x86的CPU支持三种分页模式</li>
+</ul>
+</li>
+<li>逻辑地址不同：
+<ul>
+<li>MIPS地址空间32位</li>
+<li>x86支持64位逻辑地址，同时提供转换为32位定址选项</li>
+</ul>
+</li>
+<li>段页式的不同：
+<ul>
+<li>MIPS同时包含了<strong>段</strong>和<strong>段页</strong>式两种地址使用方式</li>
+<li>在x86架构的保护模式下的内存管理中，<strong>分段是强制</strong>的，并不能关闭，而<strong>分页是可选</strong>的；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="thinking-a-1">Thinking A.1</h3>
+<blockquote>
+<p>在现代的 64 位系统中，提供了 64 位的字长，但实际上不是 64 位页式存 储系统。假设在 64 位系统中采用三级页表机制，页面大小 4KB。由于 64 位系统中字长为 8B，且页目录也占用一页，因此页目录中有 512 个页目录项，因此每级页表都需要 9 位。 因此在 64 位系统下，总共需要 3 × 9 + 12 = 39 位就可以实现三级页表机制，并不需要 64 位。</p>
+<p>现考虑上述 39 位的三级页式存储系统，虚拟地址空间为 512 GB，若三级页表的基地址为 PTbase，请计算：</p>
+<p>• 三级页表页目录的基地址。</p>
+<p>• 映射到页目录自身的页目录项（自映射）。</p>
+</blockquote>
+<ul>
+<li>
+<p>解：</p>
+<ul>
+<li>
+<p>这里贴一张周伯阳大佬的博客，佬佬解释得非常清晰：<a target="_blank" rel="noopener" href="https://augetyvolta.github.io/2023/03/29/%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86-%E9%A1%B5%E8%A1%A8%E8%87%AA%E6%98%A0%E5%B0%84/">AugetyVolta’s Blog 页目录自映射</a></p>
+<p><img src="/2023/04/10/BUAA-OS-2/level3ThinkingA.1.jpg" alt="level3ThinkingA.1"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="难点分析">难点分析</h2>
+<ul>
+<li>
+<p>cpu-tlb-memory 关系：</p>
+<p><img src="/2023/04/10/BUAA-OS-2/cpu-tlb-memoryRelation.jpg" alt="cpu-tlb-memoryRelation"></p>
+</li>
+<li>
+<p>两级页表结构：</p>
+<p><img src="/2023/04/10/BUAA-OS-2/levelTwoPageTable.jpg" alt="levelTwoPageTable"></p>
+</li>
+</ul>
+<h2 id="实验体会">实验体会</h2>
+<h3 id="exercise-2-1">Exercise 2.1</h3>
+<blockquote>
+<p>请参考代码注释，补全 mips_detect_memory 函数。 在实验中，从外设中获取了硬件可用内存大小 memsize，请你用内存大小 memsize 完 成总物理页数 npage 的初始化。</p>
+</blockquote>
+<ul>
+<li>由MIPSR3000文档得一个页表大小是4k，则 <code>npage = memsize / 4096;  </code> 但是，由于定义有 <code>PGSHIFT</code> ，则直接 <code>npage = memsize &gt;&gt; PGSHIFT;</code></li>
+</ul>
+<h3 id="exercise-2-2">Exercise 2.2</h3>
+<blockquote>
+<p>完成 include/queue.h 中空缺的函数 LIST_INSERT_AFTER。 其功能是将一个元素插入到已有元素之后，可以仿照 LIST_INSERT_BEFORE 函数来实 现。</p>
+</blockquote>
+<ul>
+<li>
+<p>理清结构体中的关系：</p>
+<p>指向下一个元素的指针 <code>le_next</code> ；</p>
+<p>指向前一个元素链表项 <code>le_next</code> 的指针 <code>le_prev</code>。【<code>le_prev</code> 是一个指针的指针!】</p>
+<p><img src="/2023/04/10/BUAA-OS-2/exercise2.2LIST.jpg" alt="exercise2.2LIST"></p>
+<blockquote>
+<p>注意：每一行都要加上“\” 哟~</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Insert the element &#x27;elm&#x27; *after* &#x27;listelm&#x27; which is already in the list. The &#x27;field&#x27;</span></span><br><span class="line"><span class="comment"> * name is the link element as above.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Hint:</span></span><br><span class="line"><span class="comment"> * Step 1: assign &#x27;elm.next&#x27; from &#x27;listelm.next&#x27;.</span></span><br><span class="line"><span class="comment"> * Step 2: if &#x27;listelm.next&#x27; is not NULL, then assign &#x27;listelm.next.pre&#x27; from a proper value.</span></span><br><span class="line"><span class="comment"> * Step 3: assign &#x27;listelm.next&#x27; from a proper value.</span></span><br><span class="line"><span class="comment"> * Step 4: assign &#x27;elm.pre&#x27; from a proper value.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LIST_INSERT_AFTER(listelm, elm, field)                                      \</span></span><br><span class="line"><span class="meta">	<span class="comment">/* Exercise 2.2: Your code here. */</span>  \</span></span><br><span class="line"><span class="meta">	do &#123;                                                                         \</span></span><br><span class="line"><span class="meta">		LIST_NEXT((elm), field) = LIST_NEXT((listelm), field);                     \</span></span><br><span class="line"><span class="meta">		<span class="keyword">if</span> (LIST_NEXT((listelm), field) != NULL) &#123;                      \</span></span><br><span class="line"><span class="meta">			LIST_NEXT((listelm), field)-&gt;field.le_prev = &amp;(LIST_NEXT((elm), field)); \</span></span><br><span class="line"><span class="meta">		&#125;                                                          \</span></span><br><span class="line"><span class="meta">		LIST_NEXT((listelm), field) = (elm);                                  \</span></span><br><span class="line"><span class="meta">		(elm)-&gt;field.le_prev = &amp;(LIST_NEXT((listelm), field));                \</span></span><br><span class="line"><span class="meta">	&#125; while (0)</span></span><br><span class="line">   <span class="comment">/*do &#123;</span></span><br><span class="line"><span class="comment">		elm的le_next = elm在链表中的下一个元素的地址;</span></span><br><span class="line"><span class="comment">		if ( elm不是链表尾) &#123;</span></span><br><span class="line"><span class="comment">			elm之后元素的le_prev = elm的le_next的地址;</span></span><br><span class="line"><span class="comment">		&#125;</span></span><br><span class="line"><span class="comment">		listelm的le_next = elm的地址;</span></span><br><span class="line"><span class="comment">		elm的le_prev = listelm的le_next的地址;</span></span><br><span class="line"><span class="comment">	&#125;while (0);*/</span>     </span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="exercise-2-3">Exercise 2.3</h3>
+<blockquote>
+<p>完成 page_init 函数。 请按照函数中的注释提示，完成上述三个功能。此外，这里也给出一些提示：</p>
+<ol>
+<li>使用链表初始化宏 LIST_INIT。</li>
+<li>将 freemem 按照 BY2PG 进行对齐（使用 ROUND 宏为 freemem 赋值）。</li>
+<li>将 freemem 以下页面对应的页控制块中的 pp_ref 标为 1。</li>
+<li>将其它页面对应的页控制块中的 pp_ref 标为 0 并使用 LIST_INSERT_HEAD 将 其插入空闲链表。</li>
+</ol>
+</blockquote>
+<ul>
+<li>
+<p>我的答案：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">page_init</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">	<span class="comment">/* Step 1: Initialize page_free_list. */</span></span><br><span class="line">	<span class="comment">/* Hint: Use macro `LIST_INIT` defined in include/queue.h. */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.3: Your code here. (1/4) */</span></span><br><span class="line">	LIST_INIT((&amp;page_free_list));</span><br><span class="line">	<span class="comment">/* 初始化空闲页表，及申请一块没有用过的地址*/</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 以下都是为了初始化 pages[] 页面控制块数组 */</span></span><br><span class="line">	<span class="comment">/* Step 2: Align `freemem` up to multiple of BY2PG. */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.3: Your code here. (2/4) */</span></span><br><span class="line">	freemem = ROUND(freemem, BY2PG);</span><br><span class="line">	<span class="comment">/* freemem = ROUND(待对齐地址freemem ，对齐方式为页面大小BY2PG)*/</span></span><br><span class="line">	<span class="comment">/*将当前已分配的地址上界 freemem 使用 ROUND 宏进行页对齐 */</span></span><br><span class="line">	<span class="comment">/* ROUND 在 types.h 中，作用是对第一个参数传入地址使用第二个参数对齐方式，及向上取整*/</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* Step 3: Mark all memory below `freemem` as used (set `pp_ref` to 1) */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.3: Your code here. (3/4) */</span></span><br><span class="line">	<span class="type">int</span> size = PADDR(freemem) / BY2PG; </span><br><span class="line">	<span class="comment">/* size表示已经分配出去的物理页面的数量</span></span><br><span class="line"><span class="comment">	   size = 已分配的物理内存 / 页面大小</span></span><br><span class="line"><span class="comment">	   由于 freemem 为内核虚拟地址，则需要使用 PADDR(freemem) 转化为物理地址</span></span><br><span class="line"><span class="comment">	   PADDR在mmu.h中，作用是将传入参数减去ULIM，得到物理地址，ULIM是用户态所访问的地址上限</span></span><br><span class="line"><span class="comment">	   从0x80010000开始是第一个物理页面的开始地址，一直到Physical Memory Max是最后一个物理页面的结束地址</span></span><br><span class="line"><span class="comment">	   回看kernel.lds，可见end被赋值为0x80400000,实际也就是从这里，我们开始分配freemem*/</span></span><br><span class="line">	<span class="type">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">        pages[i].pp_ref = <span class="number">1</span>; </span><br><span class="line">		<span class="comment">/*将已经分配出去的物理页控制块 pages[i] 的页面映射次数 pp_ref 标记为1*/</span></span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">/* Step 4: Mark the other memory as free. */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.3: Your code here. (4/4) */</span></span><br><span class="line">	<span class="keyword">for</span>(; i &lt; npage; i++) &#123;</span><br><span class="line">        pages[i].pp_ref = <span class="number">0</span>;</span><br><span class="line">		<span class="comment">/*将未分配出去的物理页控制块 pages[i] 的页面映射次数 pp_ref 标记为0*/</span></span><br><span class="line">        LIST_INSERT_HEAD((&amp;page_free_list), (pages + i), pp_link);</span><br><span class="line">		<span class="comment">/*LIST_INSERT_HEAD((空闲链表的地址), (页面控制块地址), 页面控制块的结构体成员);*/</span></span><br><span class="line">		<span class="comment">/*使用 LIST_INSERT_HEAD宏将空闲页面的页面控制块pages[]插入空闲页面链表page_free_list*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="exercise-2-4">Exercise 2.4</h3>
+<blockquote>
+<p>完成 page_alloc 函数。 在 page_init 函数运行完毕后，在 MOS 中如果想申请存储空间，都是通过这个函 数来申请分配。该函数的逻辑简单来说，可以表述为：</p>
+<ol>
+<li>
+<p>如果空闲链表没有可用页了，返回异常返回值。</p>
+</li>
+<li>
+<p>如果空闲链表有可用的页，取出第一页；初始化后，将该页对应的页控制块的 地址放到调用者指定的地方。</p>
+</li>
+</ol>
+<p>填空时，你可能需要使用链表宏 LIST_EMPTY 或函数 page2kva。</p>
+</blockquote>
+<ul>
+<li>
+<p>我的答案：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 将 page_free_list 空闲链表头部页控制块对应的物理页面分配出去，</span></span><br><span class="line"><span class="comment"> * 将其从空闲链表中移除，并清空对应的物理页面，</span></span><br><span class="line"><span class="comment"> * 最后将 pp 指向的空间赋值为这个页控制块的地址。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">page_alloc</span><span class="params">(<span class="keyword">struct</span> Page **new)</span> &#123;</span><br><span class="line">	<span class="comment">/* Step 1: Get a page from free memory. If fails, return the error code.*/</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *<span class="title">pp</span>;</span></span><br><span class="line">	<span class="comment">/* Exercise 2.4: Your code here. (1/2) */</span></span><br><span class="line">	<span class="keyword">if</span>(LIST_EMPTY((&amp;page_free_list))) &#123;</span><br><span class="line">		<span class="keyword">return</span> -E_NO_MEM;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		pp = LIST_FIRST((&amp;page_free_list));</span><br><span class="line">		<span class="comment">/*用LIST_FIRST将空闲链表头部页控制块对应的物理页面分配出去*/</span></span><br><span class="line">	&#125;</span><br><span class="line">	LIST_REMOVE(pp, pp_link);</span><br><span class="line">	<span class="comment">/*将其从空闲链表中移除*/</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Step 2: Initialize this page with zero.</span></span><br><span class="line"><span class="comment">	 * Hint: use `memset`. */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.4: Your code here. (2/2) */</span></span><br><span class="line">	<span class="built_in">memset</span>((<span class="type">void</span> *)page2kva(pp), <span class="number">0</span>, BY2PG);</span><br><span class="line">	<span class="comment">/*清空对应的物理页面 memset((void *)新申请的空闲页面的内核虚拟地址, 0, 页面大小);</span></span><br><span class="line"><span class="comment">	  page2kva从页面控制块，获得其对应的内核虚拟地址*/</span></span><br><span class="line">	*new = pp;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="exercise-2-5">Exercise 2.5</h3>
+<blockquote>
+<p>完成 page_free 函数。 提示：使用链表宏 LIST_INSERT_HEAD，将页结构体插入空闲页结构体链表。</p>
+</blockquote>
+<ul>
+<li>
+<p><code>void assert(int expression);</code> 允许诊断信息被写入到标准错误文件中。换句话说，它可用于在 C 程序中添加诊断。</p>
+<ul>
+<li><code>expression</code> – 这可以是一个变量或任何 C 表达式。如果 <code>expression</code> 为 TRUE，assert() 不执行任何动作。如果 <code>expression</code> 为 FALSE，assert() 会在标准错误 stderr 上显示错误消息，并中止程序执行。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">page_free</span><span class="params">(<span class="keyword">struct</span> Page *pp)</span> &#123;</span><br><span class="line">	assert(pp-&gt;pp_ref == <span class="number">0</span>);</span><br><span class="line">	<span class="comment">/*调用该函数的前提条件为 pp 指向页控制块对应的物理页面引用次数为 0</span></span><br><span class="line"><span class="comment">	（即该物理页面为空闲页面）*/</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Just insert it into &#x27;page_free_list&#x27;. */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.5: Your code here. */</span></span><br><span class="line">	LIST_INSERT_HEAD((&amp;page_free_list), (pp), pp_link);</span><br><span class="line">	<span class="comment">/*将其对应的页控制块重新插入到 page_free_list*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="exercise-2-6">Exercise 2.6</h3>
+<blockquote>
+<p>完成 pgdir_walk 函数。</p>
+<p>该函数的作用是：给定一个虚拟地址，在给定的页目录中查找这个虚拟地址对应的物 理地址，如果存在这一虚拟地址对应的页表项，则返回这一页表项的地址；如果不存在这 一虚拟地址对应的页表项（不存在这一虚拟地址对应的二级页表、即这一虚拟地址对应的页目录项为空或无效），则根据传入的参数进行创建二级页表，或返回空指针。 注意，这里可能会在页目录表项无效且 create 为真时，使用 page_alloc 创建一个页 表，此时应维护申请得到的物理页的 pp_ref 字段。</p>
+</blockquote>
+<ul>
+<li>
+<p>我的答案：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*将一级页表基地址 pgdir 对应的两级页表结构中 va 虚拟地址所在的二级页表项的指针存储在 ppte 指向的空间上</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">pgdir_walk</span><span class="params">(Pde *pgdir, u_long va, <span class="type">int</span> create, Pte **ppte)</span> &#123;</span><br><span class="line">	Pde *pgdir_entryp;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *<span class="title">pp</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Step 1: Get the corresponding page directory entry. */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.6: Your code here. (1/3) */</span></span><br><span class="line">	pgdir_entryp = pgdir + PDX(va);</span><br><span class="line">	<span class="comment">/* 计算页目录项的指针</span></span><br><span class="line"><span class="comment">	 * pgdir_entryp = 页目录基地址 + va所对的页目录项在页目录的偏移;</span></span><br><span class="line"><span class="comment">	 * 等价于&amp;pgdir[PDX(va)]*/</span> </span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Step 2: If the corresponding page table is not existent (valid) and parameter `create`</span></span><br><span class="line"><span class="comment">	 * is set, create one. Set the permission bits &#x27;PTE_D | PTE_V&#x27; for this new page in the</span></span><br><span class="line"><span class="comment">	 * page directory.</span></span><br><span class="line"><span class="comment">	 * If failed to allocate a new page (out of memory), return the error. */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.6: Your code here. (2/3) */</span></span><br><span class="line">	<span class="keyword">if</span>(((*pgdir_entryp) &amp; PTE_V) == <span class="number">0</span>) &#123; <span class="comment">//是否有效</span></span><br><span class="line">        <span class="keyword">if</span>(create == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (page_alloc(&amp;pp) &lt; <span class="number">0</span>) &#123; <span class="comment">//表示没有多余内存可供使用</span></span><br><span class="line">			    *ppte = <span class="literal">NULL</span>;</span><br><span class="line">				<span class="keyword">return</span> -E_NO_MEM;</span><br><span class="line">			&#125;</span><br><span class="line">			pp-&gt;pp_ref++;<span class="comment">//维护申请得到的物理页的pp_ref字段</span></span><br><span class="line">            (*pgdir_entryp) = (PTE_D | PTE_V | page2pa(pp));</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            *ppte = <span class="literal">NULL</span>;</span><br><span class="line">			<span class="keyword">return</span> -E_NO_MEM;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">/* (*pgdir_entryp)表示va对应的页目录项</span></span><br><span class="line"><span class="comment">       通过权限位 PTE_V 判断页目录的有效性;若页目录项无效，表示对应的二级页表不存在</span></span><br><span class="line"><span class="comment">	   if(((*pgdir_entryp) &amp; PTE_V) == 0) &#123; </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">		当create为1，表明此时的 pgdir_walk 用于获取二级页表项，</span></span><br><span class="line"><span class="comment">		所以当二级页表不存在的时候，需要创建二级页表</span></span><br><span class="line"><span class="comment">        if(create == 1) &#123;</span></span><br><span class="line"><span class="comment">            if (page_alloc(&amp;pp) &lt; 0) &#123; //表示没有多余内存可供使用，也可以使用 try函数来捕获异常，它在error.h中</span></span><br><span class="line"><span class="comment">			    *ppte = NULL;</span></span><br><span class="line"><span class="comment">				return -E_NO_MEM;</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">			pp-&gt;pp_ref++;//维护申请得到的物理页的pp_ref字段,即由0变成1</span></span><br><span class="line"><span class="comment">            (*pgdir_entryp) = (PTE_D | PTE_V | page2pa(pp));</span></span><br><span class="line"><span class="comment">			页目录项 = PTE_D | PTE_V | 二级页表的物理页号</span></span><br><span class="line"><span class="comment">			根据分配的二级页表，填写页目录项，页目录项的高20位需要填入 二级页表的物理页号</span></span><br><span class="line"><span class="comment">			使用 page2pa(pp) 即可由页面控制块地址pp 获取页面的物理地址，高20位即为物理页号</span></span><br><span class="line"><span class="comment">        &#125;else&#123;</span></span><br><span class="line"><span class="comment">            *ppte = NULL;</span></span><br><span class="line"><span class="comment">			return -E_NO_MEM;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Step 3: Assign the kernel virtual address of the page table entry to &#x27;*ppte&#x27;. */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.6: Your code here. (3/3) */</span></span><br><span class="line">	*ppte = (Pte *)KADDR(PTE_ADDR(*pgdir_entryp)) + PTX(va);</span><br><span class="line">	<span class="comment">/* 将 va 虚拟地址所在的二级页表项的指针存储在 ppte 指向的空间上</span></span><br><span class="line"><span class="comment">	   *ppte = va 虚拟地址所在的二级页表项的指针</span></span><br><span class="line"><span class="comment">	         = 二级页表基地址（指向二级页表的指针） + va所对的二级页表项在二级页表的偏移</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">		二级页表基地址（指向二级页表的指针）：</span></span><br><span class="line"><span class="comment">		        页目录项     -&gt;   二级页表的物理地址     -&gt;     二级页表的虚拟地址           -&gt;         指向二级页表的指针</span></span><br><span class="line"><span class="comment">			(*pgdir_entryp) 到 PTE_ADDR(*pgdir_entryp) 到 KADDR(PTE_ADDR(*pgdir_entryp)) 到 (Pte *)KADDR(PTE_ADDR(*pgdir_entryp))</span></span><br><span class="line"><span class="comment">			</span></span><br><span class="line"><span class="comment">		va所对的二级页表项在二级页表的偏移： PTX(va)	*/</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="exercise-2-7">Exercise 2.7</h3>
+<blockquote>
+<p>完成 page_insert 函数（补全 TODO 部分）。</p>
+</blockquote>
+<ul>
+<li>
+<p>我的答案：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 将一级页表基地址 pgdir 对应的两级页表结构中虚拟地址 va 映射到页控制块 pp 对应的物理页面，并将页表项权限为设置为 perm</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">page_insert</span><span class="params">(Pde *pgdir, u_int asid, <span class="keyword">struct</span> Page *pp, u_long va, u_int perm)</span> &#123;</span><br><span class="line">	Pte *pte;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Step 1: Get corresponding page table entry. */</span></span><br><span class="line">	pgdir_walk(pgdir, va, <span class="number">0</span>, &amp;pte);</span><br><span class="line">	<span class="comment">/*检查va是否存在映射，因为这里仅仅是检查，而不是创建，故而pgdir_walk函数的create = 0*/</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (pte &amp;&amp; (*pte &amp; PTE_V)) &#123; <span class="comment">/*如果存在的映射是有效的*/</span></span><br><span class="line">		<span class="comment">/*判断现有映射的页 pa2page(*pte)和需要插入的页pp是否相同</span></span><br><span class="line"><span class="comment">		  pa2page(*pte) 由于二级页表项的高20位表示它所对应的物理页面的页号，因此它可以作为页面的物理地址*/</span></span><br><span class="line">		<span class="keyword">if</span> (pa2page(*pte) != pp) &#123; </span><br><span class="line">			<span class="comment">/*如果不一样，则移除现有映射，插入新的页*/</span></span><br><span class="line">			page_remove(pgdir, asid, va);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">/*如果一样，则只需要更新一下映射的权限位*/</span></span><br><span class="line">			tlb_invalidate(asid, va);</span><br><span class="line">			<span class="comment">/*但是要将 TLB 中缓存的页表项删掉，下次加载va所在页式，TLB会重新从页表中加载这一页表项*/</span></span><br><span class="line">			*pte = page2pa(pp) | perm | PTE_V; <span class="comment">/*更新内存中的页表项*/</span></span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*页表项无效时，需要建立地址va到物理页面pp的映射，即更新地址va所对应的二级页表项*/</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Step 2: Flush TLB with &#x27;tlb_invalidate&#x27;. */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.7: Your code here. (1/3) */</span></span><br><span class="line">	tlb_invalidate(asid, va);</span><br><span class="line">	<span class="comment">/* 清除TLB中缓存的页表项*/</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Step 3: Re-get or create the page table entry. */</span></span><br><span class="line">	<span class="comment">/* If failed to create, return the error. */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.7: Your code here. (2/3) */</span></span><br><span class="line">	<span class="comment">/* 使用pgdir_walk 获取va对应的二级页表项的指针，此时create = 1，表示va所在二级页表不存在是，需要创建*/</span></span><br><span class="line">	<span class="keyword">if</span> (pgdir_walk(pgdir, va, <span class="number">1</span>, &amp;pte) == -E_NO_MEM)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> -E_NO_MEM;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Step 4: Insert the page to the page table entry with &#x27;perm | PTE_V&#x27; and increase its</span></span><br><span class="line"><span class="comment">	 * &#x27;pp_ref&#x27;. */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.7: Your code here. (3/3) */</span></span><br><span class="line">	<span class="comment">/*将虚拟地址va映射到页控制块pp对应的物理页面*/</span></span><br><span class="line">	(*pte) = page2pa(pp) | perm | PTE_V;</span><br><span class="line">	<span class="comment">/*填写va所对的页表项：(*pte) = 页面控制块pp对应的物理页面页号 | perm | PTE_V;</span></span><br><span class="line"><span class="comment">	                     页面控制块pp对应的物理页面页号 = page2pa(pp)*/</span></span><br><span class="line">	(pp-&gt;pp_ref)++; <span class="comment">/*维护物理页pp的pp_ref字段，由0变为1*/</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="exercise-2-8">Exercise 2.8</h3>
+<blockquote>
+<p>完成 kern/tlb_asm.S 中的 tlb_out 函数。该函数根据传入的参数（TLB 的 Key）找到对应的 TLB 表项，并将其清空。</p>
+<p>具体来说，需要在两个位置插入两条指令，其中一个位置为 tlbp，另一个位置为 tlbwi。</p>
+<p>因流水线设计架构原因，tlbp 指令的前后都应各插入一个 nop 以解决数据冒险。</p>
+</blockquote>
+<ul>
+<li>
+<p>我的答案：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*tlb_asm.S*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;asm/asm.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">LEAF(tlb_out)</span><br><span class="line">.<span class="built_in">set</span> noreorder</span><br><span class="line">	mfc0    t0, CP0_ENTRYHI  </span><br><span class="line">	<span class="comment">/*把当前VPN和ASID存储到$t0，用于函数结束时恢复CP0_ENTRYHI*/</span></span><br><span class="line">	mtc0    a0, CP0_ENTRYHI</span><br><span class="line">	<span class="comment">/*把调用函数时传入的VPN和ASID写进CP0_ENTRYHI*/</span></span><br><span class="line">	nop</span><br><span class="line">	<span class="comment">/* Step 1: Use &#x27;tlbp&#x27; to probe TLB entry */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.8: Your code here. (1/2) */</span></span><br><span class="line">	tlbp</span><br><span class="line">	<span class="comment">/*根据当前的CP0_ENTRYHI，查找TLB与之对应的表项，并将表项的索引存入CP0_INDEX*/</span></span><br><span class="line">	nop</span><br><span class="line">	<span class="comment">/* Step 2: Fetch the probe result from CP0.Index */</span></span><br><span class="line">	mfc0    t1, CP0_INDEX</span><br><span class="line">	<span class="comment">/*把tlbp的执行结果记录到$t1中，供下面判断*/</span></span><br><span class="line">.<span class="built_in">set</span> reorder</span><br><span class="line">	bltz    t1, NO_SUCH_ENTRY</span><br><span class="line">	<span class="comment">/*表示没有查到该表项*/</span></span><br><span class="line">.<span class="built_in">set</span> noreorder</span><br><span class="line">	mtc0    zero, CP0_ENTRYHI   <span class="comment">/*便于下面用tlbwi清空表项*/</span></span><br><span class="line">	mtc0    zero, CP0_ENTRYLO0  <span class="comment">/*便于下面用tlbwi清空表项*/</span></span><br><span class="line">	nop</span><br><span class="line">	<span class="comment">/* Step 3: Use &#x27;tlbwi&#x27; to write CP0.EntryHi/Lo into TLB at CP0.Index  */</span></span><br><span class="line">	<span class="comment">/* Exercise 2.8: Your code here. (2/2) */</span></span><br><span class="line">	tlbwi</span><br><span class="line">	<span class="comment">/*把为零的CP0_ENTRYHI和CP0_ENTRYLO赋值回表项*/</span></span><br><span class="line">.<span class="built_in">set</span> reorder</span><br><span class="line"></span><br><span class="line">NO_SUCH_ENTRY:</span><br><span class="line">	mtc0    t0, CP0_ENTRYHI</span><br><span class="line">	<span class="comment">/*把原来的VPN和ASID赋值回CP0_ENTRYHI*/</span></span><br><span class="line">	j       ra      <span class="comment">/*跳回去*/</span></span><br><span class="line">END(tlb_out)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="exercise-2-9">Exercise 2.9</h3>
+<blockquote>
+<p>完成 kern/tlbex.c 中的 _do_tlb_refill 函数。</p>
+</blockquote>
+<ul>
+<li>
+<p>我的答案：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 该函数是TLB重填过程的核心，是根据虚拟地址va和ASID查找页表，返回包含物理地址的页表项</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Pte _do_tlb_refill(u_long va, u_int asid) &#123;</span><br><span class="line">	Pte *pte;</span><br><span class="line">	<span class="comment">/* Hints:</span></span><br><span class="line"><span class="comment">	 *  Invoke &#x27;page_lookup&#x27; repeatedly in a loop to find the page table entry &#x27;pte&#x27; associated</span></span><br><span class="line"><span class="comment">	 *  with the virtual address &#x27;va&#x27; in the current address space &#x27;cur_pgdir&#x27;.</span></span><br><span class="line"><span class="comment">	 *</span></span><br><span class="line"><span class="comment">	 *  **While** &#x27;page_lookup&#x27; returns &#x27;NULL&#x27;, indicating that the &#x27;pte&#x27; could not be found,</span></span><br><span class="line"><span class="comment">	 *  allocate a new page using &#x27;passive_alloc&#x27; until &#x27;page_lookup&#x27; succeeds.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Exercise 2.9: Your code here. */</span></span><br><span class="line">	<span class="comment">/* 在循环中调用 page_lookup 查找虚拟地址va在当前进程页表中对应的页表项pte*/</span></span><br><span class="line">	<span class="keyword">while</span> (page_lookup(cur_pgdir, va, &amp;pte) == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/* 如果page_lookup返回NULL，表明pte找不到,</span></span><br><span class="line"><span class="comment">		   用passive_alloc为va所在的虚拟页面分配物理页面*/</span></span><br><span class="line">		passive_alloc(va, cur_pgdir, asid);</span><br><span class="line">		<span class="comment">/* cur_pgdir是在pmap.c中定义的全局变量，其中存储了当前进程一级页表基地址位于kseg0的虚拟地址*/</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> *pte;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="exercise-2-10">Exercise 2.10</h3>
+<blockquote>
+<p>完成 kern/tlb_asm.S 中的 do_tlb_refill 函数。</p>
+</blockquote>
+<ul>
+<li>见指导书P78</li>
+</ul>
+<h3 id="课上测试">课上测试</h3>
+<h4 id="知识点">知识点</h4>
+<ul>
+<li>
+<h5 id="遍历虚拟地址空间">遍历虚拟地址空间</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//已知Pde *pgdir</span></span><br><span class="line"><span class="keyword">for</span> (u_long i = <span class="number">0</span>; i &lt; <span class="number">1024</span>; i++) &#123; <span class="comment">//遍历页目录的1024项</span></span><br><span class="line">	Pde *pde = pgdir + i; <span class="comment">//第i个页目录项对应的虚拟地址</span></span><br><span class="line">	<span class="keyword">if</span> ((*pde) &amp; PTE_V) &#123; <span class="comment">//第i个页表有效</span></span><br><span class="line">		<span class="keyword">for</span> (u_long j = <span class="number">0</span>; j &lt; <span class="number">1024</span>; j++) &#123; <span class="comment">//遍历第i个页表的1024项</span></span><br><span class="line">			Pte *pte = (Pte*)KADDR(PTE_ADDR(*pde)) + j; <span class="comment">//第j个页表项对应的虚拟地址</span></span><br><span class="line">			<span class="keyword">if</span> ((*pte) &amp; PTE_V)) &#123; <span class="comment">//第j个页有效</span></span><br><span class="line">				<span class="comment">/* some code*/</span></span><br><span class="line">                <span class="comment">/*例如：</span></span><br><span class="line"><span class="comment">                1.将(*pte)页表项映射到“某物理地址”，且保留后面的所有12位offset</span></span><br><span class="line"><span class="comment">                (*pte) = ((某物理地址 / BY2PG) &lt;&lt; 12) | ((*pte) &amp; 0xfff);</span></span><br><span class="line"><span class="comment">					//上式作用等价于(*pte) = PTE_ADDR(da) | ((*pte) &amp; 0xfff);</span></span><br><span class="line"><span class="comment">				2.定向设置(*pte)页表项的权限位</span></span><br><span class="line"><span class="comment">				(*pte) = ((*pte) | PTE_SWP)  &amp; (~PTE_V);</span></span><br><span class="line"><span class="comment">				3.改变TLB中的(*pte)页表项（实际上是使它无效）</span></span><br><span class="line"><span class="comment">				tlb_invalidate(asid, (i &lt;&lt; 22) | (j &lt;&lt; 12) );</span></span><br><span class="line"><span class="comment">				    //tlb_invalidate(asid, va);</span></span><br><span class="line"><span class="comment">                */</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<h5 id="pde-pde-pte-pte-pte-addr-pdx-ptx">pde  (*pde)  pte  (*pte)  PTE_ADDR  PDX  PTX</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//已知Pde *pgdir</span></span><br><span class="line">Pde *pde = pgdir + i; </span><br><span class="line">   <span class="comment">/* pde:                   第i个页目录项对应的虚拟地址</span></span><br><span class="line"><span class="comment">      (*pde):                第i个页目录项内容</span></span><br><span class="line"><span class="comment">      PTE_ADDR(*pde):        第i个页目录项内容中的物理地址 = 第i个页表的虚拟基地址 </span></span><br><span class="line"><span class="comment">      KADDR(PTE_ADDR(*pde)): 第i个页表的物理基地址*/</span></span><br><span class="line">Pte *pte = (Pte*)KADDR(PTE_ADDR(*pde)) + j; </span><br><span class="line">   <span class="comment">/* pte:            第j个页表项对应的虚拟地址</span></span><br><span class="line"><span class="comment">      (*pde):         第j个页表项内容 */</span></span><br><span class="line">u_long va =  (i &lt;&lt; <span class="number">22</span>) | (j &lt;&lt; <span class="number">12</span>) | offset ; <span class="comment">// va 虚拟地址</span></span><br><span class="line">u_long i  = PDX(va);</span><br><span class="line">u_long j  = PTX(va);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="lab2-exam">lab2-exam</h4>
+<p>对于给定的页目录 <code>pgdir</code>，统计其包含的所有二级页表中满足以下条件的页表项：</p>
+<ol>
+<li>页表项有效；</li>
+<li>页表项映射的物理地址为给定的 Page *pp 对应的物理地址；</li>
+<li>页表项的权限包含给定的权限 perm_mask。</li>
+</ol>
+<h5 id="答案">答案</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">u_int <span class="title function_">page_perm_stat</span><span class="params">(Pde *pgdir, <span class="keyword">struct</span> Page *pp, u_int perm_mask)</span> &#123;</span><br><span class="line">	<span class="type">int</span> count = <span class="number">0</span>;<span class="comment">//统计满足条件的页表项的数量</span></span><br><span class="line">	Pde *pde;</span><br><span class="line">	Pte *pte;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1024</span>; i++) &#123;</span><br><span class="line">		pde = pgdir + i;</span><br><span class="line">		<span class="keyword">if</span>(!(*pde &amp; PTE_V)) &#123; <span class="comment">//当前页目录是否有效</span></span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j&lt; <span class="number">1024</span>;j++ )&#123;</span><br><span class="line">			pte = (Pte*)KADDR(PTE_ADDR(*pde)) + j;</span><br><span class="line">			<span class="keyword">if</span> (!(*pte &amp; PTE_V)) &#123; <span class="comment">////当前页表是否有效</span></span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (((perm_mask | (*pte))== (*pte)) </span><br><span class="line">                &amp;&amp; (((u_long)(page2pa(pp)))&gt;&gt;<span class="number">12</span>) == (((u_long)(PTE_ADDR(*pte)))&gt;&gt;<span class="number">12</span>))</span><br><span class="line">				count++;</span><br><span class="line">            <span class="comment">/*该层if判断条件等价于</span></span><br><span class="line"><span class="comment">            (perm_mask &amp; (*pte))== perm_mask</span></span><br><span class="line"><span class="comment">            (page2pa(pp) == PTE_ADDR(*pte))</span></span><br><span class="line"><span class="comment">            */</span></span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> count;</span><br><span class="line">&#125;	</span><br></pre></td></tr></table></figure>
+<h4 id="lab2-extra">lab2-extra</h4>
+<p>​        lab2-extra简单实现的<strong>交换</strong>技术，具体题目见文章<a target="_blank" rel="noopener" href="https://yanna-zy.gitee.io/file/2023-BUAA-OS-2-ExtraStem.pdf">Lab2-Extra-Swap题干</a>。</p>
+<p>​        题目题干中给出的思路和提示非常清晰，可以仔细品味，剩下的一些小细节，可以具体看下面答案中的注释。</p>
+<h5 id="答案">答案</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Interface for &#x27;Passive Swap Out&#x27;</span></span><br><span class="line"><span class="keyword">struct</span> Page *<span class="title function_">swap_alloc</span><span class="params">(Pde *pgdir, u_int asid)</span> &#123;</span><br><span class="line">	<span class="comment">// Step 1: Ensure free page</span></span><br><span class="line">	<span class="keyword">if</span> (LIST_EMPTY(&amp;page_free_swapable_list)) &#123;</span><br><span class="line">		<span class="comment">/* Your Code Here (1/3) */</span></span><br><span class="line">		u_char  *disk_swap = disk_alloc();</span><br><span class="line">		u_long da = (u_long)disk_swap;</span><br><span class="line">		<span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *<span class="title">p</span> =</span> pa2page(SWAP_PAGE_BASE);<span class="comment">//这里策略是只换0x3900000处的页</span></span><br><span class="line">		<span class="keyword">for</span> (u_long i = <span class="number">0</span>; i &lt; <span class="number">1024</span>; i++) &#123; <span class="comment">//改变所有页表中映射到0x3900000的页表项</span></span><br><span class="line">			Pde *pde = pgdir + i;</span><br><span class="line">			<span class="keyword">if</span> ((*pde) &amp; PTE_V) &#123;</span><br><span class="line">				<span class="keyword">for</span> (u_long j = <span class="number">0</span>; j &lt; <span class="number">1024</span>; j++) &#123;</span><br><span class="line">					Pte *pte = (Pte*)KADDR(PTE_ADDR(*pde)) + j;</span><br><span class="line">					<span class="keyword">if</span> (((*pte) &amp; PTE_V) &amp;&amp; (PTE_ADDR(*pte) == SWAP_PAGE_BASE) ) &#123;</span><br><span class="line">						(*pte) = ((da / BY2PG) &lt;&lt; <span class="number">12</span>) | ((*pte) &amp; <span class="number">0xfff</span>);</span><br><span class="line">						<span class="comment">//上式作用等价于(*pte) = PTE_ADDR(da) | ((*pte) &amp; 0xfff);保留后面的所有12位offset</span></span><br><span class="line">						(*pte) = ((*pte) | PTE_SWP)  &amp; (~PTE_V);</span><br><span class="line">						tlb_invalidate(asid, (i &lt;&lt; <span class="number">22</span>) | (j &lt;&lt; <span class="number">12</span>) ); <span class="comment">//tlb_invalidate(asid, va);</span></span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">memcpy</span>((<span class="type">void</span> *)da, (<span class="type">void</span> *)page2kva(p), BY2PG); </span><br><span class="line">		<span class="comment">//这里没有再删掉页控制块p对应的内容，是因为跳出该if之后，会执行剩下的语句，其中倒数第2句会帮助情空</span></span><br><span class="line">		LIST_INSERT_HEAD(&amp;page_free_swapable_list, p, pp_link);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Step 2: Get a free page and clear it</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *<span class="title">pp</span> =</span> LIST_FIRST(&amp;page_free_swapable_list);</span><br><span class="line">	LIST_REMOVE(pp, pp_link);</span><br><span class="line">	<span class="built_in">memset</span>((<span class="type">void</span> *)page2kva(pp), <span class="number">0</span>, BY2PG);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Interfaces for &#x27;Active Swap In&#x27;</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">is_swapped</span><span class="params">(Pde *pgdir, u_long va)</span> &#123;</span><br><span class="line">	<span class="comment">/* Your Code Here (2/3) */</span></span><br><span class="line">	Pde *pde = pgdir + PDX(va);</span><br><span class="line">	<span class="keyword">if</span> (*pde &amp; PTE_V) &#123;</span><br><span class="line">		Pte *pte = (Pte*)KADDR(PTE_ADDR(*pde)) + PTX(va);</span><br><span class="line">		<span class="keyword">if</span> ((*pte &amp; PTE_SWP) &amp;&amp; !(*pte &amp; PTE_V)) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">swap</span><span class="params">(Pde *pgdir, u_int asid, u_long va)</span> &#123;</span><br><span class="line">	<span class="comment">/* Your Code Here (3/3) */</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *<span class="title">pp</span> =</span> swap_alloc(pgdir, asid); <span class="comment">//可用于交换的内存块的页控制块</span></span><br><span class="line">	u_long da = PTE_ADDR(*((Pte*)KADDR(PTE_ADDR(*(pgdir + PDX(va)))) + PTX(va))); <span class="comment">//外存地址</span></span><br><span class="line">	<span class="built_in">memcpy</span>((<span class="type">void</span> *)page2kva(pp), (<span class="type">void</span> *)da, BY2PG);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (u_long i = <span class="number">0</span>; i &lt; <span class="number">1024</span>; i++) &#123; <span class="comment">//所有页表项记录的映射在外存的页表项改到新申请下来的swap的内存地址</span></span><br><span class="line">		Pde *pde = pgdir + i;</span><br><span class="line">		<span class="keyword">if</span> (*pde &amp; PTE_V) &#123;</span><br><span class="line">			<span class="keyword">for</span> (u_long j = <span class="number">0</span>; j &lt; <span class="number">1024</span>; j++) &#123;</span><br><span class="line">				Pte *pte = (Pte*)KADDR(PTE_ADDR(*pde)) + j;</span><br><span class="line">				<span class="keyword">if</span> (!(*pte &amp; PTE_V) &amp;&amp; (*pte &amp; PTE_SWP) &amp;&amp; (PTE_ADDR(*pte) == da)) &#123;</span><br><span class="line">					<span class="comment">//以下三句话含义均可类比于 swap_alloc</span></span><br><span class="line">					(*pte) = ((page2pa(pp) / BY2PG) &lt;&lt; <span class="number">12</span>) | ((*pte) &amp; <span class="number">0xfff</span>);</span><br><span class="line">					(*pte) = ((*pte) &amp; ~PTE_SWP) | PTE_V;</span><br><span class="line">					tlb_invalidate(asid, (i &lt;&lt; <span class="number">22</span>) | (j &lt;&lt; <span class="number">12</span>) );</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	disk_free((u_char *)da);</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="体会与感想">体会与感想</h3>
+<p>​        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>a</mi><mi>b</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">lab2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">a</span><span class="mord mathdefault">b</span><span class="mord">2</span></span></span></span> 好难啊，<strong>页表机制</strong>非常关键，<strong>函数架构</strong>比较复杂，无数的嵌套引用各个<em>函数</em>或<em>宏</em>，<strong>指针</strong>也是重中之重</p>
+<p>​       操作系统的启动是一层套一层慢慢向上累加。在对页面操作时，我们用到了两种函数，一种是在内核刚刚启动的时候，这一部分内存通常用于存放内存控制块和进程控制块等数据结构，只能使用基础的<code>alloc</code>，一种则是在为用户创造环境之后按根据用户申请页面的需要进行操作。这体现了操作系统启动中每一步都是紧密相连的。</p>
+<p>​        <strong>最重要的是就是学会阅读代码，以及尝试去使用现有的函数来完成新的需求</strong>，而不自己编写格外的函数或操作，在寻找现有的函数并使用的过程中就是在读懂代码。</p>
+<h3 id="debug方法">debug方法</h3>
+<h4 id="跳转">跳转</h4>
+<p>在命令行根目录输入：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctags -R *   <span class="comment"># 获得tags文件</span></span><br></pre></td></tr></table></figure>
+<p>在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mi>i</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">Vim</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span></span></span></span> 中跳转：打开要查看的代码文件，将光标移动到 <em>函数名</em> 或 <em>结构体</em> 上，按下 <code>Ctrl+]</code>，就可以跳转到 <em>函数</em> 或 <em>结构体</em> 的定义处。再按下 <code>Ctrl+O</code>（字母o）就可以返回跳转前的位置。</p>
+<h4 id="查找">查找</h4>
+<p>在命令行查找：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -r page_init ./   <span class="comment"># 在当前目录中查找所有文件（包括子目录）中有关page_init的文件</span></span><br></pre></td></tr></table></figure>
+<p>在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mi>i</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">Vim</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span></span></span></span> 中查找</p>
+<ol>
+<li>按<code>/</code></li>
+<li>输入搜索样式</li>
+<li>按<code>Enter</code>进行搜索</li>
+<li>按<code>n</code>搜索下一个匹配结果，或者<code>N</code>查找前面一个匹配结果</li>
+</ol>
+<h4 id="debugk-h法">debugk.h法</h4>
+<ol>
+<li>
+<p>新建 <code>include/debugk.h</code> :</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> _DBGK_H_</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _DBGK_H_</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;printk.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DEBUGK <span class="comment">// 可注释</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> DEBUGK</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DEBUGK(fmt, ...) do &#123; printk(<span class="string">&quot;debugk::&quot;</span> fmt, ##__VA_ARGS___);&#125; while (0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DEBUGK(...)</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">// !_DBGK_H_</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>要想debug哪个 <code>.c</code> 文件就在文件前面加上 <code>#include &lt;debugk.h&gt;</code></p>
+<p>在 <code>assert</code> 处想要输出的地方加上：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEBUGK(<span class="string">&quot;ckpt%d-待填入语句\n&quot;</span>, 数字表示是加的第几个DEBUGK);</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>运行对应的 <code>make &amp;&amp; make run</code>， 查看运行结果，如果卡在了哪里就能由 <code>debugk::ckpy</code> 看出来</p>
+</li>
+<li>
+<p>如果不行debug的内容输出影响对于整体程序的输出，可以注释掉 <code>include/debugk.h</code> 的下面这一行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* #define DEBUGK // 可注释 */</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="gxemul法">GXemul法</h4>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">make test lab=2_1 &amp;&amp; make run         </span><br><span class="line"><span class="comment"># 先笼统地看一下运行结果</span></span><br><span class="line"></span><br><span class="line">make test lab=2_1  <span class="comment"># 编译成相应的测试数据</span></span><br><span class="line">make objdump       <span class="comment"># 得到 target/mos.objdump 的反汇编文件</span></span><br><span class="line">make dbg           <span class="comment"># 进入调试模式</span></span><br><span class="line">r, 0               <span class="comment"># 查看CP0寄存器的值</span></span><br><span class="line">在target/mos.objdump中查看CP0寄存器中epc地址处的语句，向上找一下可以看到它是那个函数里面</span><br><span class="line">在注释的位置帮助下，可以确定到底是哪条语句出了问题</span><br><span class="line"></span><br><span class="line">breakpoint add [page_insert 或 0x80014560]    <span class="comment"># 添加断点</span></span><br><span class="line">c      <span class="comment"># 运行到下一个断点，如果没有到断点，则说明根本不会执行到断点函数处</span></span><br><span class="line">s [n]  <span class="comment"># 向后执行 n 条汇编指令</span></span><br><span class="line">unassemble  <span class="comment"># 导出某一个地址后续（或附近）的汇编指令序列</span></span><br><span class="line">dump [curenv 或 0x804320e8]       <span class="comment"># 导出某一个地址后续（或附近）的内存信息</span></span><br><span class="line">reg         <span class="comment"># 导出所有寄存器的值</span></span><br><span class="line">r, 0        <span class="comment"># 导出CP0的寄存器值</span></span><br><span class="line">tlbdump     <span class="comment"># 导出TLB内容</span></span><br><span class="line">trace       <span class="comment"># </span></span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">YannaZhang 张杨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/04/10/BUAA-OS-2/">http://example.com/2023/04/10/BUAA-OS-2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">YannaのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/BUAA-OS/">BUAA-OS</a></div><div class="post_share"><div class="social-share" data-image="/img/series1/4.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/03/27/%E9%93%83%E2%80%A2%E5%BA%8F%E6%9B%B2/" title="铃•序曲"><img class="cover" src="/img/default_cover6.png" onerror="onerror=null;src='/img/archive_img.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">铃•序曲</div></div></a></div><div class="next-post pull-right"><a href="/2023/04/12/BUAA-OO-2/" title="BUAA-OO-第二单元：电梯调度"><img class="cover" src="/img/series1/5.png" onerror="onerror=null;src='/img/archive_img.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">BUAA-OO-第二单元：电梯调度</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/03/19/BUAA-OS-0/" title="BUAA-OS-lab0"><img class="cover" src="/img/series1/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-19</div><div class="title">BUAA-OS-lab0</div></div></a></div><div><a href="/2023/03/19/BUAA-OS-1/" title="BUAA-OS-lab1"><img class="cover" src="/img/series1/2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-19</div><div class="title">BUAA-OS-lab1</div></div></a></div><div><a href="/2023/04/18/BUAA-OS-3/" title="BUAA-OS-lab3"><img class="cover" src="/img/series1/6.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-18</div><div class="title">BUAA-OS-lab3</div></div></a></div><div><a href="/2023/05/15/BUAA-OS-4/" title="BUAA-OS-lab4"><img class="cover" src="/img/series1/7.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-15</div><div class="title">BUAA-OS-lab4</div></div></a></div><div><a href="/2023/05/19/BUAA-OS-5/" title="BUAA-OS-lab5"><img class="cover" src="/img/series1/8.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-19</div><div class="title">BUAA-OS-lab5</div></div></a></div><div><a href="/2023/06/18/BUAA-OS-challenge/" title="BUAA-OS-lab4-challenge"><img class="cover" src="/img/series1/9.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-18</div><div class="title">BUAA-OS-lab4-challenge</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lab2%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A"><span class="toc-number">1.</span> <span class="toc-text">Lab2实验报告</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-2-1"><span class="toc-number">1.1.1.</span> <span class="toc-text">Thinking 2.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-2-2"><span class="toc-number">1.1.2.</span> <span class="toc-text">Thinking 2.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-2-3"><span class="toc-number">1.1.3.</span> <span class="toc-text">Thinking 2.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-2-4"><span class="toc-number">1.1.4.</span> <span class="toc-text">Thinking 2.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-2-5"><span class="toc-number">1.1.5.</span> <span class="toc-text">Thinking 2.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-2-6"><span class="toc-number">1.1.6.</span> <span class="toc-text">Thinking 2.6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-a-1"><span class="toc-number">1.1.7.</span> <span class="toc-text">Thinking A.1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%BE%E7%82%B9%E5%88%86%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">难点分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BD%93%E4%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">实验体会</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-2-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">Exercise 2.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-2-2"><span class="toc-number">1.3.2.</span> <span class="toc-text">Exercise 2.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-2-3"><span class="toc-number">1.3.3.</span> <span class="toc-text">Exercise 2.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-2-4"><span class="toc-number">1.3.4.</span> <span class="toc-text">Exercise 2.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-2-5"><span class="toc-number">1.3.5.</span> <span class="toc-text">Exercise 2.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-2-6"><span class="toc-number">1.3.6.</span> <span class="toc-text">Exercise 2.6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-2-7"><span class="toc-number">1.3.7.</span> <span class="toc-text">Exercise 2.7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-2-8"><span class="toc-number">1.3.8.</span> <span class="toc-text">Exercise 2.8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-2-9"><span class="toc-number">1.3.9.</span> <span class="toc-text">Exercise 2.9</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-2-10"><span class="toc-number">1.3.10.</span> <span class="toc-text">Exercise 2.10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BE%E4%B8%8A%E6%B5%8B%E8%AF%95"><span class="toc-number">1.3.11.</span> <span class="toc-text">课上测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">1.3.11.1.</span> <span class="toc-text">知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4"><span class="toc-number">1.3.11.1.1.</span> <span class="toc-text">遍历虚拟地址空间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#pde-pde-pte-pte-pte-addr-pdx-ptx"><span class="toc-number">1.3.11.1.2.</span> <span class="toc-text">pde  (*pde)  pte  (*pte)  PTE_ADDR  PDX  PTX</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lab2-exam"><span class="toc-number">1.3.11.2.</span> <span class="toc-text">lab2-exam</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AD%94%E6%A1%88"><span class="toc-number">1.3.11.2.1.</span> <span class="toc-text">答案</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lab2-extra"><span class="toc-number">1.3.11.3.</span> <span class="toc-text">lab2-extra</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AD%94%E6%A1%88"><span class="toc-number">1.3.11.3.1.</span> <span class="toc-text">答案</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%93%E4%BC%9A%E4%B8%8E%E6%84%9F%E6%83%B3"><span class="toc-number">1.3.12.</span> <span class="toc-text">体会与感想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#debug%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.13.</span> <span class="toc-text">debug方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B7%B3%E8%BD%AC"><span class="toc-number">1.3.13.1.</span> <span class="toc-text">跳转</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE"><span class="toc-number">1.3.13.2.</span> <span class="toc-text">查找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#debugk-h%E6%B3%95"><span class="toc-number">1.3.13.3.</span> <span class="toc-text">debugk.h法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gxemul%E6%B3%95"><span class="toc-number">1.3.13.4.</span> <span class="toc-text">GXemul法</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post_img.png')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By YannaZhang 张杨</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'sVaqAurlJUIUiRSl4GxSzMoi-gzGzoHsz',
+      appKey: 'BCXg41m5wCxza144wQyhXZzv',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="/js/sakura.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>

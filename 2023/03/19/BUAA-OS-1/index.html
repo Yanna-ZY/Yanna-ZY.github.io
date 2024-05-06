@@ -1,0 +1,645 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>BUAA-OS-lab1 | YannaのBlog</title><meta name="author" content="YannaZhang 张杨"><meta name="copyright" content="YannaZhang 张杨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lab1实验报告 思考题 Thinking 1.1  请阅读附录中的编译链接详解，尝试分别使用实验环境中的原生 x86 工具 链（gcc、ld、readelf、objdump 等）和 MIPS 交叉编译工具链（带有 mips-linux-gnu前缀），重复其中的编译和解析过程，观察相应的结果，并解释其中向 objdump 传入的参 数的含义。    解：   objdump 格式： 12objdu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUAA-OS-lab1">
+<meta property="og:url" content="http://example.com/2023/03/19/BUAA-OS-1/index.html">
+<meta property="og:site_name" content="YannaのBlog">
+<meta property="og:description" content="Lab1实验报告 思考题 Thinking 1.1  请阅读附录中的编译链接详解，尝试分别使用实验环境中的原生 x86 工具 链（gcc、ld、readelf、objdump 等）和 MIPS 交叉编译工具链（带有 mips-linux-gnu前缀），重复其中的编译和解析过程，观察相应的结果，并解释其中向 objdump 传入的参 数的含义。    解：   objdump 格式： 12objdu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/series1/2.png">
+<meta property="article:published_time" content="2023-03-19T08:22:12.000Z">
+<meta property="article:modified_time" content="2023-04-17T16:19:16.253Z">
+<meta property="article:author" content="YannaZhang 张杨">
+<meta property="article:tag" content="BUAA-OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/series1/2.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/03/19/BUAA-OS-1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":null},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":30,"languages":{"author":"作者: YannaZhang 张杨","link":"链接: ","source":"来源: YannaのBlog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'BUAA-OS-lab1',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-18 00:19:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/mouse.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/archive_img.png'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 扉页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴簿</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 签轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 编类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 曲籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-commenting"></i><span> 留音笺</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 卿</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 予</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post_img.png')"><nav id="nav"><span id="blog-info"><a href="/" title="YannaのBlog"><span class="site-name">YannaのBlog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 扉页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴簿</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 签轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 编类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 曲籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-commenting"></i><span> 留音笺</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 卿</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 予</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">BUAA-OS-lab1</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-19T08:22:12.000Z" title="发表于 2023-03-19 16:22:12">2023-03-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-17T16:19:16.253Z" title="更新于 2023-04-18 00:19:16">2023-04-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%BB%E5%BE%B7%EF%BC%88%E5%AD%A6%E4%B9%A0%EF%BC%89/">养德（学习）</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="BUAA-OS-lab1"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="lab1实验报告">Lab1实验报告</h1>
+<h2 id="思考题">思考题</h2>
+<h3 id="thinking-1-1">Thinking 1.1</h3>
+<blockquote>
+<p>请阅读附录中的编译链接详解，尝试分别使用实验环境中的原生 x86 工具 链（gcc、ld、readelf、objdump 等）和 MIPS 交叉编译工具链（带有 mips-linux-gnu前缀），重复其中的编译和解析过程，观察相应的结果，并解释其中向 objdump 传入的参 数的含义。</p>
+</blockquote>
+<ul>
+<li>
+<p>解：</p>
+<ul>
+<li>
+<p><code>objdump</code> 格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">objdump -DS 要反汇编的目标文件名 &gt; 导出文本文件名  </span><br><span class="line">/*反汇编所有section，并反汇编出源代码。*/</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-D</code>：反汇编所有的section；</li>
+<li><code>-d</code>：反汇编那些特定指令机器码的section；</li>
+<li><code>-S </code>：尽可能反汇编出源代码，尤其当编译的时候指定了<code>-g</code> 这种调试参数时，效果比较明显,隐含了<code>-d</code>参数;</li>
+<li><code>-s</code>：显示指定section的完整内容。默认所有的非空section都会被显示。</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<p>编写程序<code>hello.c</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello World!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>执行指令 <code>gcc -E hello.c</code> （只预处理）+ 重定向输出</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 由于原输出太长，这里只能留下很少很少的一部分。 */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">char</span> __u_char;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">short</span> <span class="type">int</span> __u_short;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">int</span> __u_int;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">int</span> __u_long;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">signed</span> <span class="type">char</span> <span class="type">__int8_t</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">char</span> <span class="type">__uint8_t</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">signed</span> <span class="type">short</span> <span class="type">int</span> <span class="type">__int16_t</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">short</span> <span class="type">int</span> <span class="type">__uint16_t</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">signed</span> <span class="type">int</span> <span class="type">__int32_t</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">int</span> <span class="type">__uint32_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">signed</span> <span class="type">long</span> <span class="type">int</span> <span class="type">__int64_t</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">int</span> <span class="type">__uint64_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IO_FILE</span> *<span class="title">stdin</span>;</span></span><br><span class="line"><span class="keyword">extern</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IO_FILE</span> *<span class="title">stdout</span>;</span></span><br><span class="line"><span class="keyword">extern</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IO_FILE</span> *<span class="title">stderr</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> <span class="title function_">printf</span> <span class="params">(<span class="type">const</span> <span class="type">char</span> *__restrict __format, ...)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello World!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>执行指令 <code>gcc -c hello.c</code> （只编译不链接）+ <code>objdump</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">hello.o: file format elf64-x86-64</span><br><span class="line"></span><br><span class="line">Disassembly of section .text:</span><br><span class="line"></span><br><span class="line">0000000000000000 &lt;main&gt;:</span><br><span class="line">0:  55                push %rbp</span><br><span class="line">1:  48 89 e5          mov %rsp,%rbp</span><br><span class="line">4:  bf 00 00 00 00    mov $0x0,%edi</span><br><span class="line">9:  e8 00 00 00 00    callq e &lt;main+0xe&gt;   </span><br><span class="line">                      #本该填写 printf 地址的位置上被填写了一串 0。</span><br><span class="line">e:  b8 00 00 00 00    mov $0x0,%eax</span><br><span class="line">13: 5d                pop %rbp</span><br><span class="line">14: c3                retq</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>执行指令 <code>gcc -o hello.c</code> （正常编译）+ <code>objdump</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">hello: file format elf64-x86-64</span><br><span class="line"></span><br><span class="line">Disassembly of section .init:</span><br><span class="line"></span><br><span class="line">00000000004003a8 &lt;_init&gt;:</span><br><span class="line">4003a8: 48 83 ec 08             sub $0x8,%rsp</span><br><span class="line">4003ac: 48 8b 05 0d 05 20 00    mov 0x20050d(%rip),%rax</span><br><span class="line">4003b3: 48 85 c0                test %rax,%rax</span><br><span class="line">4003b6: 74 05                   je 4003bd &lt;_init+0x15&gt;</span><br><span class="line">4003b8: e8 43 00 00 00          callq 400400 &lt;__gmon_start__@plt&gt;</span><br><span class="line">                                #填写printf地址处填写了puts@plt标记的位置</span><br><span class="line">4003bd: 48 83 c4 08             add $0x8,%rsp</span><br><span class="line">4003c1: c3                      retq</span><br><span class="line"></span><br><span class="line">Disassembly of section .plt:</span><br><span class="line"></span><br><span class="line">00000000004003d0 &lt;puts@plt-0x10&gt;:</span><br><span class="line">4003d0: ff 35 fa 04 20 00       pushq 0x2004fa(%rip)</span><br><span class="line">4003d6: ff 25 fc 04 20 00       jmpq *0x2004fc(%rip)</span><br><span class="line">4003dc: 0f 1f 40 00             nopl 0x0(%rax)</span><br><span class="line">#......</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>**对于拥有多个 c 文件的工程来说，编译器会首先将所有的 c 文件以文件为单位，编译成.o 文件。最后再将所有的.o 文件以及函数库链接在一起，形成最终的可执行文件。**如下图：</p>
+<p><img src="/2023/03/19/BUAA-OS-1/BianYiLianJie.jpg" alt="BianYiLianJie"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="thinking-1-2">Thinking 1.2</h3>
+<blockquote>
+<p>思考下述问题：</p>
+<p>• 尝试使用我们编写的 readelf 程序，解析之前在 target 目录下生成的内核 ELF 文 件。</p>
+<p>• 也许你会发现我们编写的 readelf 程序是不能解析 readelf 文件本身的，而我们刚 才介绍的系统工具 readelf 则可以解析，这是为什么呢？（提示：尝试使用 readelf -h，并阅读 tools/readelf 目录下的 Makefile，观察 readelf 与 hello 的不同）</p>
+</blockquote>
+<ul>
+<li>
+<p>解：</p>
+<ul>
+<li>
+<p>运行 <code>./tools/readelf/readelf ./target/mos</code> 指令得：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">0:0x0</span><br><span class="line">1:0x80010000</span><br><span class="line">2:0x80011cc0</span><br><span class="line">3:0x80011cd8</span><br><span class="line">4:0x80011cf0</span><br><span class="line">5:0x0</span><br><span class="line">6:0x0</span><br><span class="line">7:0x0</span><br><span class="line">8:0x0</span><br><span class="line">9:0x0</span><br><span class="line">10:0x0</span><br><span class="line">11:0x0</span><br><span class="line">12:0x0</span><br><span class="line">13:0x0</span><br><span class="line">14:0x0</span><br><span class="line">15:0x0</span><br><span class="line">16:0x0</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<ul>
+<li>
+<p>运行 <code>readelf -h readelf</code> 指令得：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">ELF 头：</span><br><span class="line">  Magic：   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 </span><br><span class="line">  类别:                              ELF64</span><br><span class="line">  数据:                              2 补码，小端序 (little endian)</span><br><span class="line">  Version:                           1 (current)</span><br><span class="line">  OS/ABI:                            UNIX - System V</span><br><span class="line">  ABI 版本:                          0</span><br><span class="line">  类型:                              DYN (Position-Independent Executable file)</span><br><span class="line">  系统架构:                          Advanced Micro Devices X86-64</span><br><span class="line">  版本:                              0x1</span><br><span class="line">  入口点地址：               0x1180</span><br><span class="line">  程序头起点：          64 (bytes into file)</span><br><span class="line">  Start of section headers:          14488 (bytes into file)</span><br><span class="line">  标志：             0x0</span><br><span class="line">  Size of this header:               64 (bytes)</span><br><span class="line">  Size of program headers:           56 (bytes)</span><br><span class="line">  Number of program headers:         13</span><br><span class="line">  Size of section headers:           64 (bytes)</span><br><span class="line">  Number of section headers:         31</span><br><span class="line">  Section header string table index: 30</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>运行 <code>./readelf readelf</code> 指令无任何输出结果</p>
+</li>
+<li>
+<p><code>Makefile</code> 中对于 <code>hello</code> <code>readelf</code> 的生成分别是：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">readelf: main.o readelf.o</span></span><br><span class="line">		  <span class="variable">$(CC)</span> <span class="variable">$^</span> -o <span class="variable">$@</span></span><br><span class="line"><span class="section">hello: hello.c</span></span><br><span class="line">          <span class="variable">$(CC)</span> <span class="variable">$^</span> -o <span class="variable">$@</span> -m32 -static -g</span><br></pre></td></tr></table></figure>
+<p><code>hello</code> 是静态的 <code>-static</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="thinking-1-3">Thinking 1.3</h3>
+<blockquote>
+<p>在理论课上我们了解到，MIPS 体系结构上电时，启动入口地址为 0xBFC00000 （其实启动入口地址是根据具体型号而定的，由硬件逻辑确定，也有可能不是这个地址，但 一定是一个确定的地址），但实验操作系统的内核入口并没有放在上电启动地址，而是按照 内存布局图放置。思考为什么这样放置内核还能保证内核入口被正确跳转到？ （提示：思考实验中启动过程的两阶段分别由谁执行。）</p>
+</blockquote>
+<ul>
+<li>
+<p>解：</p>
+<ul>
+<li>
+<p><em>bootloader</em> 将内核可执行文件拷贝到内存中，之后将控制权交给操作系统，只需要启动入口地址为 <em>bootloader</em> 的入口地址。</p>
+</li>
+<li>
+<p>我们的实验次采用 <em>GXemul</em> 。<em>GXemul</em> 支持加载ELF格式内核，所以启动流程被简化为加载内核到内存，之后跳转到内核的入口。</p>
+<ul>
+<li>
+<p>由 <em>Linker Script</em> (控制加载地址)完成。<em>Linker Script</em> 可以控制各节的加载地址。我们在 <code>kernel.lds</code> 中设置了程序各个生成地址：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SECTIONS &#123;</span><br><span class="line">	. = <span class="number">0x80010000</span>;</span><br><span class="line">	.text : &#123; *(.text) &#125;</span><br><span class="line">	.data : &#123; *(.data) &#125;</span><br><span class="line">	.bss : &#123; *(.bss) &#125;</span><br><span class="line">	bss_end = .;</span><br><span class="line">	. = <span class="number">0x80400000</span>;</span><br><span class="line">	end = . ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过这个控制，生成的程序各个 <em>section</em> 的位置就被调整到了我们所指定的地址上。 <em>segment</em> 是由 <em>section</em>组合而成的，<em>section</em> 的地址被调整了，那么最终 <em>segment</em> 的地址也会相应地被调整。 至此，我们通过 <code>lds</code> 文件控制各段(包括内核)被加载到我们预期的位置。与此同时<code>kernel.lds</code>规定了 <code>ENTRY(_start)</code> ，即把内核入口定为 <code>_start</code> 这个函数。</p>
+</li>
+<li>
+<p>我们通过对 <code>/init/start.S</code> 中 <code>_start</code> 函数的设置，就可以正确的跳转至 <code>mips_init</code> 函数:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">EXPORT(_start)</span><br><span class="line">.set at</span><br><span class="line">.set reorder</span><br><span class="line">	mtc0    zero, CP0_STATUS</span><br><span class="line">	li	sp, 0x80400000</span><br><span class="line">	jal mips_init</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="难点分析">难点分析</h2>
+<ul>
+<li>
+<p>反汇编：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objdump -DS 要反汇编的目标文件名 &gt; 导出文本文件名 </span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>获得文件类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file 要查看类型的目标文件名</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>ELF包含三种文件类型：</p>
+<p>可重定位文件<code>relocatable</code>、可执行文件<code>executable</code>、共享对象文件<code>shared object</code></p>
+</li>
+<li>
+<p>ELF文件结构：ELF头 + 段头表segment + 节头表section</p>
+<ul>
+<li>
+<p>段头表segment ：运行时刻使用</p>
+<p>​            组成可执行文件或者可共享文件，在运行时为加载器提供信息</p>
+</li>
+<li>
+<p>节头表section：编译和链接时刻使用</p>
+<p>​             组成可重定位文件，参与可执行文件和可共享文件的链接</p>
+<ul>
+<li>在链接过程中，目标文件被 看成节的集合，并使用节头表来描述各个节的组织。换句话说，节记录了在链接过程中所需要的 必要信息。其中最为重要的三个节为 <code>.text</code> 、<code>.data</code> 、<code>.bss</code>。这三个节的意义是必须要掌握的：
+<ul>
+<li><code>.text</code> 保存可执行文件的操作指令；</li>
+<li><code>.data</code> 保存已初始化的全局变量和静态变量；</li>
+<li><code>.bss</code> 保存未初始化的全局变量和静态变量。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>Offset</code> 代表该段（segment）的数据相对于 ELF 文件的偏移。</p>
+<p><code>VirtAddr</code> 代表该段最终需要被加载到内存的哪个位置。</p>
+<p><code>FileSiz</code> 代表该段的 数据在文件中的长度。</p>
+<p><code>MemSiz</code> 代表该段的数据在内存中所应当占的大小。</p>
+<p><code>Section to Segment mapping</code> 表明每个段各自含有的节。</p>
+<blockquote>
+<p><code>MemSiz</code> 永远大于等于 <code>FileSiz</code>。若 <code>MemSiz</code> 大于 <code>FileSiz</code>，则操作系统在 加载程序的时候，会首先将文件中记录的数据加载到对应的 <code>VirtAddr</code> 处。之后，向内存 中填 0, 直到该段在内存中的大小达到 <code>MemSiz</code> 为止。</p>
+</blockquote>
+</li>
+<li>
+<p>虚拟地址（virtual address）= 程序地址（program address）= 逻辑地址</p>
+<p>物理地址（physical address）</p>
+</li>
+<li>
+<table>
+<thead>
+<tr>
+<th>区域名称</th>
+<th>可用状态</th>
+<th>大小</th>
+<th>地址变化</th>
+<th>是否cache</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kseg2<br> 0xC0000000-0xFFFFFFFF</td>
+<td>内核态</td>
+<td>1GB</td>
+<td>MMU中的TLB</td>
+<td>通过cache</td>
+</tr>
+<tr>
+<td>kseg1<br>0xA0000000-0xBFFFFFFF</td>
+<td>内核态</td>
+<td>512MB</td>
+<td>高三位清零</td>
+<td>不过</td>
+</tr>
+<tr>
+<td>kseg0<br>0x80000000-0x9FFFFFFF</td>
+<td>内核态</td>
+<td>512MB</td>
+<td>最高位清零</td>
+<td>通过cache</td>
+</tr>
+<tr>
+<td>kuseg<br>0x00000000-0x7FFFFFFF</td>
+<td>用户态+内核态</td>
+<td>2GB</td>
+<td>MMU中的TLB</td>
+<td>通过cache</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>在 <code>include/mmu.h</code> 里有我们的 MOS 操作系统内核完整的内存布局图，其 中 <code>KERNBASE</code> 是内核镜像的起始虚拟地址，即 <code>0x80010000</code>。</p>
+</blockquote>
+</li>
+<li>
+<p>大小端数据存储方式：</p>
+<img src="/2023/03/19/BUAA-OS-1/DaDuanXiaoDuan.jpg" alt="DaDuanXiaoDuan" style="zoom:67%;">
+<blockquote>
+<p>数据在存储空间内的存储位置不发生变化。所以我们在处理大端文件时，取出数据的位置与小端无异，只是需要将取出的数据进行大小端转换进行。</p>
+</blockquote>
+<ul>
+<li>
+<p>大小端转换：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> __SWP16(A)   (( ((uint16)(A) &amp; 0xff00) &gt;&gt; 8)    | \  </span></span><br><span class="line">(( (uint16)(A) &amp; <span class="number">0x00ff</span>) &lt;&lt; <span class="number">8</span>))  </span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __SWP32(A)   ((( (uint32)(A) &amp; 0xff000000) &gt;&gt; 24) | \  </span></span><br><span class="line">(( (uint32)(A) &amp; <span class="number">0x00ff0000</span>) &gt;&gt; <span class="number">8</span>)   | \  </span><br><span class="line">(( (uint32)(A) &amp; <span class="number">0x0000ff00</span>) &lt;&lt; <span class="number">8</span>)   | \  </span><br><span class="line">(( (uint32)(A) &amp; <span class="number">0x000000ff</span>) &lt;&lt; <span class="number">24</span>)) </span><br><span class="line">    </span><br><span class="line"><span class="comment">//或</span></span><br><span class="line">    </span><br><span class="line"><span class="type">int</span> <span class="title function_">little2big</span><span class="params">(<span class="type">int</span> le)</span> &#123;  <span class="comment">//小端转大端</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (le &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">24</span> </span><br><span class="line">            | (le &amp; <span class="number">0xff00</span>) &lt;&lt; <span class="number">8</span> </span><br><span class="line">            | (le &amp; <span class="number">0xff0000</span>) &gt;&gt; <span class="number">8</span> </span><br><span class="line">            | (le &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xff</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">big2little</span><span class="params">(<span class="type">int</span> be)</span>   <span class="comment">//大端转小端</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> ((be &gt;&gt; <span class="number">24</span>) &amp;<span class="number">0xff</span> ) </span><br><span class="line">        | ((be &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF00</span>) </span><br><span class="line">        | ((be &lt;&lt; <span class="number">8</span>) &amp; <span class="number">0xFF0000</span>) </span><br><span class="line">        | ((be &lt;&lt; <span class="number">24</span>));    </span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>判断大小端：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">is_byteorder</span><span class="params">(<span class="type">int</span>* p)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> *(<span class="type">char</span>*)p;<span class="comment">//强制类型转换，将精度跳得更高一点</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> n = <span class="number">1</span>;</span><br><span class="line">	<span class="type">int</span> ret = is_byteorder(&amp;n);</span><br><span class="line">	<span class="keyword">if</span> (ret == <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;小端\n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;大端\n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>当函数参数列表末尾有省略号时，该函数即有变长的参数表。</p>
+<p><code>stdarg.h</code> 头文件中为处理变长参数表定义了一组宏和变量类型如下：</p>
+<ul>
+<li>
+<p><code>va_list</code>，变长参数表的变量类型；</p>
+</li>
+<li>
+<p><code>va_start(va_list ap, lastarg)</code>，用于初始化变长参数表的宏 ( <code>lastarg</code> 为该函数最后一个命名的形式参数）；</p>
+</li>
+<li>
+<p><code>va_arg(va_list ap, 类型)</code>，用于取变长参数表下一个参数的宏；</p>
+<p>例如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> num;</span><br><span class="line">num = va_arg(ap, <span class="type">int</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>va_end(va_list ap)</code>，结束使用变长参数表的宏。</p>
+</li>
+</ul>
+<p>应用示例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">printk</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *fmt, ...)</span> &#123;</span><br><span class="line">	va_list ap;</span><br><span class="line">	va_start(ap, fmt);</span><br><span class="line">	vprintfmt(outputk, <span class="literal">NULL</span>, fmt, ap);</span><br><span class="line">	va_end(ap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>readelf的基本用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">readelf -S 编译产物的文件名      //用处查看编译产物的节的位置</span><br><span class="line">readelf -S 编译产物的文件名      //用处查看编译产物的入口的是否被正确设置</span><br><span class="line">                              //（先看“入口”，再看下面哪个函数的地址和“入口”一样)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>GXemul用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make dbg 后    unassemble      //把pc位置的内存反汇编为汇编，第一句则是入口</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>vim使用技巧</p>
+<ul>
+<li>
+<p>命令模式下，<code>/word</code>   文件下寻找一个名称为 <code>word</code> 的字符串。</p>
+</li>
+<li>
+<p>可视模式下，用鼠标</p>
+<table>
+<thead>
+<tr>
+<th>输入</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>d</td>
+<td>剪切选择文本</td>
+</tr>
+<tr>
+<td>y</td>
+<td>复制选择文本</td>
+</tr>
+<tr>
+<td>p</td>
+<td>粘贴选择文本</td>
+</tr>
+<tr>
+<td>u</td>
+<td>复原前一个动作</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="实验体会">实验体会</h2>
+<h3 id="exercise-1-1">Exercise 1.1</h3>
+<blockquote>
+<p>阅读 tools/readelf 目录下的 elf.h、readelf.c 和 main.c 文件，并补全 readelf.c 中缺少的代码。readelf 函数需要输出 ELF 文件中所有节头中的地址信息，对 于每个节头，输出格式为 “%d:0x%x\n”，其中的 %d 和 %x 分别代表序号和地址。</p>
+<p>正确完成 readelf.c 之后，在 tools/readelf 目录下执行 make 命令，即可生成可 执行文件 readelf，它接受文件名作为参数，对 ELF 文件进行解析。可以执行 make hello 生成测试用的 ELF 文件 hello，然后运行 ./readelf hello 来测试 readelf。</p>
+</blockquote>
+<ul>
+<li>
+<p>【下图写错了应该都是<strong>节头表</strong>】</p>
+<p><img src="/2023/03/19/BUAA-OS-1/exercise1.1elf.jpg" alt="exercise1.1elf"></p>
+<blockquote>
+<ol>
+<li><code>Elf32_Ehdr</code>是ELF文件头；<code>Elf32_Shdr</code>是section节头表表项；<code>Elf32_Phdr</code>是segment段头表表项；</li>
+<li>一个节头表是很多个节头表表项组成；</li>
+<li><strong>节</strong>  不等于   <strong>节头</strong>  不等于  <strong>节头表</strong>  不等于  <strong>节头表表项</strong></li>
+<li>文件头的e_shoff是<strong>节头表</strong>所在处与文件头的偏移； 节头表表项的sh_offset是<strong>节</strong>的文件内偏移；</li>
+<li>文件头的e_shentsize是<strong>节头表表项</strong>的大小； 节头表表项的sh_entsize是指：某些节的内部是一个表，那个表的表项大小是 sh_entsize，并不是节头表项的大小。</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>我的答案：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//......</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">readelf</span><span class="params">(<span class="type">const</span> <span class="type">void</span> *binary, <span class="type">size_t</span> size)</span> &#123;</span><br><span class="line">	Elf32_Ehdr *ehdr = (Elf32_Ehdr *)binary;<span class="comment">//ehdr是ELF程序头地址</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">	<span class="comment">// Get the address of the section table, the number of section headers and the size of a</span></span><br><span class="line">	<span class="comment">// section header.</span></span><br><span class="line">	<span class="type">const</span> <span class="type">void</span> *sh_table;</span><br><span class="line">	Elf32_Half sh_entry_count;</span><br><span class="line">	Elf32_Half sh_entry_size;</span><br><span class="line">	<span class="comment">/* Exercise 1.1: Your code here. (1/2) */</span></span><br><span class="line">	sh_table = binary + ehdr-&gt;e_shoff;  <span class="comment">//节头表第一项的地址</span></span><br><span class="line">	sh_entry_count = ehdr-&gt;e_shnum;     <span class="comment">//节头表一共有多少项</span></span><br><span class="line">	sh_entry_size = ehdr-&gt;e_shentsize;  <span class="comment">//节头表每一项是多大</span></span><br><span class="line">	<span class="comment">// For each section header, output its index and the section address.</span></span><br><span class="line">	<span class="comment">// The index should start from 0.</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; sh_entry_count; i++) &#123;</span><br><span class="line">		<span class="type">const</span> Elf32_Shdr *shdr;</span><br><span class="line">		<span class="type">unsigned</span> <span class="type">int</span> addr;</span><br><span class="line">		<span class="comment">/* Exercise 1.1: Your code here. (2/2) */</span></span><br><span class="line">		shdr = (Elf32_Shdr*)(sh_table + i*sh_entry_size);  <span class="comment">//当前要输出的节头项</span></span><br><span class="line">		addr = shdr-&gt;sh_addr;                              <span class="comment">//待输出的节头项地址</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d:0x%x\n&quot;</span>, i, addr);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><em><strong>PS</strong></em>：</p>
+<p>​        我们在运行自己编写的 <code>readelf</code> 时，要在前面加上 <code>./</code> ，否则会默认运行一个随编译工具链提供的工具，因为它也叫 <code>readelf</code> ，它是用来解析一个或者多个 ELF 文件的信息。我们可以通过它的选项来控制显示哪些信息，用法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">readelf [option(s)] &lt;elf-file(s)&gt;</span><br></pre></td></tr></table></figure>
+<p>例如：<code>readelf -S hello</code></p>
+<blockquote>
+<p><strong>当我们不确定自己编写的 <code>readelf.c</code> 文件是否正确的时候，可以用上述 <code>readelf</code> 来验证。</strong></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="exercise-1-2">Exercise 1.2</h3>
+<blockquote>
+<p>填写 kernel.lds 中空缺的部分，在 Lab1 中，只需要填补.text、.data 和.bss 节，将内核调整到正确的位置上即可。</p>
+</blockquote>
+<ul>
+<li>
+<p>程序执行的第一条指令的地址称为入口 地址（entrypoint）。我们的实验就在 <code>kernel.lds</code> 中通过 <code>ENTRY(_start)</code> 来设置程序入口为<code>_start</code>。</p>
+</li>
+<li>
+<p>我的答案：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SECTIONS &#123;</span><br><span class="line">	<span class="comment">/* Exercise 3.10: Your code here. */</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* fill in the correct address of the key sections: text, data, bss. */</span></span><br><span class="line">	<span class="comment">/* Exercise 1.2: Your code here. */</span></span><br><span class="line">	. = <span class="number">0x80010000</span>;</span><br><span class="line">	.text : &#123; *(.text) &#125;</span><br><span class="line">	.data : &#123; *(.data) &#125;</span><br><span class="line">	.bss : &#123; *(.bss) &#125;</span><br><span class="line">	bss_end = .;</span><br><span class="line">	. = <span class="number">0x80400000</span>;</span><br><span class="line">	end = . ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><em><strong>PS</strong></em>：</p>
+<blockquote>
+<p>注意 Linker Script 文件编辑时“=”两边的空格哦！</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="exercise-1-3">Exercise 1.3</h3>
+<blockquote>
+<p>完成 init/start.S 中空缺的部分。设置栈指针，跳转到 mips_init 函数。</p>
+<p>执行 gxemul -E testmips -C R3000 -M 64 target/mos 运行仿真，其中 target/mos 是我们构建生成的内核 ELF 镜像文件的路径。</p>
+<p>在我们的实验中，也可以使用命令 make run 来运行 GXemul，或使用命令 make dbg 在调试模式下运行 GXemul。</p>
+</blockquote>
+<ul>
+<li>
+<p>我的答案：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">EXPORT(_start)  #函数声明</span><br><span class="line">.set at         #允许汇编器使用 at 寄存器</span><br><span class="line">.set reorder    #允许对接下来的代码进行重排序</span><br><span class="line">	/* disable interrupts */</span><br><span class="line">	mtc0    zero, CP0_STATUS   #禁用了外部中断</span><br><span class="line"></span><br><span class="line">	/* hint: you can reference the memory layout in include/mmu.h */</span><br><span class="line">	/* set up the kernel stack */</span><br><span class="line">	/* Exercise 1.3: Your code here. (1/2) */</span><br><span class="line">	li	sp, 0x80400000         #由mmu.h得到stack的起始地址为0x80400000</span><br><span class="line">	/* jump to mips_init */</span><br><span class="line">	/* Exercise 1.3: Your code here. (2/2) */</span><br><span class="line">	jal mips_init</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>通过 <code>grep</code> 搜索，我们可以在 <code>init/init.c</code> 中发现 <code>mips_init</code> 函数。</p>
+</li>
+</ul>
+<h3 id="exercise-1-4">Exercise 1.4</h3>
+<blockquote>
+<p>阅读相关代码和下面对于函数规格的说明，补全 lib/print.c 中 vprintfmt() 函数中两处缺失的部分来实现字符输出。第一处缺失部分：找到% 并分析输出格式; 第二处 缺失部分：取出参数，输出格式串为 <code>%[flags][width][length]</code> 的情况。</p>
+</blockquote>
+<ul>
+<li>
+<p>重点变量：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> width; <span class="comment">// 标记输出宽度</span></span><br><span class="line"><span class="type">int</span> long_flag; <span class="comment">// 标记是否为 long 型</span></span><br><span class="line"><span class="type">int</span> neg_flag; <span class="comment">// 标记是否为负数</span></span><br><span class="line"><span class="type">int</span> ladjust; <span class="comment">// 标记是否左对齐</span></span><br><span class="line"><span class="type">char</span> padc; <span class="comment">// 填充多余位置所用的字符</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2023/03/19/BUAA-OS-1/printk.jpg" alt="printk"></p>
+</li>
+<li>
+<p>当 <em>Exercise 1.2</em> 、 <em>Exercise 1.3</em> 、 <em>Exercise 1.4</em> 都完成的时候，可以用 <code>make &amp;&amp; make run</code> 来检验它的结果是否正确，若正确应该输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init.c: mips_init() is called</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>make test lab=x_y</code> ： 装载 labx 的第 y 个测试用例，编译出相应的内核 ELF ，之后使用 make run 可查 看运行结果是否符合预期 示例： <code>make test lab=1_2 &amp;&amp; make run</code></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="体会与感想">体会与感想</h3>
+<p>​       lab1花费时间与lab0相似，由于实验平台仍不太熟悉，补充代码前依旧迟迟不敢开始。在实现printf时需要阅读三个文件的代码，切换起来有些不方便，导致浪费了较多时间。</p>
+<p>​       <strong>在后续编写实验报告的时候，我突然意识到：对tmux的使用非常熟悉，完全忘记了可以使用分屏来看代码，而不是傻乎乎地一次次切换！</strong></p>
+<p>​       阅读发现，文件的每一个代码段，都大量使用宏定义和一些全局变量，需要手动grep去查找，虽然说这样是为了代码的可移植性，容错性更高，但是在实际阅读时仍然对于很多宏理解不清楚甚至混淆。</p>
+<p>​        给出的代码一般都预先定义好了变量，但由于不能理解变量名称（比如不知道带ptr的变量是指针），我在面对一块待补充的部分时有些茫然，在学习了一些变量命名规范后发现给出的变量名已经暗中提示了相关的操作，甚至提示了变量的数据类型。</p>
+<p>​       填补代码不仅仅意味着会填所缺陷的代码就完工了，往往先要学习了解较多的预置知识，并且弄清楚其他的文件、宏定义、函数，了解各个文件、函数之间的层次关系，相较于以前一个C程序就可以解决的问题，我们还是需要明晰多文件是如何划分的，它们又是怎么协同完成操作系统的启动的。</p>
+<p>​</p>
+<h2 id="课上测试">课上测试</h2>
+<p>​        经过两次上机测试，悟出一个道理：从本届（21级）开始OS课程大幅度改版，于是和往年上机题几乎完全不一样，往年题参考价值大幅度下降，甚至重点考点也会有些许变化。【莫问小女子如何得知，问就是血的教训~】</p>
+<p>​         lab1课上测试我依旧是过了lab1-exam，但是lab1-extra只得了75分，下面具体阐释一下有关lab1-extra的注意点：</p>
+<h3 id="lab1-extra">lab1-extra</h3>
+<p>​         题目：模仿 <code>printk</code> 函数的实现，来完成函数 <code>sprintf</code> 。</p>
+<h4 id="知识点：回调函数">知识点：回调函数</h4>
+<ul>
+<li>
+<p>callback函数的作用：复用相同代码</p>
+</li>
+<li>
+<p><code>vprintfmt</code> 和 <code>data</code> 参数的作用：传递callback执行上下文信息</p>
+<img src="/2023/03/19/BUAA-OS-1/printkHuiDiaoFunc.jpg" alt="printkHuiDiaoFunc" style="zoom:67%;">
+<ul>
+<li>
+<p>在 <code>lib/print.c</code> 中,</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vprintfmt</span><span class="params">(<span class="type">fmt_callback_t</span> out, <span class="type">void</span> *data, <span class="type">const</span> <span class="type">char</span> *fmt, va_list ap)</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在 <code>include/print.h</code> 中,</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(*<span class="type">fmt_callback_t</span>)</span><span class="params">(<span class="type">void</span> *data, <span class="type">const</span> <span class="type">char</span> *buf, <span class="type">size_t</span> len)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>printk</code> 中使用 <code>printcharc</code> 函数，通过使用命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -R printcharc #-R的意思是在多个子目录中找</span><br></pre></td></tr></table></figure>
+<p>得到在 <code>kern/console.c</code> 中的函数 <code>printcharc</code> 的具体实现代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//printcharc.c</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">printcharc</span><span class="params">(<span class="type">char</span> ch)</span> &#123;</span><br><span class="line">    *((<span class="keyword">volatile</span> <span class="type">char</span> *)(KSEG1 + DEV_CONS_ADDRESS + DEV_CONS_PUTGETCHAR)) = ch;</span><br><span class="line">    <span class="comment">//volatile是易变的   该语句是向某内存地址写入的一条语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="答案">答案</h4>
+<p>​        对于 <code>printk</code> 中使用 <code>printcharc</code> 函数来说，它使用的串口赋值，可以让它每次输出之后，由硬件来自动实现后移一位；但是对于 <code>sprintf</code> 来说，它没有这样的后移功能，因此我们要考核的关键就是——实现指针后移。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//answer</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;print.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">outputknew</span><span class="params">(<span class="type">void</span> *data, <span class="type">const</span> <span class="type">char</span> *buf, <span class="type">size_t</span> len)</span> &#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        (*data) = buf[i];</span><br><span class="line">        data++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">sprintf</span><span class="params">(<span class="type">char</span> *buf, <span class="type">const</span> <span class="type">char</span> *fmt, ...)</span> &#123;</span><br><span class="line">	va_list ap;</span><br><span class="line">	va_start(ap, fmt);</span><br><span class="line">    </span><br><span class="line">    <span class="type">char</span> *content = buf;</span><br><span class="line">	vprintfmt(outputknew, &amp;context, fmt, ap);</span><br><span class="line">    *context = <span class="string">&#x27;\0&#x27;</span>; <span class="comment">//为了在后面用context - buf </span></span><br><span class="line">    </span><br><span class="line">	va_end(ap);</span><br><span class="line">	<span class="keyword">return</span> context - buf; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="我的错误">我的错误</h4>
+<p>​        我一共在整个解答过程中犯了2个错误，其中第一个错误幸运地解决了，但是第2个错误上级过程中没有解决得了。</p>
+<p>​        我的错误代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//wrong code</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;print.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">outputknew</span><span class="params">(<span class="type">void</span> *data, <span class="type">const</span> <span class="type">char</span> *buf, <span class="type">size_t</span> len)</span> &#123;</span><br><span class="line">	<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (((<span class="type">char</span>*)data)[i] != <span class="string">&#x27;\0&#x27;</span>) &#123;</span><br><span class="line">		i++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; len; j++)&#123;</span><br><span class="line">		((<span class="type">char</span>*)data)[i] = buf[j];</span><br><span class="line">		i++;</span><br><span class="line">	&#125;</span><br><span class="line">	((<span class="type">char</span> *)data)[i] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">sprintf</span><span class="params">(<span class="type">char</span> *buf, <span class="type">const</span> <span class="type">char</span> *fmt, ...)</span> &#123;</span><br><span class="line">	va_list ap;</span><br><span class="line">	va_start(ap, fmt);</span><br><span class="line">	<span class="type">char</span> str[<span class="number">999</span>];</span><br><span class="line">	<span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(buf[i]!= <span class="string">&#x27;\0&#x27;</span>) &#123;</span><br><span class="line">		str[i] = buf[i];</span><br><span class="line">		i++;</span><br><span class="line">	&#125;</span><br><span class="line">	str[i]= <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">	</span><br><span class="line">	vprintfmt(outputknew, buf, fmt, ap);</span><br><span class="line">	va_end(ap);</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">strlen</span>(buf) - <span class="built_in">strlen</span>(str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>错误1：</p>
+<p>​        在编写回调函数的时候， <code>sprintf</code> 函数的回调函数，不可以与 <code>printk</code> 函数的回调函数 <code>outputk</code> 同名，必须重新定义一个新的名字，例如 <code>outputnew</code> ，否则在 <code>make</code> 的时候，会编译报错（当然我们也要学会看编译报错信息，来判断自己究竟是哪里出错了，【注意多往上看几行，<code>outputk</code> 重复命名就报错在倒数第7行，不仔细看容易被忽略】）。</p>
+</li>
+<li>
+<p>错误2：</p>
+<p>​        理解错误 <code>sprintf</code> 函数的作用！在考场上，我以为是 <code>buf</code> 里面是要解析的格式串，并返回 <code>buf</code> 串前后改变的字符个数，实际上正确的函数作用应该是——解析 <code>fmt</code> 的格式串，将原本该输出的结果<strong>不放在 <code>stdout</code> 标准输出</strong>里面，而是直接<strong>覆盖掉原来的 <code>buf</code> 内容，并输出到 <code>buf</code> 串</strong>里面，返回 <strong><code>buf</code> 长度（不包括 <code>\0</code>)</strong>。</p>
+<p>​        我的代码在后续助教的帮助下，正确修改成如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//correct code</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;print.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span> <span class="comment">//因为我用了strlen</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">outputknew</span><span class="params">(<span class="type">void</span> *data, <span class="type">const</span> <span class="type">char</span> *buf, <span class="type">size_t</span> len)</span> &#123;</span><br><span class="line">	<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (((<span class="type">char</span>*)data)[i] != <span class="string">&#x27;\0&#x27;</span>) &#123;</span><br><span class="line">		i++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; len; j++)&#123;</span><br><span class="line">		((<span class="type">char</span>*)data)[i] = buf[j];</span><br><span class="line">		i++;</span><br><span class="line">	&#125;</span><br><span class="line">	((<span class="type">char</span> *)data)[i] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">sprintf</span><span class="params">(<span class="type">char</span> *buf, <span class="type">const</span> <span class="type">char</span> *fmt, ...)</span> &#123;</span><br><span class="line">	va_list ap;</span><br><span class="line">	va_start(ap, fmt);</span><br><span class="line">	buf[<span class="number">0</span>] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">	vprintfmt(outputknew, buf, fmt, ap);</span><br><span class="line">	va_end(ap);</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">strlen</span>(buf); <span class="comment">//本身strlen函数就不包括\0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">YannaZhang 张杨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/03/19/BUAA-OS-1/">http://example.com/2023/03/19/BUAA-OS-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">YannaのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/BUAA-OS/">BUAA-OS</a></div><div class="post_share"><div class="social-share" data-image="/img/series1/2.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/03/19/BUAA-OS-0/" title="BUAA-OS-lab0"><img class="cover" src="/img/series1/1.png" onerror="onerror=null;src='/img/archive_img.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">BUAA-OS-lab0</div></div></a></div><div class="next-post pull-right"><a href="/2023/03/27/%E9%93%83%E2%80%A2%E5%BA%8F%E6%9B%B2/" title="铃•序曲"><img class="cover" src="/img/default_cover6.png" onerror="onerror=null;src='/img/archive_img.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">铃•序曲</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/03/19/BUAA-OS-0/" title="BUAA-OS-lab0"><img class="cover" src="/img/series1/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-19</div><div class="title">BUAA-OS-lab0</div></div></a></div><div><a href="/2023/04/10/BUAA-OS-2/" title="BUAA-OS-lab2"><img class="cover" src="/img/series1/4.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-10</div><div class="title">BUAA-OS-lab2</div></div></a></div><div><a href="/2023/04/18/BUAA-OS-3/" title="BUAA-OS-lab3"><img class="cover" src="/img/series1/6.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-18</div><div class="title">BUAA-OS-lab3</div></div></a></div><div><a href="/2023/05/15/BUAA-OS-4/" title="BUAA-OS-lab4"><img class="cover" src="/img/series1/7.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-15</div><div class="title">BUAA-OS-lab4</div></div></a></div><div><a href="/2023/05/19/BUAA-OS-5/" title="BUAA-OS-lab5"><img class="cover" src="/img/series1/8.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-19</div><div class="title">BUAA-OS-lab5</div></div></a></div><div><a href="/2023/06/18/BUAA-OS-challenge/" title="BUAA-OS-lab4-challenge"><img class="cover" src="/img/series1/9.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-18</div><div class="title">BUAA-OS-lab4-challenge</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lab1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A"><span class="toc-number">1.</span> <span class="toc-text">Lab1实验报告</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-1-1"><span class="toc-number">1.1.1.</span> <span class="toc-text">Thinking 1.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-1-2"><span class="toc-number">1.1.2.</span> <span class="toc-text">Thinking 1.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinking-1-3"><span class="toc-number">1.1.3.</span> <span class="toc-text">Thinking 1.3</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%BE%E7%82%B9%E5%88%86%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">难点分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BD%93%E4%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">实验体会</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-1-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">Exercise 1.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-1-2"><span class="toc-number">1.3.2.</span> <span class="toc-text">Exercise 1.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-1-3"><span class="toc-number">1.3.3.</span> <span class="toc-text">Exercise 1.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exercise-1-4"><span class="toc-number">1.3.4.</span> <span class="toc-text">Exercise 1.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%93%E4%BC%9A%E4%B8%8E%E6%84%9F%E6%83%B3"><span class="toc-number">1.3.5.</span> <span class="toc-text">体会与感想</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BE%E4%B8%8A%E6%B5%8B%E8%AF%95"><span class="toc-number">1.4.</span> <span class="toc-text">课上测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lab1-extra"><span class="toc-number">1.4.1.</span> <span class="toc-text">lab1-extra</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">知识点：回调函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%94%E6%A1%88"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">答案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%88%91%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-number">1.4.1.3.</span> <span class="toc-text">我的错误</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post_img.png')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By YannaZhang 张杨</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'sVaqAurlJUIUiRSl4GxSzMoi-gzGzoHsz',
+      appKey: 'BCXg41m5wCxza144wQyhXZzv',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="/js/sakura.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>

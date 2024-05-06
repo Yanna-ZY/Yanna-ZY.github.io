@@ -1,0 +1,823 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>BUAA-OO-第二单元：电梯调度 | YannaのBlog</title><meta name="author" content="YannaZhang 张杨"><meta name="copyright" content="YannaZhang 张杨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="BUAA-OO-第二单元：电梯调度 【小女子废话较多，总是“有感而发”地“抒情”，这些不重要的话用“【】”标注出来了，可以尽情跳过~】 前言 ​        电梯调度问题是课程组为多线程学习设置的课下作业，是OO课程的重难点之一，对于第一次编写多线程的同学是一个巨大的挑战。【小女子非常悲催地被多线程攻击到了，hw5非常无奈创造了最低单次OO作业成绩】 ​        建议寒假认真学习课程组的O">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUAA-OO-第二单元：电梯调度">
+<meta property="og:url" content="http://example.com/2023/04/12/BUAA-OO-2/index.html">
+<meta property="og:site_name" content="YannaのBlog">
+<meta property="og:description" content="BUAA-OO-第二单元：电梯调度 【小女子废话较多，总是“有感而发”地“抒情”，这些不重要的话用“【】”标注出来了，可以尽情跳过~】 前言 ​        电梯调度问题是课程组为多线程学习设置的课下作业，是OO课程的重难点之一，对于第一次编写多线程的同学是一个巨大的挑战。【小女子非常悲催地被多线程攻击到了，hw5非常无奈创造了最低单次OO作业成绩】 ​        建议寒假认真学习课程组的O">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/series1/5.png">
+<meta property="article:published_time" content="2023-04-12T11:21:23.000Z">
+<meta property="article:modified_time" content="2023-04-18T02:39:56.929Z">
+<meta property="article:author" content="YannaZhang 张杨">
+<meta property="article:tag" content="BUAA-OO">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/series1/5.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/04/12/BUAA-OO-2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":null},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":30,"languages":{"author":"作者: YannaZhang 张杨","link":"链接: ","source":"来源: YannaのBlog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'BUAA-OO-第二单元：电梯调度',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-18 10:39:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/mouse.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/archive_img.png'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 扉页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴簿</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 签轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 编类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 曲籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-commenting"></i><span> 留音笺</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 卿</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 予</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post_img.png')"><nav id="nav"><span id="blog-info"><a href="/" title="YannaのBlog"><span class="site-name">YannaのBlog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 扉页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴簿</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 签轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 编类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 曲籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-commenting"></i><span> 留音笺</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 卿</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 予</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">BUAA-OO-第二单元：电梯调度</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-12T11:21:23.000Z" title="发表于 2023-04-12 19:21:23">2023-04-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-18T02:39:56.929Z" title="更新于 2023-04-18 10:39:56">2023-04-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%BB%E5%BE%B7%EF%BC%88%E5%AD%A6%E4%B9%A0%EF%BC%89/">养德（学习）</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">7.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>27分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="BUAA-OO-第二单元：电梯调度"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="buaa-oo-第二单元：电梯调度">BUAA-OO-第二单元：电梯调度</h1>
+<p>【小女子废话较多，总是“有感而发”地“抒情”，这些不重要的话用“【】”标注出来了，可以尽情跳过~】</p>
+<h2 id="前言">前言</h2>
+<p>​        电梯调度问题是课程组为多线程学习设置的课下作业，是OO课程的重难点之一，对于第一次编写多线程的同学是一个巨大的挑战。【小女子非常悲催地被多线程攻击到了，hw5非常无奈创造了最低单次OO作业成绩】</p>
+<p>​        建议寒假认真学习课程组的OO公众号（<em>oolens</em>）推送的关于“多线程学习”的文章，最好能有基本的编程多线程代码的练习经历。【只是眼睛看，而不上手操作真的是“镜花水月”“空中楼阁”，说多了都是泪哇~】</p>
+<p>​        相比OO第一单元的表达式解析作业，本单元的代码编程量明显有大幅度下降，但是更多地需要思维分析，突破过去编程经历习惯的单线程思想，养成并行思维。同时，<strong>线程安全问题</strong>和<strong>CPU运行时间控制问题</strong>在编写代码时也是两个不容忽视的难点。【小女子就败在了CPU运行时间控制问题，哭唧唧~】</p>
+<h3 id="预习知识">预习知识</h3>
+<p>​        如下依次给出几个我用的基本知识点学习的文章，仅供参考：【可以有其他更好的教程哇~  欢迎留言浇浇小女子呀呀~】</p>
+<ul>
+<li>
+<p>参考书：<em>《图解Java多线程设计模式》</em></p>
+<p>（可以向学长学姐询问电子书资源，也不需要整本书都看完，要用哪个模式，就去看看即可）</p>
+</li>
+<li>
+<p>多线程基本认知：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzkwMDQyMzE3Ng==&amp;mid=2247483668&amp;idx=1&amp;sn=ead340a16ac6897e9a8e99f1ccf04370&amp;chksm=c0450a73f73283651ee82c90ec78f4f35cfb1b00af8b73ab545e5e6c9e1eac4c8edef494bb6d&amp;scene=0&amp;subscene=10000&amp;clicktime=1681459233&amp;enterid=1681459233&amp;sessionid=0&amp;ascene=7&amp;fasttmpl_type=0&amp;fasttmpl_fullversion=6634621-en_US-zip&amp;fasttmpl_flag=0&amp;realreporttime=1681459233653#rd">OO经验贴第二弹——多线程</a></p>
+</li>
+<li>
+<p>多线程简单实现：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44715943/article/details/116714584">Java多线程</a></p>
+</li>
+<li>
+<p>synchronized学习：<a target="_blank" rel="noopener" href="https://pdai.tech/md/java/thread/java-thread-x-key-synchronized.html">关键字synchronized详解</a></p>
+</li>
+</ul>
+<p>【上面三篇文章学了基本就可以完成hw5，而下面的知识点可以在hw6、hw7中使用，如果不想大幅度重构代码也可以不用下面两个知识点 ~小女子偷了懒就没有大幅度改动~】</p>
+<ul>
+<li>读写锁学习</li>
+<li>原子变量</li>
+<li>信号量 <em>Semaphore</em></li>
+</ul>
+<h2 id="第五次作业">第五次作业</h2>
+<p>​         本次作业需要模拟一个多线程实时电梯系统。系统基于一个类似北京航空航天大学新主楼的大楼，电梯可以在楼座内 <em>1~11</em> 层之间运行。系统从标准输入中输入请求信息，程序进行接收和处理，模拟电梯运行，将必要的运行信息通过输出接口进行输出。</p>
+<p>​         具体而言，本次作业电梯系统具有的功能为：上下行，开关门，以及模拟乘客的进出。电梯系统可以采用<strong>任意的调度策略</strong>，即在任意时刻，系统选择上下行动，是否在某层开关门，都可自定义，只要保证在<strong>电梯系统时间不超过系统时间上限</strong>的前提下将所有的乘客送至目的地即可。电梯每上下运行一层、开关门的时间为固定值，仅在<strong>开关门窗口时间内允许乘客进出</strong>。电梯系统默认初始在 11层有六部电梯。</p>
+<h3 id="uml">UML</h3>
+<h4 id="类图">类图</h4>
+<p><img src="/2023/04/12/BUAA-OO-2/hw5UML.png" alt="hw5UML"></p>
+<h4 id="时序图">时序图</h4>
+<p><img src="https://yanna-zy.gitee.io/2023/04/12/BUAA-OO-2/OO%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A.png" alt="OO电梯调度第一次作业"></p>
+<h3 id="代码架构">代码架构</h3>
+<p>​        由于课程组的性能评分中加入了<em>耗电量</em> 指标，因此推荐使用<strong>生产者-消费者</strong>模式，策略使用<strong>LOOK算法</strong>，我的代码架构是最为基础的实现方式，并没有引入过多超出课程组提示的知识点和思路。</p>
+<ul>
+<li>
+<p>生产者-消费者模式</p>
+<p>参考*《图解Java多线程设计模式》*可以得到如下简单的模板：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainClass</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Buffer</span> <span class="variable">buffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Buffer</span>();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Producer</span>(buffer).start();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Consumer</span>(buffer).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Producer</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> Buffer buffer;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Producer</span><span class="params">(Buffer buffer)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.buffer = buffer;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">           buffer.push();</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Consumer</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> Buffer buffer;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Consumer</span><span class="params">(Buffer buffer)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.buffer = buffer;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            buffer.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Buffer</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">haveGoods</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">()</span> &#123; <span class="comment">// 生产者放入商品</span></span><br><span class="line">        <span class="keyword">if</span> (haveGoods) &#123; <span class="comment">// 有货物，消费者取出商品</span></span><br><span class="line">            <span class="keyword">try</span> &#123;  <span class="comment">// 生产者等待消费者消费</span></span><br><span class="line">                <span class="built_in">this</span>.wait();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!haveGoods)&#123; <span class="comment">// 被消费者通知生产</span></span><br><span class="line">            cnt ++;</span><br><span class="line">            System.out.println(<span class="string">&quot;Producer put:&quot;</span> + cnt);</span><br><span class="line">            haveGoods = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                sleep((<span class="type">int</span>)(Math.random()*<span class="number">100</span>));</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;&#125;</span><br><span class="line">            <span class="built_in">this</span>.notifyAll(); <span class="comment">// 通知消费者消费</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">pop</span><span class="params">()</span> &#123; <span class="comment">// 消费者取出商品</span></span><br><span class="line">        <span class="keyword">if</span> (!haveGoods) &#123; <span class="comment">// 没有货物，生产者生产商品</span></span><br><span class="line">            <span class="keyword">try</span> &#123; <span class="comment">// 消费者等待生产者生产</span></span><br><span class="line">                <span class="built_in">this</span>.wait();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (haveGoods) &#123; <span class="comment">// 被生产者通知消费</span></span><br><span class="line">            System.out.println(<span class="string">&quot;Consumer get:&quot;</span> + cnt);</span><br><span class="line">            haveGoods = <span class="literal">false</span>;</span><br><span class="line">            <span class="built_in">this</span>.notifyAll();  <span class="comment">// 通知生产者生产</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>LOOK算法</p>
+<p>参考 <em>Hyggge 学长的博客</em>得到如下解释：</p>
+<ul>
+<li>首先为电梯规定一个初始方向，然后电梯开始沿着该方向运动。</li>
+<li>到达某楼层时，<strong>首先判断是否需要开门</strong>
+<ul>
+<li>如果发现电梯里有人可以出电梯（到达目的地），则开门让乘客出去；</li>
+<li>如果发现该楼层中有人想上电梯，并且目的地方向和电梯方向相同，则开门让这个乘客进入。</li>
+</ul>
+</li>
+<li><strong>接下来，进一步判断电梯里是否有人</strong>。如果电梯里还有人，则沿着当前方向移动到下一层。否则，检查请求队列中是否还有请求（目前其他楼层是否有乘客想要进电梯）——
+<ul>
+<li>如果请求队列不为空，且某请求的发出地是电梯&quot;前方&quot;的某楼层，则电梯继续沿着原来的方向运动。</li>
+<li>如果请求队列不为空，且所有请求的发出地都在电梯&quot;后方&quot;的楼层上，或者是在该楼层有请求但是这个请求的目的地在电梯后方（因为电梯不会开门接反方向的请求），则电梯掉头并进入&quot;判断是否需要开门&quot;的步骤（循环实现）。</li>
+<li>如果请求队列为空，且输入线程没有结束（即没有输入文件结束符），则电梯停在该楼层等待请求输入（wait）。</li>
+<li>如果请求队列为空，且输入线程已经结束，则电梯线程结束。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="数据结构">数据结构</h4>
+<p>​        相比第一单元的复杂数据结构，本单元作业数据类大致只涉及两个：<code>Person</code> 和 <code>RequestTable</code> ，其中 <code>Person</code> 的各个信息需要由<strong>官方包</strong>获得，需要提前仔细阅读官方包的<em>输入输出接口文档</em>。</p>
+<h5 id="person">Person</h5>
+<p>​        用于存储每一个请求的人员信息，是多线程之间的共享数据类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Person.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> fromFloor;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> toFloor;</span><br><span class="line">    <span class="comment">//方法......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="requesttable">RequestTable</h5>
+<p>​         该数据类是本次作业的重点之一，它是多线程之间的共享对象，存有共享数据类型<code>Person</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//RequestTable.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RequestTable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> endFlag;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> requestNum;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt; requstMap;<span class="comment">//出发地在Interger的所有Person</span></span><br><span class="line">    <span class="comment">//方法......</span></span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+<p>​        对于共享对象<code>RequestTable</code> 中方法，为了保证线程安全，需要都加上锁<strong>synchronized</strong>，其中有两个需要重点实现的方法：</p>
+<ul>
+<li>
+<p><code>public synchronized void addRequest(Person person)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//RequestTable.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">addRequest</span><span class="params">(Person person)</span> &#123;</span><br><span class="line">        <span class="comment">//把person请求加入容器requstMap</span></span><br><span class="line">        requestNum++;</span><br><span class="line">        notifyAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>public synchronized void delRequest(int mapKey, int arrayNum)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//RequestTable.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">delRequest</span><span class="params">(<span class="type">int</span> mapKey, <span class="type">int</span> arrayNum)</span> &#123;</span><br><span class="line">        <span class="comment">//把“容器requstMap中的mapKey的value的第arrayNum个person”删掉</span></span><br><span class="line">        requestNum--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ol>
+<li>
+<p>​    起初我不是很能理解为什么要设置变量 <code>boolean endFlag</code> ，也不明白为什么要设置<code>public synchronized boolean isEnd()</code> 和 <code>public synchronized boolean isEmpty()</code> 两个方法，在后续编程过程中，才理解到这是因为我没有带入<strong>多线程思维</strong>，上述这些都是为了控制线程结束的。</p>
+<p>​    要明白由于我们的请求是实时发送的，所以<strong>请求空了 ≠  请求结束</strong>，它可能隔了很久很久才有一个请求，那么在这个请求之前只能让<strong>线程等待（请求为空）</strong>，但不能让<strong>线程结束（请求结束）</strong>。</p>
+</li>
+<li>
+<p>​    不能肆意滥用 <code>notifyAll()</code> 方法，否则会导致CPU时间爆掉，我的 <em>hw5</em> 中一共只有两个方法只适用了<code>notifyAll()</code> ，分别是：</p>
+<ul>
+<li><code>public synchronized void addRequest(Person person)</code></li>
+<li><code>public synchronized boolean isEnd()</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="流程架构">流程架构</h4>
+<ul>
+<li>
+<p>首先，我们需要分清三个概念：线程，调度器，策略方法：</p>
+<ul>
+<li>
+<p>线程：</p>
+<p>​    可以看做是一个任务窗口，或者一个社畜打工人，它仅仅是一个平台供我们可以同时完成一些任务，彼此之间在<strong>逻辑上</strong>不相互干扰（当然了，这个不干扰的安全性需要我们自己实现，这是我们多线程必须保证的）。</p>
+</li>
+<li>
+<p>调度器：</p>
+<p>​    可以看做是指挥家，把一个个请求按照“指挥家”的想法（即调度策略），分配给某个电梯，至于电梯怎么完成这个请求任务，调度器并不关心（本质是<strong>单一职责原理</strong>）。</p>
+</li>
+<li>
+<p>策略方法：</p>
+<p>​    可以看做是单个电梯自己的大脑，在每个时刻告诉电梯现在该做什么，例如：开门，关门，上下行。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>接着，具体分析本次作业的架构——我一共涉及了三类线程：1个<code>InputThread</code> 输入线程，1个<code>Schedule</code> 调度线程，6个<code>Elevator</code> 电梯线程。<code>Schedule</code> 调度线程实现<strong>调度器</strong>的功能。<code>Elevator</code> 电梯线程有 <code>Strategy</code>类为电梯提供<strong>策略</strong>。</p>
+</li>
+</ul>
+<h5 id="inputthread">InputThread</h5>
+<p>​        输入线程拥有一个总表 <code>mainRequestTable</code> 用于管理所有“从<strong>官方包</strong>中得到输入request”。注意要先阅读<em>输入输出接口文档</em> 得到如下的模板格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//InputThread.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InputThread</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> RequestTable mainRequestTable;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">ElevatorInput</span> <span class="variable">elevatorInput</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ElevatorInput</span>(System.in);</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123; </span><br><span class="line">                <span class="type">PersonRequest</span> <span class="variable">request</span> <span class="operator">=</span> elevatorInput.nextPersonRequest();</span><br><span class="line">                <span class="keyword">if</span> (request == <span class="literal">null</span>) &#123;</span><br><span class="line">                   <span class="comment">//标志mainRequestTable的endFlag</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//向mainRequestTable中加入request</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            elevatorInput.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="schedule">Schedule</h5>
+<p>​        调度线程拥有一个管理<strong>所有电梯表</strong>的容器 <code>requestTables</code> ，一个管理<strong>所有电梯</strong>的容器 <code>elevatorMap</code> ，与 <code>InputThread</code>共享的对象 <code>mainRequestTable</code> 。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Schedule.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Schedule</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> RequestTable mainRequestTable;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;RequestTable&gt; requestTables;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;Integer,Elevator&gt; elevatorMap;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (mainRequestTable.isEmpty() &amp;&amp; mainRequestTable.isEnd()) &#123;</span><br><span class="line">                    <span class="comment">//标志所有电梯表的endFlag</span></span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="comment">//...从mainRequestTable中得到一个request</span></span><br><span class="line">                <span class="keyword">if</span> (person == <span class="literal">null</span>) &#123;</span><br><span class="line">                    <span class="comment">//若mainRequestTable没有结束，则让mainRequestTable进入wait()</span></span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> bestElevator(person);</span><br><span class="line">                <span class="comment">//将person需求加入合适的电梯表</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">bestElevator</span><span class="params">(Person person)</span> &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>电梯调度方法</p>
+<p>​       电梯拥有许多不同的调度方法，具体实现就在 <code>public int bestElevator(Person person)</code> 中进行，如下给出四种常用的调度方法：</p>
+<ol>
+<li>
+<p>分配给花时间最少的电梯</p>
+<p>​    用 <strong>模拟电梯(影子电梯/幽灵电梯)</strong> 保证局部最优解的策略，在输入线程获得一个请求时，<strong>深克隆电梯类</strong>进行模拟从而将请求分配各所花费时间最少的电梯；</p>
+<p>（具体可以参考 <em>Thysrael 学长的博客</em> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/thysrael/p/16209409.html#34-%E8%A7%A3%E9%87%8A%E9%87%8F%E5%AD%90%E7%94%B5%E6%A2%AF">BUAA-OO-U2-电梯</a>）</p>
+</li>
+<li>
+<p>用 <em>random</em> 随机分配给电梯</p>
+</li>
+<li>
+<p>均匀分配给6个电梯</p>
+<p>​    用一个全局变量一次记录所有输入需求是第几个，然后加入 <code>i%6</code> 电梯；</p>
+</li>
+<li>
+<p><s>自由竞争</s></p>
+<p><s>所有电梯共用输入线程的请求队列，当输入一个请求时，所有电梯都努力去获取这个请求。</s></p>
+</li>
+</ol>
+</li>
+</ul>
+<h5 id="elevator">Elevator</h5>
+<p>​        在本次作业中我采用了 <strong>“电梯类和策略类分离”</strong> 的设计，其中有如下几点说明：</p>
+<ol>
+<li>
+<p>电梯等待时运行方向不变</p>
+<p>​       在我的设计中，运行方向是电梯的一个状态量而不是过程量，用来表示<strong>下一次move时的方向</strong>。当有新请求进入请求队列时，电梯被唤醒，此时电梯的运行方向仍然是电梯wait前的方向。</p>
+</li>
+<li>
+<p>策略类仅给出建议但未必执行该建议</p>
+<p>​       每次 <code>while</code> 会调用策略类的<code>getAdvice()</code>方法来询问建议，并根据建议做出反应，但是有可能被打断而不执行了。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Elevator.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Elevator</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> nowNum;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> nowFloor;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> direction; <span class="comment">// 0表示上升， 1表示下降</span></span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt; destMap; <span class="comment">//目的地在Interger的所有Person</span></span><br><span class="line">    <span class="keyword">private</span> RequestTable requestTable;</span><br><span class="line">    <span class="keyword">private</span> Strategy strategy;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">Advice</span> <span class="variable">advice</span> <span class="operator">=</span> </span><br><span class="line">                    strategy.getAdvice(nowFloor,nowNum,direction,destMap);</span><br><span class="line">                <span class="keyword">if</span> (advice == Advice.OVER) &#123; <span class="comment">//电梯线程结束</span></span><br><span class="line">                    <span class="comment">//...  </span></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (advice == Advice.MOVE) &#123; <span class="comment">//电梯沿着原方向移动一层     </span></span><br><span class="line">                    <span class="comment">//...</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (advice == Advice.REVERSE) &#123; <span class="comment">//电梯转向</span></span><br><span class="line">                    <span class="comment">//...</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (advice == Advice.WAIT) &#123; <span class="comment">//电梯等待</span></span><br><span class="line">                    <span class="comment">//...</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (advice == Advice.OPEN) &#123; <span class="comment">//电梯开门</span></span><br><span class="line">                    <span class="comment">//...</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<h6 id="strategy">Strategy</h6>
+<p>​        策略类（<code>Strategy</code>）可以获得当前电梯和请求队列的当前状态，并基于LOOK策略向电梯提供建议，建议包括<code>OVER</code>, <code>MOVE</code>, <code>REVERSE</code>, <code>OPEN</code>, <code>WAIT</code>五种，可以将这些建议封装到枚举类<code>Advice</code>中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Strategy.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Strategy</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> RequestTable requestTable;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Advice <span class="title function_">getAdvice</span><span class="params">(<span class="type">int</span> nowFloor, <span class="type">int</span> nowNum, <span class="type">int</span> direction,</span></span><br><span class="line"><span class="params">                            HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt; destMap)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (canOpenForOut(nowFloor, destMap) </span><br><span class="line">            || canOpenForIn(nowFloor, nowNum, direction)) &#123; <span class="comment">//判断是否开电梯门</span></span><br><span class="line">            <span class="keyword">return</span> Advice.OPEN;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (nowNum != <span class="number">0</span>) &#123; <span class="comment">//若电梯里有人</span></span><br><span class="line">            <span class="keyword">return</span> Advice.MOVE;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;  <span class="comment">//若电梯里没有人</span></span><br><span class="line">            <span class="keyword">if</span> (requestTable.isEmpty()) &#123; <span class="comment">//如果请求队列中没有人</span></span><br><span class="line">                <span class="keyword">if</span> (requestTable.isEnd()) &#123; <span class="comment">//如果输入结束，电梯线程结束</span></span><br><span class="line">                    <span class="keyword">return</span> Advice.OVER; </span><br><span class="line">                &#125; <span class="keyword">else</span> &#123; <span class="comment">//如果输入未结束，电梯线程等待</span></span><br><span class="line">                    <span class="keyword">return</span> Advice.WAIT; </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (hasReqInOriginDirection(nowFloor, direction)) &#123; <span class="comment">//若电梯表有人</span></span><br><span class="line">                <span class="keyword">return</span> Advice.MOVE; </span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">//否则，电梯转向（仅状态改变，电梯不移动）</span></span><br><span class="line">                <span class="keyword">return</span> Advice.REVERSE; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="第六次作业">第六次作业</h2>
+<p>​    本次作业需要完成的任务为：</p>
+<ol>
+<li>固定的电梯-&gt;参数可变的电梯
+<ul>
+<li>固定数值 -&gt;设置电梯属性</li>
+</ul>
+</li>
+<li>电梯数量一定-&gt;电梯会新增/维护
+<ul>
+<li>main类初始化电梯 -&gt; 新增电梯类 + Maintain维护电梯类</li>
+</ul>
+</li>
+</ol>
+<h3 id="uml">UML</h3>
+<h4 id="类图">类图</h4>
+<p><img src="/2023/04/12/BUAA-OO-2/hw6UML.png" alt="hw6UML"></p>
+<h4 id="时序图">时序图</h4>
+<p><img src="https://yanna-zy.gitee.io/2023/04/12/BUAA-OO-2/OO%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A.png" alt="OO电梯调度第二次作业"></p>
+<h3 id="代码架构">代码架构</h3>
+<h4 id="数据结构">数据结构</h4>
+<p>​        本次作业在上一次的基础上迭代，原来的 <code>Person</code> 类不需要改变，<code>RequestTable</code> 类只需要加一个方法来满足 <em>Maintain</em> 维护电梯的要求。</p>
+<h5 id="requesttable">RequestTable</h5>
+<p>​         在一个电梯 <em>Maintain</em> 之后，需要把电梯自己原来的<strong>需求表</strong>和<strong>电梯中的位达目的地</strong>需求重新扔回总表<code>mainRequestTable</code>，具体由如下方法实现：</p>
+<ul>
+<li>
+<p><code>public synchronized void receiveMaintainRequest(RequestTable requestTable)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//RequestTable.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">receiveMaintainRequest</span><span class="params">(RequestTable requestTable)</span> &#123;</span><br><span class="line">    <span class="comment">//把requestTable的requstMap内容添加到mainRequestTable的requstMap中</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="流程架构">流程架构</h4>
+<p>​        本次作业在上一次的基础上迭代，三类线程：<code>InputThread</code> 输入线程，<code>Schedule</code> 调度线程，<code>Elevator</code> 电梯线程都需要修改。</p>
+<h5 id="inputthread">InputThread</h5>
+<p>​        输入线程一共会收到三种不同类型的 <code>request</code> ，用<code>instanceof</code> 来判断区分，并进行不同的操作；其中，对于 <code>ElevatorRequest</code> 和 <code>MaintainRequest</code> 需求我们都需要对于<strong>电梯容器</strong>进行操作，因此向 <code>InputThread</code> 类中加入共享变量 <code>schedule</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//InputThread.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InputThread</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> RequestTable mainRequestTable;</span><br><span class="line">    <span class="keyword">private</span> Schedule schedule;</span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">ElevatorInput</span> <span class="variable">elevatorInput</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ElevatorInput</span>(System.in);</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123; </span><br><span class="line">                <span class="type">Request</span> <span class="variable">request</span> <span class="operator">=</span> elevatorInput.nextRequest();</span><br><span class="line">                <span class="keyword">if</span> (request == <span class="literal">null</span>) &#123;</span><br><span class="line">                    <span class="comment">//标志mainRequestTable的endFlag</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (request <span class="keyword">instanceof</span> PersonRequest) &#123;</span><br><span class="line">                        <span class="comment">//向mainRequestTable中加入request</span></span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (request <span class="keyword">instanceof</span> ElevatorRequest) &#123;</span><br><span class="line">                        <span class="comment">//向schedule的elevators容器中加入request</span></span><br><span class="line">                        <span class="comment">//start()新的电梯线程</span></span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (request <span class="keyword">instanceof</span> MaintainRequest) &#123;</span><br><span class="line">                        schedule.maintainElevator(</span><br><span class="line">                            ((MaintainRequest) request).getElevatorId());</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            elevatorInput.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="schedule">Schedule</h5>
+<p>​        调度线程新增两个方法分别用于完成<strong>新增</strong>电梯和<strong>维护</strong>电梯两个要求：</p>
+<ul>
+<li>
+<p><code>public synchronized void addElevator(RequestTable requestTable, Elevator elevator)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">addElevator</span><span class="params">(</span></span><br><span class="line"><span class="params">    RequestTable requestTable, Elevator elevator)</span> &#123;</span><br><span class="line">    <span class="comment">//向电梯容器中新增电梯</span></span><br><span class="line">    <span class="comment">//向电梯表中新增电梯表</span></span><br><span class="line">    <span class="comment">//改变电梯elevatorNum</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>public synchronized void maintainElevator(int id)</code></p>
+<p>在调度线程中维护方法主要进行下面几个步骤：</p>
+<ol>
+<li>
+<p>将维护电梯的 <em>maintainFlag</em> 标记好；</p>
+</li>
+<li>
+<p>等待适当的时间，让被维护电梯可以把电梯内剩余的人全都放回自己的电梯表中;</p>
+<p>经过大佬们的测试，似乎 <code>0.5s</code> 是相对<strong>最优的等待时间</strong>，但是具体还有待验证【欢迎评论区浇浇~】</p>
+</li>
+<li>
+<p>用 <code>receiveMaintainRequest</code> 将被维护电梯表中的 <code>request</code>重新投回<code>mainRequestTable</code>;</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">maintainElevator</span><span class="params">(<span class="type">int</span> id)</span> &#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; elevatorNum; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (elevators.get(i).getId() == id) &#123;</span><br><span class="line">			elevators.get(i).setMaintainFlag(<span class="literal">true</span>);</span><br><span class="line">			<span class="keyword">while</span> (!requestTables.get(i).isEnd()) &#123; <span class="comment">//注意是否会超CPU</span></span><br><span class="line">				Thread.sleep(<span class="number">500</span>);</span><br><span class="line"> 			&#125;</span><br><span class="line">			mainRequestTable.receiveMaintainRequest(requestTables.get(i));</span><br><span class="line">			<span class="comment">//在电梯容器中删去被维护的电梯</span></span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="elevator">Elevator</h5>
+<p>​        本次电梯线程的策略 <code>Strategy</code> 类不需要改变，只需要增加一些自己的<strong>特殊属性</strong>和用于<strong>维护</strong>电梯的方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Elevator.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Elevator</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> capacity;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> speed;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> nowNum;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> nowFloor;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> direction; <span class="comment">// 0表示上升， 1表示下降</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> maintainFlag;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt; destMap; <span class="comment">//目的地在Interger的所有Person</span></span><br><span class="line">    <span class="keyword">private</span> RequestTable requestTable;</span><br><span class="line">    <span class="keyword">private</span> Strategy strategy;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">Advice</span> <span class="variable">advice</span> <span class="operator">=</span> </span><br><span class="line">                    strategy.getAdvice(capacity, nowFloor, nowNum,</span><br><span class="line">                                       direction, maintainFlag, destMap);</span><br><span class="line">                <span class="keyword">if</span> (advice == Advice.MAINTAIN) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (nowNum != <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="comment">//...</span></span><br><span class="line">                        maintain();</span><br><span class="line">                        Thread.sleep(<span class="number">400</span>);</span><br><span class="line">                        <span class="comment">//...</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">//...</span></span><br><span class="line">                    requestTable.setEndFlag(<span class="literal">true</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="comment">//...</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                <span class="comment">//...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法......   </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>维护电梯的方法主要涉及两个：</p>
+<ol>
+<li>
+<p><code>public void setMaintainFlag(boolean maintainFlag)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMaintainFlag</span><span class="params">(<span class="type">boolean</span> maintainFlag)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.maintainFlag = maintainFlag;</span><br><span class="line">    <span class="keyword">synchronized</span> (requestTable) &#123;</span><br><span class="line">        requestTable.notifyAll();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>**注意：**本次作业中一共有三个方法用到了 <code>notifyAll()</code> ，分别为<code>addRequest()</code>、<code>delRequest()</code>、<code>setMaintainFlag()</code></p>
+</li>
+<li>
+<p><code>public void maintain()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">maintain</span><span class="params">()</span> &#123;</span><br><span class="line">   <span class="comment">//当toFloor == nowFloor时，直接输出OUT</span></span><br><span class="line">   <span class="comment">//当toFloor != nowFloor时，输出OUT之后，把电梯中的这个人重新投入本电梯表</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="优化方法">优化方法</h4>
+<p>​      如下给出两种简单的的优化方法：</p>
+<ul>
+<li>新增电梯时，将其他电梯内等待队列所有请求返回总队列进行重新调度；</li>
+<li>维护电梯时，若电梯线程在开门状态中被通知 <em>maintain</em> ，则直接放所有人离开电梯，并维护。</li>
+</ul>
+<h2 id="第七次作业">第七次作业</h2>
+<p>本次作业需要完成的任务为：</p>
+<ol>
+<li>
+<p>全能电梯-&gt;只能到达部分楼层的电梯</p>
+<ul>
+<li>Person 增加中间态到达楼层</li>
+<li>调度算法改变</li>
+<li>乘客出电梯即到达目的地-&gt;需判断 <code>nowFloor = toFloor</code>，若否返回请求队列重新调度</li>
+</ul>
+</li>
+<li>
+<p>楼层停靠自由 -&gt;楼层停靠服务电梯数限制</p>
+<ul>
+<li>电梯开门前需判断楼层停靠状态，获取和释放资源</li>
+</ul>
+</li>
+</ol>
+<h3 id="uml类图">UML类图</h3>
+<p><img src="/2023/04/12/BUAA-OO-2/hw7UML.png" alt="hw7UML"></p>
+<ul>
+<li>本次作业的<strong>UML时序图</strong>与HW6一致<img src="/2023/04/12/BUAA-OO-2/OO电梯调度第二次作业.png" alt="OO电梯调度第二次作业"></li>
+</ul>
+<h3 id="代码架构">代码架构</h3>
+<h4 id="数据结构">数据结构</h4>
+<p>​       本次作业在上一次的基础上迭代，原来的 <code>RequestTable</code> 类不需要改变，<code>Person</code> 类需要加一个新的变量，来满足<strong>换乘电梯规划路径</strong>的要求。</p>
+<h5 id="person">Person</h5>
+<p>​      增加一个变量 <code>nextFloor</code> ，用于存储规划换乘最短路径时，电梯需要将人送到的下一个楼层。</p>
+<p><strong>注意：</strong> 下一个楼层  ≠  最终目标楼层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Person.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> fromFloor;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> toFloor;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> nextFloor;</span><br><span class="line">    <span class="comment">//方法......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="流程架构">流程架构</h4>
+<p>​       本次作业在上一次的基础上迭代，三类线程：<code>InputThread</code> 输入线程，<code>Schedule</code> 调度线程，<code>Elevator</code> 电梯线程都需要修改。</p>
+<ul>
+<li>
+<p>线程终止条件</p>
+<ul>
+<li>
+<p>问题：当某台电梯被维护将请求返回请求队列但电梯线程均已结束时，没有电梯相应请求</p>
+</li>
+<li>
+<p>解决方法：</p>
+<p>当输入线程结束并处理完成所有请求后结束调度和电梯线程</p>
+<ul>
+<li>设置单例模式的计数器</li>
+<li>判断 <strong>总队列 + 电梯队列 + 电梯内</strong> 是否都为空</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="inputthread">InputThread</h5>
+<p>​        输入线程需要改变两个条件：</p>
+<ul>
+<li>终止条件：从官方包得到的request为空 + 所有的电梯表和电梯内都空</li>
+<li>等待条件：从官方包得到的request为空 + 电梯表或电梯内有人</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//InputThread.java</span></span><br><span class="line"><span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">	 <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="type">ElevatorInput</span> <span class="variable">elevatorInput</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ElevatorInput</span>(System.in);</span><br><span class="line">        schedule.updateGragph();</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123; </span><br><span class="line">            <span class="type">Request</span> <span class="variable">request</span> <span class="operator">=</span> elevatorInput.nextRequest();</span><br><span class="line">            <span class="keyword">if</span> (request == <span class="literal">null</span> &amp;&amp; schedule.allEmpty()) &#123;</span><br><span class="line">                   <span class="comment">//标志mainRequestTable的endFlag</span></span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (request == <span class="literal">null</span>) &#123;</span><br><span class="line">                   <span class="keyword">synchronized</span> (mainRequestTable) &#123;</span><br><span class="line">                       mainRequestTable.wait();</span><br><span class="line">                   &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (request <span class="keyword">instanceof</span> ElevatorRequest) &#123; </span><br><span class="line">                   <span class="comment">//向schedule的elevators容器中加入request</span></span><br><span class="line">                   <span class="comment">//start()新的电梯线程</span></span><br><span class="line">                   schedule.updateGragph();</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="comment">//...   </span></span><br><span class="line">       &#125;</span><br><span class="line">       elevatorInput.close();</span><br><span class="line">   &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">       <span class="comment">//...</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;         </span><br></pre></td></tr></table></figure>
+<h5 id="schedule">Schedule</h5>
+<p>​        调度线程增加三个二维变量，用来构建图，方便计算最短路径：（这里优先选择换乘数最少的路径，认为它最短，因为这样可以最大程度避免 <em>Maintain</em> 带来的时间代价）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Schedule.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Schedule</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> RequestTable mainRequestTable;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;RequestTable&gt; requestTables;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Elevator&gt; elevators;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> elevatorNum;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span>[][] graph;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[][] dis;  <span class="comment">// dis[i][j] 从i点到j点要搭乘电梯数量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[][] path; <span class="comment">// path[i][j] 从i点到j点的路径</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="type">int</span> <span class="title function_">bestElevator</span><span class="params">(Person person)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (dis[person.getFromFloor()][person.getToFloor()] != <span class="number">0</span>) &#123;</span><br><span class="line">            bfs(person.getFromFloor(), person.getToFloor());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">next</span> <span class="operator">=</span> getNextPoint(person.getFromFloor(), person.getToFloor());</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; elevatorNum; i++) &#123;</span><br><span class="line">            <span class="comment">//将该请求加入能同时到达fromFloor和nextFloor的电梯</span></span><br><span class="line">        &#125;</span><br><span class="line">        person.setNext(next);</span><br><span class="line">        <span class="keyword">return</span> num;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    此外，调度线程还需要增加两个地方：</p>
+<ul>
+<li>
+<p>电梯调度方法</p>
+<ul>
+<li>
+<p>深度优先搜索：搜到一条可达路径，就更新请求路径，把请求放入相应电梯。</p>
+</li>
+<li>
+<p>广度优先搜索：搜索满足最少换乘数的可达路径.</p>
+</li>
+<li>
+<p>加权最短路：考虑<strong>换乘数</strong>、<strong>电梯已有的请求数</strong>、<strong>经过的楼层数</strong>等因素进行合适的权重分配，求解加权最短路。</p>
+</li>
+<li>
+<p>路径更新：</p>
+<ul>
+<li>静态路径更新：对于每个新请求，在调度时记录完整路径，仅当路径中电梯被维护时重新规划。</li>
+<li>动态路径更新：每次路径规划仅记录 <em>nextToFloor</em> ，当请求下电梯但未到达目的地时，就放回总队列重新调度</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里我的设计选择了“深度优先搜索”调度方法</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">updateGragph</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= <span class="number">11</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= <span class="number">11</span>; j++) &#123;</span><br><span class="line">                dis[i][j] = -<span class="number">1</span>;</span><br><span class="line">                path[i][j] = -<span class="number">1</span>; <span class="comment">// 电梯elevators是从0开始的</span></span><br><span class="line">                graph[i][j] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; elevatorNum; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">access</span> <span class="operator">=</span> elevators.get(i).getAccess();</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= <span class="number">11</span>; j++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">1</span>; k &lt;= <span class="number">11</span>; k++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (j == k || graph[j][k] != <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> ((access &amp; (<span class="number">1</span> &lt;&lt; (j - <span class="number">1</span>))) != <span class="number">0</span> </span><br><span class="line">                        &amp;&amp; (access &amp; (<span class="number">1</span> &lt;&lt; (k - <span class="number">1</span>))) != <span class="number">0</span>) &#123;</span><br><span class="line">                        graph[j][k] = <span class="number">1</span>;</span><br><span class="line">                        graph[k][j] = <span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">bfs</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to)</span> &#123;</span><br><span class="line">        dis[from][from] = <span class="number">0</span>; <span class="comment">//起点</span></span><br><span class="line"></span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        queue.offer(from);</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">tfloor</span> <span class="operator">=</span> queue.poll();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= <span class="number">11</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dis[from][i] == -<span class="number">1</span> &amp;&amp; graph[tfloor][i] != <span class="number">0</span>) &#123;</span><br><span class="line">                    dis[from][i] = dis[from][tfloor] + <span class="number">1</span>;</span><br><span class="line">                    path[from][i] = tfloor;</span><br><span class="line">                    queue.offer(i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">synchronized</span> <span class="type">int</span> <span class="title function_">getNextPoint</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (path[from][to] == from) &#123;</span><br><span class="line">            <span class="keyword">return</span> to;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> getNextPoint(from, path[from][to]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>public synchronized boolean allEmpty()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="type">boolean</span> <span class="title function_">allEmpty</span><span class="params">()</span> &#123;</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; elevatorNum; i++) &#123;</span><br><span class="line">          <span class="comment">//遍历电梯表和电梯内都空</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="elevator">Elevator</h5>
+<p>​        电梯线程中使用信号量 <em>Semaphore</em> ，来实现楼层停靠服务电梯数限制：</p>
+<ul>
+<li><em>outAndInSemaphore</em> 初始值为 4</li>
+<li><em>inSemaphore</em> 初始值为 2</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Elevator.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Elevator</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> access;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Semaphore&gt; outAndInSemaphore;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Semaphore&gt; inSemaphore;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">Advice</span> <span class="variable">advice</span> <span class="operator">=</span> </span><br><span class="line">                    strategy.getAdvice(capacity, nowFloor, nowNum,</span><br><span class="line">                        direction, maintainFlag, destMap);</span><br><span class="line">                <span class="keyword">if</span> (advice == Advice.MAINTAIN) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (nowNum != <span class="number">0</span>) &#123;</span><br><span class="line">                        tryMaintain();</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">//...</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (advice == Advice.OPEN) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        outAndInSemaphore.get(nowFloor).acquire();</span><br><span class="line">                        <span class="keyword">if</span> (!destMap.containsKey(nowFloor)) &#123;</span><br><span class="line">                            <span class="keyword">try</span> &#123;</span><br><span class="line">                                inSemaphore.get(nowFloor).acquire();</span><br><span class="line">                                printOpenAndClose();</span><br><span class="line">                            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                                inSemaphore.get(nowFloor).release();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            printOpenAndClose();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                        outAndInSemaphore.get(nowFloor).release();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="comment">//...</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printOpenAndClose</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="comment">//使用官方包中输出接口</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printMaintain</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">       <span class="comment">//使用官方包中输出接口</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p><code>public void out()</code></p>
+<p>需要注意的是<code>out()</code>要服从下面的执行顺序，否则会出现逻辑错误：</p>
+<ol>
+<li>遍历将<code>nowFloor != toFloor</code> 的人重新加入<code>mainRequestTable</code>；</li>
+<li>改变<code>nowNum</code> ，从<code>desMap</code>中删除 <code>nowFloor</code> 的需求；</li>
+<li>唤醒<code>mainRequestTable</code>；</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">out</span><span class="params">()</span> &#123;</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; destMap.get(nowFloor).size(); i++) &#123;</span><br><span class="line">           <span class="comment">//...</span></span><br><span class="line">           <span class="keyword">if</span> (destMap.get(nowFloor).get(i).getToFloor() != nowFloor) &#123;</span><br><span class="line">               <span class="keyword">synchronized</span> (mainRequestTable) &#123;</span><br><span class="line">                   <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> destMap.get(nowFloor).get(i).clone();</span><br><span class="line">                   person.setFromFloor(nowFloor);</span><br><span class="line">                   mainRequestTable.addRequest(person);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       nowNum = nowNum - destMap.get(nowFloor).size();</span><br><span class="line">       destMap.remove(nowFloor);</span><br><span class="line">       <span class="keyword">synchronized</span> (mainRequestTable) &#123;</span><br><span class="line">           mainRequestTable.notifyAll();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>public void tryMaintain()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">tryMaintain</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">       <span class="comment">//类比advice == Advice.OPEN的使用信号量的操作</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="复杂度分析">复杂度分析</h2>
+<p>​       最终版代码复杂度如下：</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>OCavg</th>
+<th>OCmax</th>
+<th>WMC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strategy</td>
+<td><strong>4.5</strong></td>
+<td>8.0</td>
+<td>27.0</td>
+</tr>
+<tr>
+<td>Schedule</td>
+<td><strong>4.1</strong></td>
+<td>11.0</td>
+<td><strong>41.0</strong></td>
+</tr>
+<tr>
+<td>RequestTable</td>
+<td>1.8</td>
+<td>4.0</td>
+<td>18.0</td>
+</tr>
+<tr>
+<td>Person</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>11.0</td>
+</tr>
+<tr>
+<td>MainClass</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>InputThread</td>
+<td><strong>4.0</strong></td>
+<td>7.0</td>
+<td>8.0</td>
+</tr>
+<tr>
+<td>Elevator</td>
+<td>2.263157894736842</td>
+<td>11.0</td>
+<td><strong>43.0</strong></td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td></td>
+<td>151.0</td>
+</tr>
+<tr>
+<td><strong>Average</strong></td>
+<td>2.559322033898305</td>
+<td>6.428571428571429</td>
+<td>18.875</td>
+</tr>
+</tbody>
+</table>
+<p>​       其中有几个方法的复杂度格外高，是不足之处，也是有待优化之处：</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>CogC</th>
+<th>ev(G)</th>
+<th>iv(G)</th>
+<th>v(G)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://Elevator.in">Elevator.in</a>()</td>
+<td><strong>16.0</strong></td>
+<td><strong>5.0</strong></td>
+<td>7.0</td>
+<td>9.017.0</td>
+</tr>
+<tr>
+<td>Elevator.run()</td>
+<td><strong>20.0</strong></td>
+<td><strong>4.0</strong></td>
+<td><strong>10.0</strong></td>
+<td><strong>12.0</strong></td>
+</tr>
+<tr>
+<td>RequestTable.getOneRequest()</td>
+<td>4.0</td>
+<td><strong>4.0</strong></td>
+<td>3.0</td>
+<td>4.0</td>
+</tr>
+<tr>
+<td>Schedule.bestElevator(Person)</td>
+<td><strong>33.0</strong></td>
+<td>1.0</td>
+<td><strong>12.0</strong></td>
+<td><strong>16.0</strong></td>
+</tr>
+<tr>
+<td>Schedule.run()</td>
+<td>13.0</td>
+<td><strong>4.0</strong></td>
+<td>8.0</td>
+<td>9.0</td>
+</tr>
+<tr>
+<td>Schedule.updateGragph()</td>
+<td><strong>19.0</strong></td>
+<td><strong>5.0</strong></td>
+<td>2.0</td>
+<td>10.0</td>
+</tr>
+<tr>
+<td>Strategy.canOpenForIn(int, int, int, int)</td>
+<td>8.0</td>
+<td><strong>5.0</strong></td>
+<td>5.0</td>
+<td>8.0</td>
+</tr>
+<tr>
+<td>Strategy.getAdvice(int, int, int, int, boolean, HashMap&gt;)</td>
+<td><strong>17.0</strong></td>
+<td><strong>8.0</strong></td>
+<td>4.0</td>
+<td>9.0</td>
+</tr>
+<tr>
+<td>Strategy.hasDesInOriginDirection(int, int, HashMap&gt;)</td>
+<td>12.0</td>
+<td><strong>6.0</strong></td>
+<td>4.0</td>
+<td>6.0</td>
+</tr>
+<tr>
+<td>Strategy.hasReqInOriginDirection(int, int)</td>
+<td>12.0</td>
+<td><strong>6.0</strong></td>
+<td>4.0</td>
+<td>6.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="测试">测试</h2>
+<ul>
+<li>
+<p>本单元作业在测试运行时，不能直接使用 <em>IDEA</em> 的运行窗口，而是要用课程组给的<strong>官方投喂包</strong>，具体使用方法在 <em>datainput使用说明</em> 中。</p>
+</li>
+<li>
+<p>大佬们的评测机~</p>
+<p>如下给出几种常见的定位bug的方法：</p>
+</li>
+</ul>
+<h4 id="死锁-real时间超时-cpu时间超时">死锁 + Real时间超时 + CPU时间超时</h4>
+<ul>
+<li>有两种常见的检查多线程安全问题的方法：
+<ol>
+<li>在线程中输出</li>
+<li><em>Jconsole</em> 插件</li>
+</ol>
+</li>
+</ul>
+<h5 id="在线程中输出">在线程中输出</h5>
+<p>​      在线程不同地方输出相应语句，在运行窗口中看一直<strong>卡着</strong>或<strong>无限输出</strong>的语句，就是问题所在之处。</p>
+<h5 id="jconsole插件">Jconsole插件</h5>
+<p>​      <em>IDEA</em> 中自带的 <em>Jconsole</em> 插件，它可以帮助检查<strong>死锁</strong>和<strong>CPU时间超时</strong>的问题 ：</p>
+<ol>
+<li>
+<p>首先运行插件工具，在 <em>cmd</em> 命令行执行 <code>jconsole</code> 命令；</p>
+<p>如果未找到该命令，则可以手动查找正确版本的 <em>java</em> 安装目录下的 <em>bin</em> 目录，将该目录加到系统<em>Path</em> 环境变量中或者直接在该目录下运行 <em>jconsole.exe</em>；</p>
+</li>
+<li>
+<p>接着单击连接自己正在本地运行的代码 <code>.jar</code> 包，选择<strong>不安全的连接</strong>，等待连接成功；</p>
+<p><img src="/2023/04/12/BUAA-OO-2/1.png" alt="1"></p>
+</li>
+<li>
+<p>连接成功后得到如下窗口</p>
+<p><img src="/2023/04/12/BUAA-OO-2/2.png" alt="2"></p>
+<ul>
+<li>
+<p>概览：查看线程数量、类数量、堆内存使用量等数据</p>
+</li>
+<li>
+<p>内存：查看各内存各部分的占用比例，可以手动触发GC</p>
+</li>
+<li>
+<p>线程：多线程调试的关键，可以手动查看各个线程的运行状态，并且可以通过堆栈跟踪分别查看每个线程目前执行位置，这正是我们可以用来查找死锁的方式。<strong>点击下方检测死锁可以一键筛选死锁线程</strong>进行进一步分析</p>
+<p><img src="/2023/04/12/BUAA-OO-2/3.png" alt="3"></p>
+</li>
+<li>
+<p>VM概要：可以查看<strong>进程CPU时间</strong>，对于轮询sleep等方案的调试可以进行数据构造和检查以排查CPU-TLE</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="强测bug">强测Bug</h2>
+<h4 id="hw5">HW5</h4>
+<ul>
+<li>
+<p>hw5强测我一共有两个bug，修改之处如下：</p>
+<p><img src="/2023/04/12/BUAA-OO-2/BUAA-OO-2%5Cbug.png" alt="bug"></p>
+<ul>
+<li>
+<p>没有在<code>mainRequestTable</code>变量 <code>wait()</code> 前面加一个 <code>if</code> 判断 <code>!isEnd()</code> ；</p>
+</li>
+<li>
+<p>CPU时间爆掉</p>
+<p>在我的 <code>public int bestElevator(Person person)</code> 方法中，有一个 <code>while</code> ，它虽然不会死循环，但是会执行很多次无用的循环，故而它爆掉了CPU时间。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="hw6">HW6</h4>
+<ul>
+<li>
+<p>对于<em>ArrayList</em> 的变量当需要遍历删减元素的时候，需要逆序遍历判断并删除：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">in</span><span class="params">()</span> &#123;</span><br><span class="line">       <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> requestTable.getRequstMap().get(nowFloor).size();</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> sum - <span class="number">1</span>; i &lt; <span class="number">0</span>; i++) &#123; <span class="comment">//逆序遍历判断并删除</span></span><br><span class="line">           <span class="keyword">if</span>(<span class="comment">/*条件*/</span>)</span><br><span class="line">               <span class="comment">//remove</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="hw7">HW7</h4>
+<ul>
+<li>hw7强测我一共有一个bug：把每一个需求分配给电梯的时候，我们选择将 <em>nextFloor</em> 作为<code>desMap</code> 的“小阶段目的地”，但是我并没有把原来hw5、hw6的遗留的 <code>getToFloor</code> 方法迭代成<code>getNextFloor</code>。</li>
+</ul>
+<h3 id="反思">反思</h3>
+<p>​        在测试debug的时候，我们不能单纯地依赖于大佬们的评测机，还是要自己把<strong>整体的代码从头到尾一行行仔细浏览一遍</strong>，才能确保每个细节都完成的迭代，毕竟人脑难以一下子考虑出所有纷繁复杂的细节，不能偷懒！【小女子面壁思过ing  哭唧唧~】</p>
+<h2 id="后记">后记</h2>
+<p>​       第二单元总体来说是非常有挑战的，但是同样收获也非常多，我们不仅学习了多线程、锁、线程安全、读写锁、原子变量等等新知识点，还接洽了 <strong>OS</strong> 课程，本学期的两门课程都涉及到了多线程的重点学习，因此<strong>融会贯通</strong>也将给我们带来更大的收获。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">YannaZhang 张杨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/04/12/BUAA-OO-2/">http://example.com/2023/04/12/BUAA-OO-2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">YannaのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/BUAA-OO/">BUAA-OO</a></div><div class="post_share"><div class="social-share" data-image="/img/series1/5.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/04/10/BUAA-OS-2/" title="BUAA-OS-lab2"><img class="cover" src="/img/series1/4.png" onerror="onerror=null;src='/img/archive_img.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">BUAA-OS-lab2</div></div></a></div><div class="next-post pull-right"><a href="/2023/04/18/BUAA-OS-3/" title="BUAA-OS-lab3"><img class="cover" src="/img/series1/6.png" onerror="onerror=null;src='/img/archive_img.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">BUAA-OS-lab3</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/03/18/BUAA-OO-1/" title="BUAA-OO-第一单元：表达式展开"><img class="cover" src="/img/series1/3.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-18</div><div class="title">BUAA-OO-第一单元：表达式展开</div></div></a></div><div><a href="/2023/05/19/BUAA-OO-3/" title="BUAA-OO-第三单元：规格化设计"><img class="cover" src="/img/series1/10.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-19</div><div class="title">BUAA-OO-第三单元：规格化设计</div></div></a></div><div><a href="/2023/06/19/BUAA-OO-4/" title="BUAA-OO-第四单元：UML建模"><img class="cover" src="/img/series1/11.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-19</div><div class="title">BUAA-OO-第四单元：UML建模</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#buaa-oo-%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%EF%BC%9A%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">BUAA-OO-第二单元：电梯调度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E4%B9%A0%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.1.</span> <span class="toc-text">预习知识</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="toc-number">1.2.</span> <span class="toc-text">第五次作业</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uml"><span class="toc-number">1.2.1.</span> <span class="toc-text">UML</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%9B%BE"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">时序图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.2.</span> <span class="toc-text">代码架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#person"><span class="toc-number">1.2.2.1.1.</span> <span class="toc-text">Person</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#requesttable"><span class="toc-number">1.2.2.1.2.</span> <span class="toc-text">RequestTable</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">流程架构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#inputthread"><span class="toc-number">1.2.2.2.1.</span> <span class="toc-text">InputThread</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#schedule"><span class="toc-number">1.2.2.2.2.</span> <span class="toc-text">Schedule</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#elevator"><span class="toc-number">1.2.2.2.3.</span> <span class="toc-text">Elevator</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#strategy"><span class="toc-number">1.2.2.2.3.1.</span> <span class="toc-text">Strategy</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="toc-number">1.3.</span> <span class="toc-text">第六次作业</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uml"><span class="toc-number">1.3.1.</span> <span class="toc-text">UML</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%9B%BE"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">时序图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%9E%B6%E6%9E%84"><span class="toc-number">1.3.2.</span> <span class="toc-text">代码架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#requesttable"><span class="toc-number">1.3.2.1.1.</span> <span class="toc-text">RequestTable</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E6%9E%B6%E6%9E%84"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">流程架构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#inputthread"><span class="toc-number">1.3.2.2.1.</span> <span class="toc-text">InputThread</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#schedule"><span class="toc-number">1.3.2.2.2.</span> <span class="toc-text">Schedule</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#elevator"><span class="toc-number">1.3.2.2.3.</span> <span class="toc-text">Elevator</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">优化方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="toc-number">1.4.</span> <span class="toc-text">第七次作业</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uml%E7%B1%BB%E5%9B%BE"><span class="toc-number">1.4.1.</span> <span class="toc-text">UML类图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%9E%B6%E6%9E%84"><span class="toc-number">1.4.2.</span> <span class="toc-text">代码架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#person"><span class="toc-number">1.4.2.1.1.</span> <span class="toc-text">Person</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E6%9E%B6%E6%9E%84"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">流程架构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#inputthread"><span class="toc-number">1.4.2.2.1.</span> <span class="toc-text">InputThread</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#schedule"><span class="toc-number">1.4.2.2.2.</span> <span class="toc-text">Schedule</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#elevator"><span class="toc-number">1.4.2.2.3.</span> <span class="toc-text">Elevator</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">1.5.</span> <span class="toc-text">复杂度分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">1.6.</span> <span class="toc-text">测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%BB%E9%94%81-real%E6%97%B6%E9%97%B4%E8%B6%85%E6%97%B6-cpu%E6%97%B6%E9%97%B4%E8%B6%85%E6%97%B6"><span class="toc-number">1.6.0.1.</span> <span class="toc-text">死锁 + Real时间超时 + CPU时间超时</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E7%BA%BF%E7%A8%8B%E4%B8%AD%E8%BE%93%E5%87%BA"><span class="toc-number">1.6.0.1.1.</span> <span class="toc-text">在线程中输出</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#jconsole%E6%8F%92%E4%BB%B6"><span class="toc-number">1.6.0.1.2.</span> <span class="toc-text">Jconsole插件</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E6%B5%8Bbug"><span class="toc-number">1.7.</span> <span class="toc-text">强测Bug</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#hw5"><span class="toc-number">1.7.0.1.</span> <span class="toc-text">HW5</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hw6"><span class="toc-number">1.7.0.2.</span> <span class="toc-text">HW6</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hw7"><span class="toc-number">1.7.0.3.</span> <span class="toc-text">HW7</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E6%80%9D"><span class="toc-number">1.7.1.</span> <span class="toc-text">反思</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">1.8.</span> <span class="toc-text">后记</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post_img.png')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By YannaZhang 张杨</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'sVaqAurlJUIUiRSl4GxSzMoi-gzGzoHsz',
+      appKey: 'BCXg41m5wCxza144wQyhXZzv',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="/js/sakura.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>
